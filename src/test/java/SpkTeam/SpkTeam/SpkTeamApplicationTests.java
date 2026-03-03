@@ -1,4 +1,4 @@
-package sk.umb.prg3.spk_team;
+package SpkTeam.SpkTeam;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package sk.umb.prg3.spk_team;
+package SpkTeam.SpkTeam;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
