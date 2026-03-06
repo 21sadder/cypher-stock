@@ -1,6 +1,5 @@
 package SpkTeam;
 
-import SpkTeam.auth.AuthService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

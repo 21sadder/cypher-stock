@@ -1,4 +1,4 @@
-package SpkTeam.auth_dto;
+package SpkTeam.authDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

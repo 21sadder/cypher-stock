@@ -1,4 +1,4 @@
-package SpkTeam.auth_dto;
+package SpkTeam.authDto;
 
 public class RegisterResponse {
     private long id;
