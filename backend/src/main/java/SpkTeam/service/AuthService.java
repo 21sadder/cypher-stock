@@ -1,7 +1,7 @@
-package SpkTeam.auth;
+package SpkTeam.service;
 
-import SpkTeam.auth_dto.RegisterRequest;
-import SpkTeam.auth_dto.RegisterResponse;
+import SpkTeam.authDto.RegisterRequest;
+import SpkTeam.authDto.RegisterResponse;
 import SpkTeam.user.User;
 
 import org.mindrot.jbcrypt.BCrypt;
