@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class AuthService {
+    //TODO connect database
     private Map<String, User> users = new HashMap<>();
     private AtomicLong idGenerator = new AtomicLong();
 
@@ -20,10 +21,19 @@ public class AuthService {
         // нормализация емайла для того чтобы не было пробелов в вводе и он был только з маленькими буквами
         String email = request.getEmail().trim().toLowerCase();
         String password = request.getPassword();
+        String username = request.getUsername().trim().toLowerCase();
 
         // првоерка есть ли уже имейл в мапинге
         if(users.containsKey(email)){
+            //TODO do exception using http codes
             throw new Exception("this email already existing!");
+        }
+
+        // проверка что юзернейм существует только один такой
+        for(User user : users.values()){
+            if(user != null && user.getUsername() != null && user.getUsername().equals(username)){
+                throw new Exception("this username already existing!");
+            }
         }
 
         // хеширование пароля
@@ -35,8 +45,8 @@ public class AuthService {
         long id = idGenerator.incrementAndGet();
 
         // влажуем нормализованый имейл как ключ и юзера как значение, хранение в мапе такое -> Map(ключ:значение)
-        users.put(email, new User(id, email, hash));
+        users.put(email, new User(id, email, hash, request.getUsername()));
 
-        return new RegisterResponse(id, email);
+        return new RegisterResponse(id, email, username);
     }
 }

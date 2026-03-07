@@ -4,7 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d09ee6-9f53-42b5-aad9-18d11d282a31" name="Changes" comment="" />
+    <list default="true" id="28d09ee6-9f53-42b5-aad9-18d11d282a31" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/.vscode/extensions.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/.vscode/launch.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/.vscode/mcp.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/.vscode/tasks.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/angular.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/app.config.server.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/app.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/app.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/app.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/app.routes.server.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/app.routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/app.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/app.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/register/register.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/register/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/register/register.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/register/register.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/main.server.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/main.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/server.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/tsconfig.app.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/tsconfig.spec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/authDto/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/authDto/RegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/authDto/RegisterResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/authDto/RegisterResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/user/User.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +55,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -44,28 +86,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;Spring Boot.SpkTeamApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;test__register&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ilias/Documents/Java_Projects/spkteam&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.register.ts.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.SpkTeamApplication.executor": "Run",
+    "git-widget-placeholder": "test__register",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.preferred.runtime.type.id": "node",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ilias/Documents/Java_Projects/spkteam",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "inlay.hints",
+    "ts.external.directory.path": "C:\\Users\\ilias\\Documents\\Java_Projects\\spkteam\\frontend\\project\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -76,7 +125,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.SpkTeamApplication">
+  <component name="RunManager">
     <configuration name="SpkTeamApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="spk_team" />
@@ -122,6 +171,7 @@
       <workItem from="1772132896714" duration="6108000" />
       <workItem from="1772401200815" duration="2651000" />
       <workItem from="1772581701753" duration="1747000" />
+      <workItem from="1772837349896" duration="14388000" />
     </task>
     <servers />
   </component>
