@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28d09ee6-9f53-42b5-aad9-18d11d282a31" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/project/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/project/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/project/src/app/register/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/project/src/app/register/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/exceptions/globalExceptionsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/exceptions/globalExceptionsHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +134,7 @@
       <workItem from="1772581701753" duration="1747000" />
       <workItem from="1772837349896" duration="18485000" />
       <workItem from="1772907037383" duration="1318000" />
-      <workItem from="1772961962340" duration="895000" />
+      <workItem from="1772961962340" duration="1697000" />
     </task>
     <servers />
   </component>

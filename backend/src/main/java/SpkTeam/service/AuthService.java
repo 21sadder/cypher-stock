@@ -5,6 +5,7 @@ import SpkTeam.authDto.RegisterResponse;
 import SpkTeam.exceptions.userAlreadyExistExceptions;
 import SpkTeam.user.User;
 
+import com.sun.jdi.InvalidLineNumberException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,7 @@ public class AuthService {
 
         // првоерка есть ли уже имейл в мапинге
         if(users.containsKey(email)){
-            //TODO do exception using http codes
-            throw new Exception("this email already existing!");
+            throw new userAlreadyExistExceptions("this email already existing!");
         }
 
         // проверка что юзернейм существует только один такой

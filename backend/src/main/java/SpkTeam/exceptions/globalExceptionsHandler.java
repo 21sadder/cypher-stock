@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class globalExceptionsHandler {
 
-    @ExceptionHandler
+    @ExceptionHandler(userAlreadyExistExceptions.class)
     public ResponseEntity<String> handleUserExists(userAlreadyExistExceptions ex){
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
