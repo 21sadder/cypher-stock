@@ -2,6 +2,7 @@ package SpkTeam.service;
 
 import SpkTeam.authDto.RegisterRequest;
 import SpkTeam.authDto.RegisterResponse;
+import SpkTeam.exceptions.userAlreadyExistExceptions;
 import SpkTeam.user.User;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -32,7 +33,7 @@ public class AuthService {
         // проверка что юзернейм существует только один такой
         for(User user : users.values()){
             if(user != null && user.getUsername() != null && user.getUsername().equals(username)){
-                throw new Exception("this username already existing!");
+                throw new userAlreadyExistExceptions("this username already existing!");
             }
         }
 
