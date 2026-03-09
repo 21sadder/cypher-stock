@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28d09ee6-9f53-42b5-aad9-18d11d282a31" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/exceptions/globalExceptionsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/exceptions/globalExceptionsHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/repository/userRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1__create_users.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/binance-api.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/binance-api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +62,7 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.dashboard.ts.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.register.ts.executor&quot;: &quot;Run&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
@@ -70,6 +82,7 @@
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\ilias\\Documents\\Java_Projects\\spkteam\\frontend\\project\\node_modules\\prettier&quot;,
     &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\ilias\\Documents\\Java_Projects\\spkteam\\frontend\\project\\node_modules\\typescript\\lib&quot;,
@@ -134,7 +147,9 @@
       <workItem from="1772581701753" duration="1747000" />
       <workItem from="1772837349896" duration="18485000" />
       <workItem from="1772907037383" duration="1318000" />
-      <workItem from="1772961962340" duration="1697000" />
+      <workItem from="1772961962340" duration="1821000" />
+      <workItem from="1772974498775" duration="6964000" />
+      <workItem from="1773051453989" duration="677000" />
     </task>
     <servers />
   </component>

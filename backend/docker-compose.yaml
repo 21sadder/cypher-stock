@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: birzhaepta_db
+    environment:
+      POSTGRES_DB: birzhaepta
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: b!rzha%pta-spkteam
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

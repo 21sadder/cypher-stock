@@ -7,8 +7,18 @@
 
 <div>
   <h2>Market</h2>
-  <p>BTC: 66,500$</p>
-  <p>ETH: 2,300$</p>
+  <table>
+    <tr>
+      <th>Coin</th>
+      <th>Price</th>
+    </tr>
+
+    <tr *ngFor="let coin of cryptoData">
+      <td>{{ coin.symbol }}</td>
+      <td>{{ coin.price }}</td>
+    </tr>
+
+  </table>
 </div>
 
 <div>
