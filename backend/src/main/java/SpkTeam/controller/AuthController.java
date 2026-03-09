@@ -2,6 +2,8 @@ package SpkTeam.controller;
 
 import SpkTeam.authDto.RegisterRequest;
 import SpkTeam.authDto.RegisterResponse;
+import SpkTeam.authDto.LoginRequest;
+import SpkTeam.authDto.LoginResponse;
 import SpkTeam.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -20,4 +22,10 @@ public class AuthController {
     public RegisterResponse register(@RequestBody @Valid RegisterRequest registerRequest) throws Exception {
         return authService.register(registerRequest);
     }
+
+    @PostMapping("/login")
+    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
+        return authService.login(loginRequest);
+    }
+
 }

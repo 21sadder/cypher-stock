@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28d09ee6-9f53-42b5-aad9-18d11d282a31" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/docker-compose.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/repository/userRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1__create_users.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/binance-api.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/project/src/app/binance-api.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/SpkTeam/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/project/src/app/dashboard/dashboard.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="test" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,37 +47,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Node.js.dashboard.ts.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.register.ts.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.SpkTeamApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;test__register&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ilias/Documents/Java_Projects/spkteam&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\ilias\\Documents\\Java_Projects\\spkteam\\frontend\\project\\node_modules\\prettier&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\ilias\\Documents\\Java_Projects\\spkteam\\frontend\\project\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.dashboard.ts.executor": "Run",
+    "Node.js.register.ts.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.SpkTeamApplication.executor": "Run",
+    "git-widget-placeholder": "test",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.preferred.runtime.type.id": "node",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ilias/Documents/Java_Projects/spkteam",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\ilias\\Documents\\Java_Projects\\spkteam\\frontend\\project\\node_modules\\prettier",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "inlay.hints",
+    "ts.external.directory.path": "C:\\Users\\ilias\\Documents\\Java_Projects\\spkteam\\frontend\\project\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>

@@ -2,15 +2,22 @@ package SpkTeam.service;
 
 import SpkTeam.authDto.RegisterRequest;
 import SpkTeam.authDto.RegisterResponse;
+import SpkTeam.authDto.LoginRequest;
+import SpkTeam.authDto.LoginResponse;
+
+import SpkTeam.exceptions.invalidPasswordException;
 import SpkTeam.exceptions.userAlreadyExistExceptions;
+import SpkTeam.exceptions.userNotFoundException;
 import SpkTeam.repository.userRepository;
 import SpkTeam.user.User;
+import java.util.Optional;
 
 import com.sun.jdi.InvalidLineNumberException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -61,4 +68,28 @@ public class AuthService {
 
         return new RegisterResponse(id, email, username);
     }
+    // ---> LOGIN PART
+    public LoginResponse login(LoginRequest request) throws Exception{
+
+        String email = request.getEmail().trim().toLowerCase();
+        String password = request.getPassword();
+
+        // checking if user with this email exists - return user, if no - return null.
+        Optional<User> userOpt = userRepository.findByEmail(email);
+
+        if(userOpt.isPresent()){
+            User user = userOpt.get();
+
+            if(BCrypt.checkpw(password, user.getPasswordHash())){
+                String userToken = UUID.randomUUID().toString();
+                return new LoginResponse(userToken, user.getId(), user.getEmail(), user.getUsername());
+            }else{
+                throw new invalidPasswordException("Wrong password for " + email +  ".");
+            }
+        }else{
+            throw new userNotFoundException("Unknow email.");
+        }
+    }
+
+
 }
