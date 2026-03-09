@@ -1,0 +1,31 @@
+<h1>Dashboard</h1>
+
+<div>
+  <h2>Your balance</h2>
+  <p>123,456.78$</p>
+</div>
+
+<div>
+  <h2>Market</h2>
+  <table>
+    <tr>
+      <th>Coin</th>
+      <th>Price</th>
+    </tr>
+
+    <tr *ngFor="let coin of cryptoData">
+      <td>{{ coin.symbol }}</td>
+      <td>{{ coin.price }}</td>
+    </tr>
+
+  </table>
+</div>
+
+<div>
+  <h2>Your Assets</h2>
+  <ul>
+    <li>BTC - 0.23</li>
+    <li>ETH - 1.5</li>
+    <li>USDT - 540</li>
+  </ul>
+</div>

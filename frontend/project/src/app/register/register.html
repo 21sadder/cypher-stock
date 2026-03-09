@@ -1,0 +1,33 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet">
+
+<div class="register-container">
+  <div class="brand-side">
+    <h1>Cipher</h1>
+    <p class="subtitle">Feature of finance.<br>Secure. Protect.</p>
+  </div>
+
+  <div class="form-side">
+    <form  (ngSubmit) = "register()" #regForm="ngForm">
+      <h2>Cipher</h2>
+      <h3>Create account</h3>
+      <p>Start your trip to world of digital assets</p>
+
+      <input type = "text" placeholder="Username" [(ngModel)]="username" name="username" required>
+      <input type = "email" placeholder="example@gmail.com" [(ngModel)]="email" name="email" required>
+      <input type = "password" placeholder="Enter your password" [(ngModel)] = "password" name = "password" required>
+      <input type = "password" placeholder="Enter your password one more time" [(ngModel)] = "confirmPassword"  name = "confirmPassword" required>
+
+      <label class = "checkbox">
+        <input type = "checkbox" required> Terms & Conditions *
+      </label>
+
+      <!-- TODO  -->
+      <p>Do you already have an account?<a href="">Log In</a></p>
+
+      <button type = "submit">Register</button>
+    </form>
+  </div>
+</div>
+
