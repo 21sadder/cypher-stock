@@ -8,15 +8,24 @@
 <div>
   <h2>Market</h2>
   <table>
+    <thead>
     <tr>
       <th>Coin</th>
       <th>Price</th>
     </tr>
-
-    <tr *ngFor="let coin of cryptoData">
-      <td>{{ coin.symbol }}</td>
-      <td>{{ coin.price }}</td>
-    </tr>
+    </thead>
+    <tbody>
+      @for (coin of cryptoData; track coin.symbol) {
+        <tr>
+          <td>{{ coin.symbol }}</td>
+          <td>{{ coin.price }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="2">Очікування даних...</td>
+        </tr>
+      }
+    </tbody>
 
   </table>
 </div>

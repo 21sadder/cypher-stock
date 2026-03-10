@@ -1,36 +1,40 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BinanceApi } from './../binance-api';
-import { interval, startWith, Subject, switchMap, takeUntil } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, NgZone, ChangeDetectorRef } from '@angular/core';
+import { CryptoWebsocket } from '../services/crypto-websocket';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [], // CommonModule більше не потрібен
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit {
+export class Dashboard implements OnInit, OnDestroy {
   cryptoData: any[] = [];
-  private destroy$ = new Subject<void>(); // object for detecting destroying
 
-  constructor(private binanceService: BinanceApi) {}
+  constructor(
+    private wsService: CryptoWebsocket,
+    private ngZone: NgZone,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
-  ngOnInit() {
-    interval(5000)
-      .pipe(
-        startWith(0),
-        switchMap(() => this.binanceService.getAllPrice()),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((data: any[]) => {
-        console.log('Дані отримані з сервісу:', data);
-        const usdtPairs = data.filter(item => item.symbol.endsWith('USDT'));
-        this.cryptoData = usdtPairs.slice(0, 5);
+  ngOnInit(): void {
+    this.wsService.connect((data: any) => {
+      this.ngZone.run(() => {
+        const index = this.cryptoData.findIndex((c) => c.symbol === data.s);
+        if (index !== -1) {
+          this.cryptoData = [
+            ...this.cryptoData.slice(0, index),
+            { symbol: data.s, price: data.c },
+            ...this.cryptoData.slice(index + 1),
+          ];
+        } else {
+          this.cryptoData = [...this.cryptoData, { symbol: data.s, price: data.c }];
+        }
+        this.cdr.detectChanges();
+      });
     });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(); // signal to stop parsing data
-    this.destroy$.complete();
+  ngOnDestroy(): void {
+    this.wsService.disconnect();
   }
 }
