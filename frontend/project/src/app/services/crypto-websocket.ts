@@ -33,7 +33,6 @@ export class CryptoWebsocket {
             this.client!.subscribe('/topic/prices', (message) => {
               try {
                 const data = JSON.parse(message.body);
-                console.log('=== subscribe message received, calling callback ===');
                 callback(data);
               } catch (e) {
                 console.error('Failed to parse message:', e);
