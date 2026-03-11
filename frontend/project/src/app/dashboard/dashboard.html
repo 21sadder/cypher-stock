@@ -18,7 +18,7 @@
       @for (coin of cryptoData; track coin.symbol) {
         <tr>
           <td>{{ coin.symbol }}</td>
-          <td>{{ coin.price }}</td>
+          <td>{{ coin.price | number: '1.2-2' }}</td>
         </tr>
       } @empty {
         <tr>

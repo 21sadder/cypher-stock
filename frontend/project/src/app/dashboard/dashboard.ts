@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CryptoWebsocket } from '../services/crypto-websocket';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [], // CommonModule більше не потрібен
+  imports: [DecimalPipe], // CommonModule більше не потрібен
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

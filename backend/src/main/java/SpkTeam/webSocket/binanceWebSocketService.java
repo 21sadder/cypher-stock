@@ -1,7 +1,6 @@
 package SpkTeam.webSocket;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +21,14 @@ public class binanceWebSocketService {
     public void connect(){
         HttpClient client = HttpClient.newHttpClient();
 
-        client.newWebSocketBuilder().buildAsync(URI.create("wss://stream.binance.com:9443/ws/btcusdt@ticker"), new WebSocket.Listener(){
-                            @Override
-                            public CompletionStage<?> onText(WebSocket webSocket, CharSequence data, boolean last) {
-                                messagingTemplate.convertAndSend("/topic/prices", data.toString());
-                                webSocket.request(1);
-                                return null;
-                            }
+        client.newWebSocketBuilder().buildAsync(URI.create("wss://stream.binance.com:9443/ws/btcusdt@ticker/ethusdt@ticker/solusdt@ticker/bnbusdt@ticker"), new WebSocket.Listener(){
+            @Override
+            public CompletionStage<?> onText(WebSocket webSocket, CharSequence data, boolean last) {
+                messagingTemplate.convertAndSend("/topic/prices", data.toString());
+                webSocket.request(1);
+                return null;
+            }
 
-                        });
+        });
     }
 }
