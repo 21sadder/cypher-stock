@@ -1,15 +1,17 @@
 package SpkTeam.service;
 
-import SpkTeam.authDto.RegisterRequest;
-import SpkTeam.authDto.RegisterResponse;
-import SpkTeam.authDto.LoginRequest;
-import SpkTeam.authDto.LoginResponse;
+import SpkTeam.authDto.*;
 
 import SpkTeam.exceptions.invalidPasswordException;
 import SpkTeam.exceptions.userAlreadyExistExceptions;
 import SpkTeam.exceptions.userNotFoundException;
+import SpkTeam.portfolio.Portfolio;
+import SpkTeam.repository.portfolioRepository;
 import SpkTeam.repository.userRepository;
 import SpkTeam.user.User;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.sun.jdi.InvalidLineNumberException;
@@ -22,14 +24,16 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class AuthService {
+    private final portfolioRepository portfolioRepository;
     //TODO connect database
     // private Map<String, User> users = new HashMap<>();
     private AtomicLong idGenerator = new AtomicLong();
 
     private final userRepository userRepository;
 
-    public AuthService(userRepository userRepository) {
+    public AuthService(userRepository userRepository, portfolioRepository portfolioRepository) {
         this.userRepository = userRepository;
+        this.portfolioRepository = portfolioRepository;
     }
 
     public RegisterResponse register(RegisterRequest request) throws Exception{
@@ -92,4 +96,15 @@ public class AuthService {
     }
 
 
+    public List<CoinsResponse> coinsInAccountToFrontend(String email){
+        List<Portfolio> portfolios = portfolioRepository.findByUserEmail(email);
+        List<CoinsResponse> result = new ArrayList<>();
+
+        for(int i = 0; i < portfolios.size(); i++){
+            CoinsResponse coinsResponse = new CoinsResponse(portfolios.get(i).getCoin_symbol(), portfolios.get(i).getAmount());
+            result.add(coinsResponse);
+        }
+
+        return result;
+    }
 }

@@ -30,14 +30,6 @@ export class CryptoWebsocket {
         this.client!.subscribe('/topic/prices', (message) => {
           try {
             const data = JSON.parse(message.body);
-            this.client!.subscribe('/topic/prices', (message) => {
-              try {
-                const data = JSON.parse(message.body);
-                callback(data);
-              } catch (e) {
-                console.error('Failed to parse message:', e);
-              }
-            });
             callback(data);
           } catch (e) {
             console.error('Failed to parse message:', e);

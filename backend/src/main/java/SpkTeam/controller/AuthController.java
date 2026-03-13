@@ -1,12 +1,12 @@
 package SpkTeam.controller;
 
-import SpkTeam.authDto.RegisterRequest;
-import SpkTeam.authDto.RegisterResponse;
-import SpkTeam.authDto.LoginRequest;
-import SpkTeam.authDto.LoginResponse;
+import SpkTeam.authDto.*;
 import SpkTeam.service.AuthService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -26,6 +26,11 @@ public class AuthController {
     @PostMapping("/login")
     public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
         return authService.login(loginRequest);
+    }
+
+    @GetMapping("/values")
+    public List<CoinsResponse> getCoins(@RequestParam String email) throws Exception {
+        return authService.coinsInAccountToFrontend(email);
     }
 
 }
