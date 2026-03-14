@@ -4,8 +4,6 @@
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #000000;
-  /* Видалив border-left — тепер без лінії по центру */
 }
 
 .form-side form {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Output, EventEmitter } from '@angular/core'; //EventEmitter - передатчик, с помощью которого будет закрыватьс окно логина после успешного логина
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 })
 
 export class Login {
+  @Output() close = new EventEmitter<void>();
+
   private http = inject(HttpClient);
   private router = inject(Router); // Инжектим роутер
 
@@ -37,6 +39,9 @@ export class Login {
           localStorage.setItem('token', response.token);
           localStorage.setItem('email', response.email);
         }
+
+        //закрытие окна логина и дальнейший переход на дашборд
+        this.close.emit();
         // Перенаправляем пользователя на главную или в личный кабинет
         this.router.navigate(['/dashboard']);
       },
@@ -45,5 +50,7 @@ export class Login {
         console.error(err);
       }
     });
+
+
   }
 }
