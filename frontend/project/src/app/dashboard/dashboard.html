@@ -2,7 +2,7 @@
 
 <div>
   <h2>Your balance</h2>
-  <p>123,456.78$</p>
+  <p>{{ totalBalance | number: '1.2-2' }}$</p>
 </div>
 
 <div>
@@ -36,9 +36,11 @@
 
 <div>
   <h2>Your Assets</h2>
-  <ul>
-    <li>BTC - 0.23</li>
-    <li>ETH - 1.5</li>
-    <li>USDT - 540</li>
-  </ul>
+  @for (port of userPortfolio; track port.quantity) {
+    <ul>
+      <li>{{ port.symbol }} - {{ port.quantity }}: {{ port.value | number: '1.2-2' }}$</li>
+    </ul>
+  } @empty {
+    <p>Waiting for data...</p>
+  }
 </div>
