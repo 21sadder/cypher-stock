@@ -35,6 +35,7 @@ export class Login {
         // Сохраняем токен (если бэкенд его прислал)
         if (response.token) {
           localStorage.setItem('token', response.token);
+          localStorage.setItem('email', response.email);
         }
         // Перенаправляем пользователя на главную или в личный кабинет
         this.router.navigate(['/dashboard']);

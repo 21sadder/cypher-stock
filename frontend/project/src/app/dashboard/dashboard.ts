@@ -4,12 +4,14 @@ import {
   OnDestroy,
   NgZone,
   ChangeDetectorRef,
-  AfterViewInit, inject,
+  AfterViewInit,
+  inject,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
 import { CryptoWebsocket } from '../services/crypto-websocket';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
-import { response } from 'express';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -22,19 +24,19 @@ export class Dashboard implements OnInit, OnDestroy, AfterViewInit {
   cryptoData: any[] = [];
   chart: any;
 
-  userCoins: { nameCurrency: string, quantity: number }[] = [];
-  userPortfolio: { symbol: string, quantity: number, value: number }[] = [];
+  userCoins: { nameCurrency: string; quantity: number }[] = [];
+  userPortfolio: { symbol: string; quantity: number; value: number }[] = [];
   totalBalance: number = 0;
 
-  email = 'iliasapa5@gmail.com';
-  private http = inject(HttpClient);
+  email: string = '';
 
-  // userCoins: any[];
+  private http = inject(HttpClient);
 
   constructor(
     private wsService: CryptoWebsocket,
     private ngZone: NgZone,
     private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
   ngAfterViewInit(): void {
@@ -49,7 +51,7 @@ export class Dashboard implements OnInit, OnDestroy, AfterViewInit {
         datasets: [
           {
             label: 'BTCUSDT',
-            data: this.cryptoData,
+            data: [10,20,30],
             borderColor: 'blue',
             borderWidth: 2,
           },
@@ -59,11 +61,27 @@ export class Dashboard implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.email = localStorage.getItem('email') ?? '';
+
+      this.http.get<any[]>(`http://localhost:8080/api/auth/values?email=${this.email}`).subscribe({
+        next: (response) => {
+          console.log('Coins: ' + response);
+          this.userCoins = response; // сохраняет коины юзера в масив с резпонза который приход с бекенда
+        },
+        error: (err) => console.error('Coins: ' + err),
+      });
+    }
+
     this.wsService.connect((data: any) => {
       this.ngZone.run(() => {
         const index = this.cryptoData.findIndex((c) => c.symbol === data.s);
         if (index !== -1) {
-          this.cryptoData = [...this.cryptoData.slice(0, index), { symbol: data.s, price: data.c }, ...this.cryptoData.slice(index + 1)];
+          this.cryptoData = [
+            ...this.cryptoData.slice(0, index),
+            { symbol: data.s, price: data.c },
+            ...this.cryptoData.slice(index + 1),
+          ];
         } else {
           this.cryptoData = [...this.cryptoData, { symbol: data.s, price: data.c }];
         }
@@ -73,13 +91,6 @@ export class Dashboard implements OnInit, OnDestroy, AfterViewInit {
       });
     });
 
-    this.http.get<any[]>(`http://localhost:8080/api/auth/values?email=${this.email}`).subscribe({
-      next: (response) => {
-        console.log("Coins: " + response);
-        this.userCoins = response; // сохраняет коины юзера в масив с резпонза который приход с бекенда
-      },
-      error: (err) => console.error("Coins: " + err)
-    });
   }
 
   // метод для того, чтобы подсчитывать цену портфолио
@@ -87,12 +98,11 @@ export class Dashboard implements OnInit, OnDestroy, AfterViewInit {
     this.userPortfolio = []; // скидываем каждый раз, чтобы не дублировался бесконечное колво раз
     this.totalBalance = 0; // и баланс тоже скидываем
 
-
     /* проходимся по масиву сохраненных токенов
-    * и ищем соответствия в масиве данных cryptoData (масив в который парсим данные с апи бинанса)
-    * потом берем оттуда цену и умножаем на колво которое пришло с бека
-    * сохраняем это все в отдельный масив и потом используем его чтобы все вывести
-    */
+     * и ищем соответствия в масиве данных cryptoData (масив в который парсим данные с апи бинанса)
+     * потом берем оттуда цену и умножаем на колво которое пришло с бека
+     * сохраняем это все в отдельный масив и потом используем его чтобы все вывести
+     */
     for (let coin of this.userCoins) {
       const data = this.cryptoData.find((d) => d.symbol === coin.nameCurrency);
 
