@@ -168,3 +168,40 @@
     font-size: 2.5rem;
   }
 }
+
+
+/* Делаем фон на весь экран и центрируем содержимое */
+.modal-overlay {
+  position: fixed;      /* Окно не уедет при скролле */
+  top: 0;
+  left: 0;
+  width: 100vw;         /* На всю ширину экрана */
+  height: 100vh;        /* На всю высоту экрана */
+  background: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный */
+  backdrop-filter: blur(8px);    /* Тот самый блюр */
+  display: flex;        /* Включаем магию центрирования */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;        /* Чтобы окно было поверх всего сайта */
+}
+
+/* Сама рамка окна */
+.modal-card {
+  position: relative;    /* Чтобы крестик стоял ровно внутри */
+}
+
+/* Стиль крестика */
+div.modal-card button.close-btn {
+  position: absolute !important;
+  right: 15px !important;
+  background: transparent !important;
+  width: auto !important; /* На случай если у тебя все кнопки на 100% ширины */
+  font-size: 40px !important;
+  color: white;
+  z-index: 100;
+}
+
+
+.close-btn:hover {
+  color: #fff;
+}
