@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [DecimalPipe], // CommonModule більше не потрібен
+  imports: [DecimalPipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
