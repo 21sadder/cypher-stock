@@ -39,14 +39,13 @@ export class Register {
     this.http.post('http://localhost:8080/api/auth/register', body).subscribe({
       next: (response) => {
         console.log("Register successful:", response);
-        // После успешной регистрации можно либо открыть модалку логина,
-        // либо перейти на страницу логина:
-        this.router.navigate(['/login']);
+        //  перейти на страницу дашюбор:\
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => console.error("Register failed:", err)
     });
   }
-
+\\ъэ
   // функции для управления окном для логина
   openLoginModal() {
     this.isModalOpen = true;

@@ -183,11 +183,13 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;        /* Чтобы окно было поверх всего сайта */
+
 }
 
 /* Сама рамка окна */
 .modal-card {
-  position: relative;    /* Чтобы крестик стоял ровно внутри */
+  position: relative;    /* что бы крестик для закрытия стоял ровно внутри */
+  box-shadow: none;
 }
 
 /* Стиль крестика */
@@ -195,7 +197,7 @@ div.modal-card button.close-btn {
   position: absolute !important;
   right: 15px !important;
   background: transparent !important;
-  width: auto !important; /* На случай если у тебя все кнопки на 100% ширины */
+  width: auto !important;
   font-size: 40px !important;
   color: white;
   z-index: 100;
@@ -204,4 +206,18 @@ div.modal-card button.close-btn {
 
 .close-btn:hover {
   color: #fff;
+
+}
+
+.login-link {
+  color: #ffffff;            /* Твой цвет текста */
+  text-decoration: underline; /* Подчеркивание */
+  cursor: pointer;           /* Тот самый "палец" при наведении */
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.login-link:hover {
+  opacity: 0.8;              /* Легкое мерцание при наведении */
+  text-decoration: none;     /* Можно убирать подчеркивание при ховере для стиля */
 }
