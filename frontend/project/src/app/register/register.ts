@@ -45,7 +45,7 @@ export class Register {
       error: (err) => console.error("Register failed:", err)
     });
   }
-\\ъэ
+
   // функции для управления окном для логина
   openLoginModal() {
     this.isModalOpen = true;
