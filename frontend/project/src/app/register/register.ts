@@ -12,6 +12,7 @@ import { Login } from '../login/login';
   styleUrl: './register.css',
 })
 export class Register {
+  showPassword = false;
   private http = inject(HttpClient);
   private router = inject(Router);
 

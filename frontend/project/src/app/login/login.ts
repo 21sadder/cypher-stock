@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 
 export class Login {
+  showPassword = false;
   @Output() close = new EventEmitter<void>();
 
   private http = inject(HttpClient);
@@ -30,7 +31,7 @@ export class Login {
       password: this.password
     };
 
-    // Отправляем на эндпоинт /login
+
     this.http.post('http://localhost:8080/api/auth/login', body).subscribe({
       next: (response: any) => {
         console.log("Login successful", response);

@@ -1,6 +1,8 @@
 /* Імпорт шрифту (вже є в HTML) */
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
 
+
+
 /* Основний контейнер */
 .register-container {
   display: flex;
@@ -11,6 +13,7 @@
   margin: 0;
   padding: 0;
 }
+
 
 /* Ліва частина: бренд */
 .brand-side {
@@ -88,10 +91,9 @@
   line-height: 1.4;
 }
 
-/* Поля вводу */
-.form-side input[type="text"],
-.form-side input[type="email"],
-.form-side input[type="password"] {
+
+/* Style for all inputs in registration window */
+.form-side input:not([type="checkbox"]){
   width: 100%;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -103,6 +105,8 @@
   font-family: 'Syne', sans-serif;
   box-sizing: border-box;
 }
+
+
 
 .form-side input::placeholder {
   color: #a0a0a0; /* Сірий плейсхолдер */
