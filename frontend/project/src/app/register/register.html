@@ -16,8 +16,51 @@
 
       <input type = "text" placeholder="Username" [(ngModel)]="username" name="username" required>
       <input type = "email" placeholder="example@gmail.com" [(ngModel)]="email" name="email" required>
-      <input [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password" [(ngModel)] = "password" name = "password" required>
-      <input [type]="showPassword ? 'text' : 'password'" placeholder="Confirm your password" [(ngModel)] = "confirmPassword"  name = "confirmPassword" required>
+      <!-- <input [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password" [(ngModel)] = "password" name = "password" required> -->
+      <!-- <input [type]="showPassword ? 'text' : 'password'" placeholder="Confirm your password" [(ngModel)] = "confirmPassword"  name = "confirmPassword" required> -->
+
+      <!-- ? - if showPassword TRUE show text, else if showPassword FALSE show password -->
+
+      <!-- For writing password-->
+      <div class="input-container">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          class="dark-input"
+          placeholder="Enter your password"
+          [(ngModel)] = "password"
+          name = "password"
+          required
+        >
+
+        <button type="button" class="eye-btn" (click)="showHidePassword()">
+          @if (showPassword) {
+            <img src="/eye-open.png" alt="Hide" class="eye-image">
+          } @else {
+            <img src="/eye-closed.png" alt="Show" class="eye-image">
+          }
+        </button>
+      </div>
+
+      <!-- For comfirming password-->
+      <div class="input-container">
+        <input
+          [type]="showPasswordConfirm ? 'text' : 'password'"
+          class="dark-input"
+          placeholder="Confirm your password"
+          [(ngModel)] = "confirmPassword"
+          name = "confirmPassword"
+          required
+        >
+
+        <button type="button" class="eye-btn" (click)="showHidePasswordConfirm()">
+          @if (showPasswordConfirm) {
+            <img src="/eye-open.png" alt="Hide" class="eye-image">
+          } @else {
+            <img src="/eye-closed.png" alt="Show" class="eye-image">
+          }
+        </button>
+      </div>
+
 
 
       <label class="checkbox">
@@ -25,21 +68,22 @@
       </label>
 
       <label class="checkbox">
-        <input type="checkbox" required> Terms & Conditions *
+        <input type="checkbox" required>
+          <!-- &nbsp; - important space, browser cant ignore him -->
+          I agree &nbsp;<span class="terms-conditions"> Terms & Conditions  *</span>
       </label>
 
 
 
       <!-- для логина -->
       <p>Do you already have an account?
-        <a class="login-link" (click)="openLoginModal()">Log In</a>
+        <a class="login-link" (click)="openLoginModal()"> <span class="login-link">Log In </span></a>
       </p>
 
       <!-- для забытого пароля
       <p>Do you already have an account?
         <a class="login-link" (click)="openLoginModal()">Log In</a>
       </p> -->
-
 
 
 

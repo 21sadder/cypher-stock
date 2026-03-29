@@ -13,6 +13,7 @@ import { Login } from '../login/login';
 })
 export class Register {
   showPassword = false;
+  showPasswordConfirm = false;
   private http = inject(HttpClient);
   private router = inject(Router);
 
@@ -55,4 +56,16 @@ export class Register {
   closeModal() {
     this.isModalOpen = false;
   }
+
+  showHidePassword(){
+    this.showPassword = !this.showPassword;
+
+  }
+  showHidePasswordConfirm(){
+    this.showPasswordConfirm = !this.showPasswordConfirm;
+
+  }
+
+
+
 }

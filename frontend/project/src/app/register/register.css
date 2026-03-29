@@ -7,7 +7,7 @@
 .register-container {
   display: flex;
   min-height: 100vh;
-  background-color: #000000; /* Чорний фон */
+  background-color: #0B0B0B; /*  Grey background */
   font-family: 'Syne', sans-serif;
   color: #ffffff;
   margin: 0;
@@ -23,8 +23,9 @@
   justify-content: center; /* Центрування по вертикалі */
   align-items: flex-start; /* Вирівнювання наліво (замість center) */
   padding: 2rem;
-  background-color: #000000;
+  background-color: #0B0B0B;
   text-align: left; /* Глобальне вирівнювання тексту наліво */
+
 }
 
 .brand-side h1 {
@@ -52,16 +53,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  background-color: #000000;
-  /* Видалив border-left — тепер без лінії по центру */
+  padding: 32px;
+  background-color: #0B0B0B;
+  backdrop-filter: blur(24px); /* MB UBRAT */
+
 }
 
 .form-side form {
   width: 100%;
   max-width: 400px; /* Обмежена ширина */
   padding: 2rem;
-  background-color: #000000;
+  background-color: #0B0B0B;
   border: 1px solid #333333; /* Тонка рамка */
   border-radius: 10px; /* Заокруглення */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Тінь для "піднесеного" ефекту, без жорсткої лінії */
@@ -151,6 +153,18 @@
   background-color: #f0f0f0; /* Ховер-ефект */
 }
 
+/* style for Terms & Conditions text */
+.terms-conditions {
+  color: #00E676;
+
+}
+
+/* style for Log in link */
+.login-link {
+  color: #00E676;
+
+}
+
 /* Адаптивність */
 @media (max-width: 768px) {
   .register-container {
@@ -214,7 +228,7 @@ div.modal-card button.close-btn {
 }
 
 .login-link {
-  color: #ffffff;            /* Твой цвет текста */
+  color: #00E676;            /* Твой цвет текста */
   text-decoration: underline; /* Подчеркивание */
   cursor: pointer;           /* Тот самый "палец" при наведении */
   font-weight: 600;
@@ -224,4 +238,56 @@ div.modal-card button.close-btn {
 .login-link:hover {
   opacity: 0.8;              /* Легкое мерцание при наведении */
   text-decoration: none;     /* Можно убирать подчеркивание при ховере для стиля */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.dark-input {
+  width: 100%;
+  padding-right: 50px; /* Место под иконку */
+  border: 1px solid #2A2A2A;
+  border-radius: 12px;
+  color: white;
+  outline: none;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.eye-btn:hover {
+  opacity: 1;
+}
+
+.eye-image {
+  width: 20px;
+  height: auto;
 }
