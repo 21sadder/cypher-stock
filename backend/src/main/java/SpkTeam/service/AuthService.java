@@ -5,8 +5,6 @@ import SpkTeam.authDto.*;
 import SpkTeam.exceptions.invalidPasswordException;
 import SpkTeam.exceptions.userAlreadyExistExceptions;
 import SpkTeam.exceptions.userNotFoundException;
-import SpkTeam.portfolio.Portfolio;
-import SpkTeam.repository.portfolioRepository;
 import SpkTeam.repository.userRepository;
 import SpkTeam.user.User;
 
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.sun.jdi.InvalidLineNumberException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -24,19 +21,18 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class AuthService {
-    private final portfolioRepository portfolioRepository;
+
     //TODO connect database
     // private Map<String, User> users = new HashMap<>();
     private AtomicLong idGenerator = new AtomicLong();
 
     private final userRepository userRepository;
 
-    public AuthService(userRepository userRepository, portfolioRepository portfolioRepository) {
+    public AuthService(userRepository userRepository) {
         this.userRepository = userRepository;
-        this.portfolioRepository = portfolioRepository;
     }
 
-    public RegisterResponse register(RegisterRequest request) throws Exception{
+    public RegisterResponse register(RegisterRequest request) {
         User user = new User();
 
         // нормализация емайла для того чтобы не было пробелов в вводе и он был только з маленькими буквами
@@ -73,7 +69,7 @@ public class AuthService {
         return new RegisterResponse(id, email, username);
     }
     // ---> LOGIN PART
-    public LoginResponse login(LoginRequest request) throws Exception{
+    public LoginResponse login(LoginRequest request){
 
         String email = request.getEmail().trim().toLowerCase();
         String password = request.getPassword();
@@ -94,19 +90,4 @@ public class AuthService {
             throw new userNotFoundException("Unknow email.");
         }
     }
-
-
-    public List<CoinsResponse> coinsInAccountToFrontend(String email){
-        List<Portfolio> portfolios = portfolioRepository.findByUserEmail(email);
-        List<CoinsResponse> result = new ArrayList<>();
-
-        for(int i = 0; i < portfolios.size(); i++){
-            CoinsResponse coinsResponse = new CoinsResponse(portfolios.get(i).getCoin_symbol(), portfolios.get(i).getAmount());
-            result.add(coinsResponse);
-        }
-
-        return result;
-    }
-
-
 }
