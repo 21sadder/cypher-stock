@@ -5,18 +5,14 @@ import SpkTeam.authDto.*;
 import SpkTeam.exceptions.invalidPasswordException;
 import SpkTeam.exceptions.userAlreadyExistExceptions;
 import SpkTeam.exceptions.userNotFoundException;
+import SpkTeam.jwtToken.JwtUtil;
 import SpkTeam.repository.userRepository;
 import SpkTeam.user.User;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -26,9 +22,12 @@ public class AuthService {
     // private Map<String, User> users = new HashMap<>();
     private AtomicLong idGenerator = new AtomicLong();
 
+    private final JwtUtil jwtUtil;
+
     private final userRepository userRepository;
 
-    public AuthService(userRepository userRepository) {
+    public AuthService(JwtUtil jwtUtil, userRepository userRepository) {
+        this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
     }
 
@@ -81,7 +80,7 @@ public class AuthService {
             User user = userOpt.get();
 
             if(BCrypt.checkpw(password, user.getPasswordHash())){
-                String userToken = UUID.randomUUID().toString();
+                String userToken = jwtUtil.generateToken(user.getEmail(), user.getUsername());
                 return new LoginResponse(userToken, user.getId(), user.getEmail(), user.getUsername());
             }else{
                 throw new invalidPasswordException("Wrong password for " + email +  ".");

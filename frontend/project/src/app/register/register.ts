@@ -40,9 +40,9 @@ export class Register {
 
     this.http.post('http://localhost:8080/api/auth/register', body).subscribe({
       next: (response) => {
-        console.log("Register successful:", response);
+        console.log('Register successful:', response);
         //  перейти на страницу дашюбор:\
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/login']);
       },
       error: (err) => console.error("Register failed:", err)
     });

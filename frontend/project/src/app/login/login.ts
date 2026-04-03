@@ -38,7 +38,6 @@ export class Login {
         // Сохраняем токен (если бэкенд его прислал)
         if (response.token) {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('email', response.email);
         }
 
         //закрытие окна логина и дальнейший переход на дашборд
