@@ -3,7 +3,6 @@ package SpkTeam.controller;
 import SpkTeam.authDto.*;
 import SpkTeam.service.AuthService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,10 +26,4 @@ public class AuthController {
     public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
         return authService.login(loginRequest);
     }
-
-    @GetMapping("/values")
-    public List<CoinsResponse> getCoins(@RequestParam String email) throws Exception {
-        return authService.coinsInAccountToFrontend(email);
-    }
-
 }
