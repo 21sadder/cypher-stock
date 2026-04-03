@@ -10,7 +10,7 @@
   width: 100%;
   max-width: 400px; /* Обмежена ширина */
   padding: 2rem;
-  background-color: #000000;
+  background-color: #0B0B0B;
   border: 1px solid #333333; /* Тонка рамка */
   border-radius: 10px; /* Заокруглення */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Тінь для "піднесеного" ефекту, без жорсткої лінії */
@@ -84,7 +84,7 @@
 .form-side button {
   width: 100%;
   padding: 1rem;
-  background-color: #ffffff;
+  background-color: #ECF0F1;
   color: #000000;
   border: none;
   border-radius: 4px;
@@ -97,4 +97,76 @@
 
 .form-side button:hover {
   background-color: #f0f0f0; /* Ховер-ефект */
+}
+
+/* green colour for chosen text */
+.green-text{
+  color: #00E676;
+
+}
+
+
+
+
+
+
+
+.input-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px; /* Расстояние между полями */
+}
+
+/* Стили самого темного инпута */
+.dark-input {
+  width: 100%;
+  background-color: #1A1A1A; /* Темный фон */
+  border: 1px solid #2A2A2A; /* Тонкая рамка */
+  border-radius: 12px;       /* Закругление */
+  padding: 16px 20px;
+  /* Место под иконку СЛЕВА */
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;    /* Чтобы паддинги не ломали ширину */
+}
+
+.dark-input:focus {
+  border-color: #00E676;     /* Зеленая рамка при клике */
+}
+
+/* Кнопка-невидимка для глазика */
+.eye-btn {
+  position: absolute;
+  left: 365px;                /* Ставим строго слева */
+  top: 16px;
+
+  /* Полная очистка стилей кнопки браузера */
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  width: auto !important;   /* Кнопка будет сжиматься до размера иконки */
+  max-width: 30px !important;
+}
+
+/* Размер картинки PNG */
+.eye-image {
+  width: 25px;               /* Оптимальный размер */
+  height: auto;
+  display: block;
+  opacity: 0.6;              /* Делаем чуть тусклее */
+  transition: opacity 0.2s;
+}
+
+.eye-btn:hover .eye-image {
+  opacity: 1;                /* Ярче при наведении */
 }

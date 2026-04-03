@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 
 export class Login {
-  showPassword = false;
+  showPasswordLogin = false;
   @Output() close = new EventEmitter<void>();
 
   private http = inject(HttpClient);
@@ -54,4 +54,9 @@ export class Login {
 
 
   }
+  showHidePasswordLogin(){
+    this.showPasswordLogin = !this.showPasswordLogin;
+
+  }
+
 }

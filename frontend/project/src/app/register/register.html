@@ -2,27 +2,25 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet">
 
-<div class="register-container">
+<div class="registration-container">
+
   <div class="brand-side">
     <h1>Cipher</h1>
-    <p class="subtitle">Feature of finance.<br>Secure. Protect.</p>
+    <p class="subtitle"> Feature of finance.<br>Secure. Protect.</p>
   </div>
 
   <div class="form-side">
     <form  (ngSubmit) = "register()" #regForm="ngForm">
       <h2>Cipher</h2>
       <h3>Create account</h3>
-      <p>Start your trip to world of digital assets</p>
+      <p> Start your trip to world of digital assets</p>
 
       <input type = "text" placeholder="Username" [(ngModel)]="username" name="username" required>
       <input type = "email" placeholder="example@gmail.com" [(ngModel)]="email" name="email" required>
-      <!-- <input [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password" [(ngModel)] = "password" name = "password" required> -->
-      <!-- <input [type]="showPassword ? 'text' : 'password'" placeholder="Confirm your password" [(ngModel)] = "confirmPassword"  name = "confirmPassword" required> -->
-
-      <!-- ? - if showPassword TRUE show text, else if showPassword FALSE show password -->
 
       <!-- For writing password-->
       <div class="input-container">
+        <!-- ? - if showPassword TRUE show text, else if showPassword FALSE show password -->
         <input
           [type]="showPassword ? 'text' : 'password'"
           class="dark-input"
@@ -34,9 +32,9 @@
 
         <button type="button" class="eye-btn" (click)="showHidePassword()">
           @if (showPassword) {
-            <img src="/eye-open.png" alt="Hide" class="eye-image">
+            <img src="/openedEye.png" class="eye-image">
           } @else {
-            <img src="/eye-closed.png" alt="Show" class="eye-image">
+            <img src="/closedEye.png" class="eye-image">
           }
         </button>
       </div>
@@ -50,60 +48,52 @@
           [(ngModel)] = "confirmPassword"
           name = "confirmPassword"
           required
-        >
 
+        >
         <button type="button" class="eye-btn" (click)="showHidePasswordConfirm()">
           @if (showPasswordConfirm) {
-            <img src="/eye-open.png" alt="Hide" class="eye-image">
+            <img src="/openedEye.png" class="eye-image">
           } @else {
-            <img src="/eye-closed.png" alt="Show" class="eye-image">
+            <img src="/closedEye.png" class="eye-image">
           }
         </button>
       </div>
 
 
-
-      <label class="checkbox">
-        <input type="checkbox" [(ngModel)]="showPassword" name="showPassword"> Show password
-      </label>
-
+      <!-- Terms & Conditions  * checkbox-->
       <label class="checkbox">
         <input type="checkbox" required>
           <!-- &nbsp; - important space, browser cant ignore him -->
-          I agree &nbsp;<span class="terms-conditions"> Terms & Conditions  *</span>
+          I agree &nbsp;<span class="green-text"> Terms & Conditions  *</span>
       </label>
 
 
 
-      <!-- для логина -->
+      <!-- FOR LOGIN -->
       <p>Do you already have an account?
-        <a class="login-link" (click)="openLoginModal()"> <span class="login-link">Log In </span></a>
+        <a class="login-link" (click)="openLoginModal()"> <span class="green-text">Log In </span></a>
       </p>
 
-      <!-- для забытого пароля
-      <p>Do you already have an account?
-        <a class="login-link" (click)="openLoginModal()">Log In</a>
-      </p> -->
+      <!-- для забытого пароля -->
 
-
-
-      @if (isModalOpen) {
-        <div class="modal-overlay" (click)="closeModal()"> <!-- бзаовая настройка, если пользователь нажемет мимо окна - окно закроется -->
-
-          <div class="modal-card" (click)="$event.stopPropagation()"> <!-- базовая настройка, не передает действия на окне фону сайта, что бы окно не закрывалось -->
-
-            <app-login (close)="isModalOpen = false"></app-login>
-
-            <button class="close-btn" (click)="closeModal()">&times;</button> <!-- крестик в углу -->
-
-
-
-          </div>
-        </div>
-      }
 
       <button type = "submit">Register</button>
     </form>
+
   </div>
+  @if (isModalOpen) {
+    <div class="modal-overlay" (click)="closeModal()"> <!-- если пользователь нажемет мимо окна - окно закроется -->
+
+      <div class="modal-card" (click)="$event.stopPropagation()"> <!-- не передает действия на окне фону сайта, что бы окно не закрывалось -->
+
+        <app-login (close)="isModalOpen = false"></app-login>
+
+        <button class="close-btn" (click)="closeModal()">&times;</button> <!-- крестик в углу -->
+
+
+
+      </div>
+    </div>
+  }
 </div>
 

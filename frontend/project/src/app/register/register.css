@@ -4,7 +4,7 @@
 
 
 /* Основний контейнер */
-.register-container {
+.registration-container {
   display: flex;
   min-height: 100vh;
   background-color: #0B0B0B; /*  Grey background */
@@ -55,7 +55,7 @@
   align-items: center;
   padding: 32px;
   background-color: #0B0B0B;
-  backdrop-filter: blur(24px); /* MB UBRAT */
+
 
 }
 
@@ -94,7 +94,7 @@
 }
 
 
-/* Style for all inputs in registration window */
+/* Style for all inputs in registration window except checkboxes, they have another css code */
 .form-side input:not([type="checkbox"]){
   width: 100%;
   padding: 1rem;
@@ -138,7 +138,7 @@
 .form-side button {
   width: 100%;
   padding: 1rem;
-  background-color: #ffffff;
+  background-color: #ECF0F1;
   color: #000000;
   border: none;
   border-radius: 4px;
@@ -149,21 +149,15 @@
   transition: background-color 0.3s ease;
 }
 
-.form-side button:hover {
-  background-color: #f0f0f0; /* Ховер-ефект */
-}
 
-/* style for Terms & Conditions text */
-.terms-conditions {
+
+
+/* green colour for chosen text */
+.green-text{
   color: #00E676;
 
 }
 
-/* style for Log in link */
-.login-link {
-  color: #00E676;
-
-}
 
 /* Адаптивність */
 @media (max-width: 768px) {
@@ -195,7 +189,6 @@
   left: 0;
   width: 100vw;         /* На всю ширину экрана */
   height: 100vh;        /* На всю высоту экрана */
-  background: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный */
   backdrop-filter: blur(8px);    /* Тот самый блюр */
   display: flex;        /* Включаем магию центрирования */
   justify-content: center;
@@ -211,21 +204,36 @@
 }
 
 /* Стиль крестика */
+.modal-card {
+  position: relative !important; /* Теперь крестик будет держаться за карточку */
+
+  /* Твои остальные стили карточки... */
+}
+
+/* Стили крестика */
 div.modal-card button.close-btn {
   position: absolute !important;
-  right: 15px !important;
+
+  /* Position on window */
+  top: 35px !important;
+  right: 40px !important;
+
+  /* Сброс стилей и размеры */
   background: transparent !important;
+  border: none !important;
   width: auto !important;
-  font-size: 40px !important;
-  color: white;
-  z-index: 100;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  font-size: 32px !important; /* 40px может быть великоват и ломать центровку, 32px — аккуратнее */
+  color: white !important;
+  cursor: pointer !important;
+
+
 }
 
 
-.close-btn:hover {
-  color: #fff;
-
-}
 
 .login-link {
   color: #00E676;            /* Твой цвет текста */
@@ -253,41 +261,114 @@ div.modal-card button.close-btn {
 
 
 
+/* Контейнер для каждого инпута */
 .input-container {
   position: relative;
   width: 100%;
+  margin-bottom: 20px; /* Расстояние между полями */
 }
 
+/* Стили самого темного инпута */
 .dark-input {
   width: 100%;
-  padding-right: 50px; /* Место под иконку */
-  border: 1px solid #2A2A2A;
-  border-radius: 12px;
+  background-color: #1A1A1A; /* Темный фон */
+  border: 1px solid #2A2A2A; /* Тонкая рамка */
+  border-radius: 12px;       /* Закругление */
+  padding: 16px 20px;
+         /* Место под иконку СЛЕВА */
   color: white;
+  font-size: 16px;
   outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;    /* Чтобы паддинги не ломали ширину */
 }
 
+.dark-input:focus {
+  border-color: #00E676;     /* Зеленая рамка при клике */
+}
+
+/* Кнопка-невидимка для глазика */
 .eye-btn {
   position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
+  left: 365px;                /* Ставим строго слева */
+  top: 16px;
+
+  /* Полная очистка стилей кнопки браузера */
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+
   cursor: pointer;
-  padding: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  opacity: 0.6;
+  z-index: 10;
+  width: auto !important;   /* Кнопка будет сжиматься до размера иконки */
+  max-width: 30px !important;
+}
+
+/* Размер картинки PNG */
+.eye-image {
+  width: 25px;               /* Оптимальный размер */
+  height: auto;
+  display: block;
+  opacity: 0.6;              /* Делаем чуть тусклее */
   transition: opacity 0.2s;
 }
 
-.eye-btn:hover {
-  opacity: 1;
+.eye-btn:hover .eye-image {
+  opacity: 1;                /* Ярче при наведении */
 }
 
-.eye-image {
-  width: 20px;
-  height: auto;
+
+
+
+
+
+
+
+/* ==========================================
+   1. БАЗОВЫЕ СТИЛИ СЕТКИ И ФОНА
+   ========================================== */
+.registration-container {
+  display: flex !important;
+  min-height: 100vh !important;
+  background-color: #0B0B0B !important; /* Твой фирменный темный фон */
+  font-family: 'Syne', sans-serif;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  position: relative !important;
+  overflow: hidden !important;
 }
+
+.brand-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
+}
+
+.form-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212 !important; /* Мягкий черный для контраста */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

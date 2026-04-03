@@ -48,19 +48,23 @@ export class Register {
     });
   }
 
-  // функции для управления окном для логина
+  // function OPEN login modal
   openLoginModal() {
     this.isModalOpen = true;
   }
 
+  // function CLOSE login modal
   closeModal() {
     this.isModalOpen = false;
   }
 
+  // function SHOW or HIDE password for registration
   showHidePassword(){
     this.showPassword = !this.showPassword;
 
   }
+
+  // function SHOW or HIDE password for registration confirming password
   showHidePasswordConfirm(){
     this.showPasswordConfirm = !this.showPasswordConfirm;
 

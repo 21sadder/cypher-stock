@@ -9,16 +9,31 @@
 
     <input type = "email" placeholder="example@gmail.com" [(ngModel)]="email" name="email" required>
     <!-- ? - if showPassword TRUE show text, else if showPassword FALSE show password -->
-    <input [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password" [(ngModel)] = "password" name = "password" required>
 
-    <!-- Show password checkbox-->
-    <label class="checkbox">
-      <input type="checkbox" [(ngModel)]="showPassword" name="showPassword"> Show password
-    </label>
+
+    <div class="input-container">
+      <input
+        [type]="showPasswordLogin ? 'text' : 'password'"
+        class="dark-input"
+        placeholder="Enter your password"
+        [(ngModel)] = "password"
+        name = "password"
+        required
+      >
+      <button type="button" class="eye-btn" (click)="showHidePasswordLogin()">
+        @if (showPasswordLogin) {
+          <img src="/openedEye.png" class="eye-image">
+        } @else {
+          <img src="/closedEye.png" class="eye-image">
+        }
+      </button>
+    </div>
+
 
     <!-- Terms & Conditions checkbox-->
     <label class="checkbox">
-      <input type="checkbox" required> Terms & Conditions *
+      <input type="checkbox" required>
+      I agree &nbsp;<span class="green-text"> Terms & Conditions *</span>
     </label>
 
     <button type = "submit">Login</button>
