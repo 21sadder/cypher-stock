@@ -8,11 +8,35 @@
   display: flex;
   min-height: 100vh;
   background-color: #0B0B0B; /*  Grey background */
+  position: relative !important;
   font-family: 'Syne', sans-serif;
   color: #ffffff;
   margin: 0;
   padding: 0;
 }
+
+/* 1. Настройки картинки (без background-image!) */
+.bg-image {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 0 !important; /* Ставим 0, чтобы фон лег поверх базового черного registration-container */
+  opacity: 0.20 !important;
+  filter: blur(4px) !important; /* 2px-6px — лёгкое размытие */
+
+
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+}
+
+
+
 
 
 /* Ліва частина: бренд */
@@ -20,12 +44,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Центрування по вертикалі */
-  align-items: flex-start; /* Вирівнювання наліво (замість center) */
+  justify-content: center;
+  align-items: flex-start;
   padding: 2rem;
-  background-color: #0B0B0B;
-  text-align: left; /* Глобальне вирівнювання тексту наліво */
-
+  background-color: transparent !important; /* СДЕЛАЛИ ПРОЗРАЧНЫМ */
+  text-align: left;
+  position: relative !important;
+  z-index: 1 !important; /* Поднимаем текст выше картинки */
 }
 
 .brand-side h1 {
@@ -54,9 +79,9 @@
   justify-content: center;
   align-items: center;
   padding: 32px;
-  background-color: #0B0B0B;
-
-
+  background-color: transparent !important; /* СДЕЛАЛИ ПРОЗРАЧНЫМ */
+  position: relative !important;
+  z-index: 1 !important; /* Поднимаем форму выше картинки */
 }
 
 .form-side form {
@@ -99,8 +124,8 @@
   width: 100%;
   padding: 1rem;
   margin-bottom: 1rem;
-  background-color: #1a1a1a; /* Темніший фон для інпутів, як на скріншоті */
-  border: 1px solid #444444; /* Трохи світліший бордер для кращого контрасту */
+  background-color: #1a1a1a;
+  border: 1px solid #444444;
   border-radius: 4px;
   color: #ffffff;
   font-size: 1rem;
@@ -109,17 +134,18 @@
 }
 
 
-
+/* grey placeholder */
 .form-side input::placeholder {
-  color: #a0a0a0; /* Сірий плейсхолдер */
+  color: #a0a0a0;
 }
 
+/* white color when the mouse hover over */
 .form-side input:focus {
   outline: none;
-  border-color: #ffffff; /* Білий при фокусі */
+  border-color: #ffffff;
 }
 
-/* Чекбокс */
+/* Checkbox  */
 .checkbox {
   display: flex;
   align-items: center;
@@ -134,7 +160,7 @@
   accent-color: #ffffff; /* Білий чекбокс */
 }
 
-/* Кнопка */
+/* button "Register" */
 .form-side button {
   width: 100%;
   padding: 1rem;
@@ -205,9 +231,8 @@
 
 /* Стиль крестика */
 .modal-card {
-  position: relative !important; /* Теперь крестик будет держаться за карточку */
+  position: relative !important;
 
-  /* Твои остальные стили карточки... */
 }
 
 /* Стили крестика */
@@ -321,54 +346,4 @@ div.modal-card button.close-btn {
 .eye-btn:hover .eye-image {
   opacity: 1;                /* Ярче при наведении */
 }
-
-
-
-
-
-
-
-
-/* ==========================================
-   1. БАЗОВЫЕ СТИЛИ СЕТКИ И ФОНА
-   ========================================== */
-.registration-container {
-  display: flex !important;
-  min-height: 100vh !important;
-  background-color: #0B0B0B !important; /* Твой фирменный темный фон */
-  font-family: 'Syne', sans-serif;
-  color: #ffffff;
-  margin: 0;
-  padding: 0;
-  position: relative !important;
-  overflow: hidden !important;
-}
-
-.brand-side {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 10%;
-}
-
-.form-side {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #121212 !important; /* Мягкий черный для контраста */
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
