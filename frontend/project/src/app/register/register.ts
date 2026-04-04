@@ -53,13 +53,20 @@ export class Register implements OnInit {
   }
 
   ngOnInit() {
-    const bgImgCount = 2;
-    const randomNum = Math.floor(Math.random() * bgImgCount) + 1;
+    const bgImgCount = 5;
+    // localStorage = storage in browser what keeps information after reloading a page
+    //keeping our lastBg value
+    const last = Number(localStorage.getItem('lastBg') || 0);
 
+    let randomNum = Math.floor(Math.random() * bgImgCount) + 1;
+    if (randomNum === last) randomNum = (randomNum % bgImgCount) + 1;
+
+    //changing our last bg value to new bg value
+    localStorage.setItem('lastBg', String(randomNum));
     this.currentBg = `url('register-backgrounds/bg-${randomNum}.png')`;
   }
 
-  // function OPEN login modal
+    // function OPEN login modal
   openLoginModal() {
     this.isModalOpen = true;
   }
