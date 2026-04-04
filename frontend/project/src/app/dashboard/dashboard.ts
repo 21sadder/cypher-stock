@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

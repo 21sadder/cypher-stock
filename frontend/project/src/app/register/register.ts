@@ -1,8 +1,8 @@
-import { Component, inject, OnInit} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgStyle } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterLink } from '@angular/router'; // для открытия ссылок в штмл
+import { NgStyle } from '@angular/common';
+import { Router} from '@angular/router'; // для открытия ссылок в штмл
 import { Login } from '../login/login';
 
 @Component({
@@ -31,7 +31,7 @@ export class Register implements OnInit {
   isModalOpen = false;
 
   register() {
-    if(this.password !== this.confirmPassword){
+    if (this.password !== this.confirmPassword) {
       alert("Passwords don't match");
       return;
     }
@@ -40,7 +40,7 @@ export class Register implements OnInit {
       email: this.email,
       username: this.username,
       password: this.password,
-    }
+    };
 
     this.http.post('http://localhost:8080/api/auth/register', body).subscribe({
       next: (response) => {
@@ -48,19 +48,16 @@ export class Register implements OnInit {
         //  перейти на страницу дашюбор:\
         this.router.navigate(['/login']);
       },
-      error: (err) => console.error("Register failed:", err)
+      error: (err) => console.error('Register failed:', err),
     });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     const bgImgCount = 2;
     const randomNum = Math.floor(Math.random() * bgImgCount) + 1;
 
     this.currentBg = `url('register-backgrounds/bg-${randomNum}.png')`;
-
-
   }
-
 
   // function OPEN login modal
   openLoginModal() {
@@ -73,17 +70,12 @@ export class Register implements OnInit {
   }
 
   // function SHOW or HIDE password for registration
-  showHidePassword(){
+  showHidePassword() {
     this.showPassword = !this.showPassword;
-
   }
 
   // function SHOW or HIDE password for registration confirming password
-  showHidePasswordConfirm(){
+  showHidePasswordConfirm() {
     this.showPasswordConfirm = !this.showPasswordConfirm;
-
   }
-
-
-
 }
