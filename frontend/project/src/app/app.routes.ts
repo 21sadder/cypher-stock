@@ -4,26 +4,22 @@ import { Dashboard } from './dashboard/dashboard';
 import { Markets } from './markets/markets';
 import { Trade } from './trade/trade';
 import { Portfolios } from './portfolios/portfolios';
+import { NavbarLayout } from './navbar-layout/navbar-layout';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'register',
     component: Register,
   },
   {
-    path: 'dashboard',
-    component: Dashboard,
+    path: '',
+    component: NavbarLayout,
+    children: [
+      { path: 'dashboard', component: Dashboard },
+      { path: 'markets', component: Markets },
+      { path: 'trade', component: Trade },
+      { path: 'portfolios', component: Portfolios },
+    ],
   },
-  {
-    path: 'markets',
-    component: Markets,
-  },
-  {
-    path: 'trade',
-    component: Trade,
-  },
-  {
-    path: 'portfolios',
-    component: Portfolios,
-  }
 ];
