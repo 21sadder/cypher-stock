@@ -1,6 +1,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
 
 
 <div class="dashboard-container">
@@ -10,16 +14,16 @@
       <span>Cipher</span>
 
       <nav class="menu">
-        <a href = "/dashboard">
+        <a routerLink="/dashboard" routerLinkActive="active">
           <img src="/icons/building-blocks-lego-toy-svgrepo-com.svg" alt="" />
           Overview</a>
-        <a href = "#">
+        <a routerLink="/markets" routerLinkActive="active">
           <img src="/icons/arrow-up-right-lg-svgrepo-com.svg" alt="" />
           Markets</a>
-        <a href = "#">
+        <a routerLink="/trade" routerLinkActive="active">
           <img src="/icons/lightning-svgrepo-com.svg" alt="" />
           Trade</a>
-        <a href = "#">
+        <a routerLink="/portfolios" routerLinkActive="active">
           <img src="/icons/money-wallet-line-svgrepo-com.svg" alt="" />
           Portfolio</a>
       </nav>

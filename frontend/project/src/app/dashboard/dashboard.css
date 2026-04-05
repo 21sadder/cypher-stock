@@ -26,8 +26,9 @@
 
 .nav-left span {
   font-family: 'Syne', sans-serif;
-  font-weight: bolder;
+  font-weight: 800;
   padding-right: 30px;
+  font-size: 17px;
 }
 
 .navbar-button {
@@ -50,21 +51,21 @@
 .menu {
   display: flex;
   gap: 15px;
-  margin-left: 20px;
+  margin-left: 30px;
   font-size: 13px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .menu img {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
 }
 
 
 .menu a {
   align-items: center;
-  color: #aaa;
-  font-family: 'Syne', sans-serif;
+  font-family: Inter, sans-serif;
+  color: #8a8a8a;
   text-decoration: none;
   border: 0.5px solid #0b0f14;
   padding: 6px 12px;
