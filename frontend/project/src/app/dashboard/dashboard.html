@@ -1,3 +1,15 @@
 <div class="dashboard-container">
-  <p>dashboard works!</p>
+
+  <div class="chart-card">
+    <p class="up-title">Total Portfolio Value</p>
+    <div class="actual-price-block">
+      <h1 class="price">${{ formatted }}</h1>
+      <span class="price-delta-day-percents">+{{ priceChangingDayPercents }}% (24h)</span>
+    </div>
+    <p class="price-delta-day-money">+${{ formattedPrice }} today</p>
+  </div>
+
+  <div class="stats-card">
+    <p class="up-title">Quick Stats</p>
+  </div>
 </div>

@@ -13,7 +13,7 @@
   align-items: center;
   background: #000000;
   color: white;
-  border-bottom: 0.5px solid #303030;
+  border-bottom: 0.5px solid #232323;
 }
 
 .nav-left {
@@ -31,7 +31,7 @@
 
 .navbar-button {
   align-self: center;
-  background: #1f1f1f;
+  background: #1c1c1c;
   padding: 6px 12px;
   border: 1px solid #000000;
   border-radius: 10px;
@@ -74,8 +74,8 @@
 
 .menu a:hover {
   color: white;
-  background-color: #1f1f1f;
-  border: 0.5px solid #1f1f1f;
+  background-color: #1c1c1c;
+  border: 0.5px solid #1c1c1c;
   transition: all 0.3s ease;
 }
 
@@ -106,7 +106,7 @@
 }
 
 .balance {
-  background: #1f1f1f;
+  background: #1c1c1c;
   padding: 6px 12px;
   border-radius: 10px;
   font-size: 14px;
@@ -132,13 +132,13 @@
   border-radius: 10px;
   color: white;
   font-size: 12px;
-  background: #1f1f1f;
+  background: #1c1c1c;
   align-items: center;
   padding: 5px;
   padding-right: 15px;
   gap: 10px;
   font-weight: bolder;
-  border: 0.5px solid #1f1f1f;
+  border: 0.5px solid #1c1c1c;
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
@@ -163,7 +163,7 @@
 .dropdown-content {
   border-radius: 10px;
   padding: 5px;
-  background-color: #1f1f1f;
+  background-color: #1c1c1c;
   min-width: 100px;
   box-shadow: 0px 8px 13px 0px rgba(0,0,0,0.2);
 }

@@ -1,4 +1,69 @@
 .dashboard-container {
+  display: flex;
   background-color: black;
   color: white;
+}
+
+.chart-card {
+  width: 75%;
+  margin-left: 50px;
+  margin-right: 7.5px;
+  margin-top: 30px;
+  padding: 10px;
+  padding-left: 20px;
+  background-color: #0e0e0e;
+  border-radius: 10px;
+  border: 0.5px solid #232323;
+  font-family: Inter, sans-serif;
+}
+
+.up-title {
+  color: #5c5c5c;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.price {
+  font-size: 40px;
+  font-weight: 900;
+
+}
+
+.actual-price-block {
+  margin-top: -30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.price-delta-day-percents {
+  background: #0f2f1f;
+  color: #00ff9c;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 0.5px solid #004e31;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.price-delta-day-money {
+  color: #5c5c5c;
+  font-weight: 700;
+  font-size: 13px;
+  margin-top: -15px;
+}
+
+.stats-card {
+  width: 25%;
+  margin-right: 50px;
+  margin-top: 30px;
+  margin-left: 7.5px;
+  background-color: #0e0e0e;
+  border-radius: 10px;
+  border: 0.5px solid #232323;
+  padding: 10px;
+  padding-left: 20px;
+  font-family: Inter, sans-serif;
 }
