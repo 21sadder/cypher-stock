@@ -1,7 +1,7 @@
 package SpkTeam.WebSocket;
 
 import SpkTeam.service.BinanceService;
-import jakarta.validation.constraints.NotNull;
+import org.jetbrains.annotations.NotNull;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
@@ -24,5 +24,16 @@ public class BinanceWebSocketListener extends WebSocketListener {
     public void onMessage(@NotNull WebSocket webSocket, @NotNull String text){
         System.out.println("received: " + text);
         binanceService.handleMessage(text);
+    }
+
+    @Override
+    public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+        System.err.println("error: " + t.getMessage());
+        t.printStackTrace();
+    }
+
+    @Override
+    public void onClosing(WebSocket webSocket, int code, String reason) {
+        System.out.println("closing: " + code + " / " + reason);
     }
 }

@@ -3,8 +3,8 @@ package SpkTeam.service;
 import SpkTeam.WebSocket.StatsWebSocketHandler;
 import SpkTeam.authDto.CoinDto;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class BinanceService {
@@ -20,18 +20,35 @@ public class BinanceService {
         try {
             JsonNode json = objectMapper.readTree(text);
 
-            String symbol = json.get("s").asText();
-            double price = json.get("p").asDouble();
-            double quantity = json.get("q").asDouble();
+            // перевіряємо чи це масив (!ticker@arr) чи один об'єкт (btcusdt@ticker)
+            if (json.isArray()) {
+                for (JsonNode node : json) {
+                    processTicker(node);
+                }
+            } else {
+                processTicker(json);
+            }
 
-            CoinDto coin = new CoinDto(symbol, price, quantity);
-
-            String result = objectMapper.writeValueAsString(coin);
-
-            handler.sendToAll(result);
-            
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void processTicker(JsonNode json) throws Exception {
+        // перевіряємо що поля існують перед тим як читати
+        if (json.get("s") == null || json.get("c") == null) return;
+
+        String symbol = json.get("s").asText();
+        double price = json.get("c").asDouble();
+        double open = json.get("o").asDouble();
+        double volume = json.get("v").asDouble();
+
+        double change24Percent = ((price - open) / open) * 100;
+
+        CoinDto coin = new CoinDto(symbol, price, change24Percent, volume);
+        String result = objectMapper.writeValueAsString(coin);
+
+        handler.sendToAll(result);
+        System.out.println("SENDING TO FRONT: " + result);
     }
 }

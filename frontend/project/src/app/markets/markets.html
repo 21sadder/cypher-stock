@@ -1,1 +1,15 @@
-<p>markets works!</p>
+<div class="market">
+
+  <p>markets works!</p>
+
+  @for (coin of coins; track coin.symbol) {
+    <div>
+      <b>{{ coin.symbol }}</b>
+      {{ coin.price }}
+      <span [style.color]="coin.change24h > 0 ? 'green' : 'red'">
+       {{ coin.change24h }}%
+      </span>
+    </div>
+  }
+
+</div>

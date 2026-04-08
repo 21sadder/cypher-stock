@@ -3,11 +3,13 @@ package SpkTeam.authDto;
 public class CoinDto {
     public String symbol;
     public double price;
-    public double quantity;
+    public double change24h;
+    public double volume;
 
-    public CoinDto(String symbol, double price, double quantity){
+    public CoinDto(String symbol, double price, double change24h, double volume){
         this.symbol = symbol;
         this.price = price;
-        this.quantity = quantity;
+        this.change24h = change24h;
+        this.volume = volume;
     }
 }

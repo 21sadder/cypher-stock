@@ -28,7 +28,12 @@
   </div>
 
   <div class="nav-right">
-    <div class="balance">₿ $67,234 <span>+2.4%</span></div>
+    @if (selectedCoin){
+      <div class="balance">₿ ${{ selectedCoin.price | number:"1.2-4" }} <span [style.color]="selectedCoin.change24h > 0 ? 'green' : 'red'">
+        {{ selectedCoin.change24h | number:"1.2-2" }}%</span></div>
+    } @else {
+      <p>loading data for btcusdt...</p>
+    }
     <a class="navbar-button" href="#">
       <img src="/icons/magnifying-glass-for-search-svgrepo-com.svg" width="14" height="14">
     </a>

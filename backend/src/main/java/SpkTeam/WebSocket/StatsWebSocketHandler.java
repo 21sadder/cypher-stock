@@ -1,7 +1,7 @@
 package SpkTeam.WebSocket;
 
-import okhttp3.WebSocket;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -22,13 +22,26 @@ public class StatsWebSocketHandler extends TextWebSocketHandler {
         sessions.add(session);
     }
 
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+        sessions.remove(session);
+        System.out.println("CONNECTION CLOSED: " + session.getId());
+    }
+
     public void sendToAll(String message){
         for (WebSocketSession session : sessions){
+            if (!session.isOpen()) {
+                sessions.remove(session);
+                continue;
+            }
             try {
+
                 //sending to frontend
                 session.sendMessage(new TextMessage(message));
             } catch (Exception e){
                 e.printStackTrace();
+
+                sessions.remove(session);
             }
         }
     }
