@@ -30,11 +30,12 @@ export class NavbarLayout implements OnInit {
       this.ws.connect();
     }
 
-    this.ws.messages$.subscribe((data) => {
+    this.ws.crypto$.subscribe((data) => {
+      const btc = data.find(d => d.symbol === 'BTCUSDT');
       // filter for btc
-      if (data.symbol === 'BTCUSDT') {
+      if (btc) {
         this.ngZone.run(() => {
-          this.selectedCoin = data;
+          this.selectedCoin = btc;
           this.cdr.detectChanges();
         });
       }

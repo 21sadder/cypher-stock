@@ -45,7 +45,7 @@ public class BinanceService {
 
         double change24Percent = ((price - open) / open) * 100;
 
-        CoinDto coin = new CoinDto(symbol, price, change24Percent, volume);
+        CoinDto coin = new CoinDto(symbol, price, change24Percent, volume, "CRYPTO");
         String result = objectMapper.writeValueAsString(coin);
 
         handler.sendToAll(result);

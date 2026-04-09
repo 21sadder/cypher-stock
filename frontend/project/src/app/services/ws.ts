@@ -1,17 +1,34 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, map, throttleTime } from 'rxjs';
+import { MarketItem } from '../interface/MarketItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Ws {
   private socket!: WebSocket;
-  private subject = new Subject<any>();
+  private subject = new BehaviorSubject<any[]>([]);
 
   private reconnectDelay = 2000; // 2 сек
   private isConnecting = false;
+  private allAssets = new Map<string, any>();
 
-  messages$ = this.subject.asObservable();
+  crypto$ = this.subject.pipe(
+    throttleTime(1000),
+    map((data) => data.filter((d: any) => d.type === 'CRYPTO')),
+  );
+  stock$ = this.subject.pipe(
+    throttleTime(1000),
+    map((data) => data.filter((d: any) => d.type === 'STOCK')),
+  );
+  forex$ = this.subject.pipe(
+    throttleTime(1000),
+    map((data) => data.filter((d: any) => d.type === 'FOREX')),
+  );
+  commodity$ = this.subject.pipe(
+    throttleTime(1000),
+    map((data) => data.filter((d: any) => d.type === 'COMMODITY')),
+  );
 
   constructor(private ngZone: NgZone) {}
 
@@ -29,10 +46,11 @@ export class Ws {
     };
 
     this.socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
+      const item: MarketItem = JSON.parse(event.data);
 
       this.ngZone.run(() => {
-        this.subject.next(data);
+        this.allAssets.set(item.symbol, item);
+        this.subject.next(Array.from(this.allAssets.values()));
       });
     };
 
@@ -43,7 +61,7 @@ export class Ws {
 
       // reconnect
       setTimeout(() => {
-        console.log('🔄 Reconnecting...');
+        console.log('reconnecting...');
         this.connect();
       }, this.reconnectDelay);
     };

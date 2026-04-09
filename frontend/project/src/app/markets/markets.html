@@ -2,13 +2,32 @@
 
   <p>markets works!</p>
 
-  @for (coin of coins; track coin.symbol) {
+  <div class="tabs">
+    <button
+      [class.active]="activeTab === 'CRYPTO'"
+      (click)="setTab('CRYPTO')">
+      Crypto
+    </button>
+    <button
+      [class.active]="activeTab === 'STOCK'"
+      (click)="setTab('STOCK')">
+      Stock
+    </button>
+    <button
+      [class.active]="activeTab === 'FOREX'"
+      (click)="setTab('FOREX')">
+      Forex
+    </button>
+    <button
+      [class.active]="activeTab === 'COMMODITY'"
+      (click)="setTab('COMMODITY')">
+      Commodity
+    </button>
+  </div>
+
+  @for(item of activeData; track item.symbol){
     <div>
-      <b>{{ coin.symbol }}</b>
-      {{ coin.price }}
-      <span [style.color]="coin.change24h > 0 ? 'green' : 'red'">
-       {{ coin.change24h }}%
-      </span>
+      {{ item.symbol }} - {{ item.price }}
     </div>
   }
 
