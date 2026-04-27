@@ -1,4 +1,4 @@
-package SpkTeam.authDto;
+package SpkTeam.Dto;
 
 public class CoinDto {
     public String symbol;

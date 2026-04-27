@@ -1,13 +1,13 @@
 package SpkTeam.service;
 
-import SpkTeam.authDto.*;
+import SpkTeam.Dto.*;
 
 import SpkTeam.exceptions.invalidPasswordException;
 import SpkTeam.exceptions.userAlreadyExistExceptions;
 import SpkTeam.exceptions.userNotFoundException;
 import SpkTeam.jwtToken.JwtUtil;
 import SpkTeam.repository.userRepository;
-import SpkTeam.user.User;
+import SpkTeam.entity.User;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;

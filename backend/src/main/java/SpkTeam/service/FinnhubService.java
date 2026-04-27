@@ -1,7 +1,8 @@
 package SpkTeam.service;
 
 import SpkTeam.WebSocket.StatsWebSocketHandler;
-import SpkTeam.authDto.CoinDto;
+import SpkTeam.Dto.CoinDto;
+import SpkTeam.cache.PriceCache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -20,6 +21,7 @@ public class FinnhubService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final StatsWebSocketHandler handler;
     private final OkHttpClient httpClient = new OkHttpClient();
+    private final PriceCache priceCache;
 
     private final Map<String, Double> openPrices = new ConcurrentHashMap<>();
 
@@ -46,9 +48,9 @@ public class FinnhubService {
             "OANDA:BCO_USD", "OANDA:WTICO_USD"
     );
 
-    public FinnhubService(StatsWebSocketHandler handler) {
+    public FinnhubService(StatsWebSocketHandler handler, PriceCache priceCache) {
         this.handler = handler;
-
+        this.priceCache = priceCache;
     }
 
 
@@ -126,6 +128,8 @@ public class FinnhubService {
 
             // resolve what is active is this to make filtration on frontend
             String typeOfActive = resolveType(symbol);
+
+            priceCache.updatePrice(symbol, price);
 
             CoinDto coin = new CoinDto(symbol, price, changePercent, volume, typeOfActive);
             String result = objectMapper.writeValueAsString(coin);

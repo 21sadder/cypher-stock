@@ -1,6 +1,6 @@
 package SpkTeam.repository;
 
-import SpkTeam.user.User;
+import SpkTeam.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

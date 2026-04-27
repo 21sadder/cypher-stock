@@ -1,1 +1,167 @@
-<p>portfolios works!</p>
+<div class="portfolio-layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Portfolios</span>
+      <button class="btn-new" (click)="toggleForm()">+</button>
+    </div>
+
+    <!-- форма створення — показується при натисканні + -->
+    <div class="create-form" *ngIf="showForm">
+      <form (ngSubmit)="createNewPortfolio()" #regForm="ngForm">
+        <input
+          type="text"
+          [(ngModel)]="name"
+          name="name"
+          placeholder="Portfolio name..."
+          required
+          autofocus>
+        <div class="form-actions">
+          <button type="submit" class="btn-confirm">Create</button>
+          <button type="button" class="btn-cancel" (click)="toggleForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- список портфелів -->
+    <div class="sidebar-list" *ngIf="portfolios.length > 0">
+      @for(p of portfolios; track p.id) {
+        <div
+          class="sidebar-item"
+          [class.active]="selectedPortfolio?.id === p.id"
+          (click)="selectPortfolio(p)">
+          <div class="sidebar-item-left">
+            <div class="sidebar-dot" [class.active]="selectedPortfolio?.id === p.id"></div>
+            <div class="sidebar-name">{{ p.name }}</div>
+          </div>
+          <div class="sidebar-item-right">
+            <div class="sidebar-value">${{ p.totalValue | number:'1.0-0' }}</div>
+            <div class="sidebar-change"
+                 [class.positive]="p.pnlPercent >= 0"
+                 [class.negative]="p.pnlPercent < 0">
+              {{ p.pnlPercent >= 0 ? '+' : '' }}{{ p.pnlPercent | number:'1.2-2' }}%
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- порожній стан sidebar -->
+    <div class="sidebar-empty" *ngIf="portfolios.length === 0 && !showForm">
+      <div class="empty-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="3"/>
+          <path d="M3 9h18M9 21V9"/>
+        </svg>
+      </div>
+      <p class="empty-text">No portfolios yet</p>
+      <button class="btn-create-first" (click)="toggleForm()">
+        Create your first
+      </button>
+    </div>
+
+    <!-- загальна сума всіх портфелів -->
+    <div class="sidebar-footer" *ngIf="portfolios.length > 0">
+      <span>{{ portfolios.length }} portfolios</span>
+      <span>${{ totalAllPortfolios() | number:'1.0-0' }}</span>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <!-- якщо портфель вибраний -->
+    <div *ngIf="selectedPortfolio; else noSelection">
+      <div class="main-header">
+        <div>
+          <h1>{{ selectedPortfolio.name }}</h1>
+          <p class="main-subtitle">{{ selectedPortfolio.holdingsCount }} assets</p>
+        </div>
+        <button class="btn-export">↓ Export</button>
+      </div>
+
+      <!-- картки статистики -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-label">Portfolio value</div>
+          <div class="stat-value">${{ selectedPortfolio.totalValue | number:'1.2-2' }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Cost basis</div>
+          <div class="stat-value">${{ selectedPortfolio.totalCost | number:'1.2-2' }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total P&L</div>
+          <div class="stat-value" [class.positive]="selectedPortfolio.pnl >= 0"
+               [class.negative]="selectedPortfolio.pnl < 0">
+            {{ selectedPortfolio.pnl >= 0 ? '+' : '' }}${{ selectedPortfolio.pnl | number:'1.2-2' }}
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">ROI</div>
+          <div class="stat-value" [class.positive]="selectedPortfolio.pnlPercent >= 0"
+               [class.negative]="selectedPortfolio.pnlPercent < 0">
+            {{ selectedPortfolio.pnlPercent >= 0 ? '+' : '' }}{{ selectedPortfolio.pnlPercent | number:'1.2-2' }}%
+          </div>
+        </div>
+      </div>
+
+      <!-- holdings table -->
+      <div class="holdings-section">
+        <div class="holdings-header">
+          <span class="holdings-title">Holdings Detail</span>
+        </div>
+
+        <!-- якщо є холдинги -->
+        <div class="holdings-table" *ngIf="holdings.length > 0">
+          <div class="table-head">
+            <span>Asset</span>
+            <span>Quantity</span>
+            <span>Avg Buy Price</span>
+            <span>Current Price</span>
+            <span>Value</span>
+            <span>P&L ($)</span>
+            <span>P&L (%)</span>
+          </div>
+
+          @for(h of holdings; track h.id) {
+            <div class="table-row">
+              <div class="asset-cell">
+                <div class="asset-symbol">{{ h.symbol }}</div>
+                <div class="asset-type">{{ h.type }}</div>
+              </div>
+              <span>{{ h.quantity }}</span>
+              <span>${{ h.avgBuyPrice | number:'1.2-2' }}</span>
+              <span>${{ h.currentPrice | number:'1.2-2' }}</span>
+              <span>${{ h.value | number:'1.2-2' }}</span>
+              <span [class.positive]="h.pnl >= 0" [class.negative]="h.pnl < 0"> {{ h.pnl >= 0 ? '+' : '' }}${{ h.pnl | number:'1.2-2' }} </span>
+              <span [class.positive]="h.pnlPercent >= 0" [class.negative]="h.pnlPercent < 0"> {{ h.pnlPercent >= 0 ? '+' : '' }}{{ h.pnlPercent | number:'1.2-2' }}% </span>
+            </div>
+          }
+        </div>
+
+        <!-- якщо холдингів немає -->
+        <div class="holdings-empty" *ngIf="holdings.length === 0">
+          <p>No assets yet</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- якщо портфель не вибраний -->
+    <ng-template #noSelection>
+      <div class="no-selection">
+        <div class="no-selection-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1">
+            <path d="M3 3h18v18H3zM3 9h18M9 21V9"/>
+          </svg>
+        </div>
+        <h2>Select a portfolio</h2>
+        <p>Choose a portfolio from the sidebar to view its details</p>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

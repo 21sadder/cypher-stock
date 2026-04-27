@@ -1,8 +1,7 @@
-package SpkTeam.user;
+package SpkTeam.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

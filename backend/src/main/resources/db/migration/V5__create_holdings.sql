@@ -1,0 +1,8 @@
+CREATE TABLE holdings (
+    id BIGSERIAL PRIMARY KEY,
+    portfolio_id BIGINT NOT NULL REFERENCES portfolios(id) ON DELETE CASCADE,
+    symbol VARCHAR(50) NOT NULL,
+    quantity DOUBLE PRECISION NOT NULL,
+    avg_buy_price DOUBLE PRECISION NOT NULL,
+    type VARCHAR(20) NOT NULL
+);
