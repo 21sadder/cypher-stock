@@ -135,7 +135,6 @@ public class FinnhubService {
             String result = objectMapper.writeValueAsString(coin);
 
             handler.sendToAll(result);
-            System.out.println("sended finance: " + result);
         } catch (Exception e){
             e.printStackTrace();
         }

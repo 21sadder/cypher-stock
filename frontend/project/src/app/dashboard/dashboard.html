@@ -3,7 +3,7 @@
   <div class="chart-card">
     <p class="up-title">Total Portfolio Value</p>
     <div class="actual-price-block">
-      <h1 class="price">${{ formatted }}</h1>
+      <h1 class="price">${{ loadPriceOfPortfolios() | number: '1.2-2' }}</h1>
       <span class="price-delta-day-percents">+{{ priceChangingDayPercents }}% (24h)</span>
     </div>
     <p class="price-delta-day-money">+${{ formattedPrice }} today</p>

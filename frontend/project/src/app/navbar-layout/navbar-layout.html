@@ -30,7 +30,7 @@
   <div class="nav-right">
     @if (selectedCoin){
       <div class="balance">₿ ${{ selectedCoin.price | number:"1.2-4" }} <span [style.color]="selectedCoin.change24h > 0 ? 'green' : 'red'">
-        {{ selectedCoin.change24h | number:"1.2-2" }}%</span></div>
+        {{ selectedCoin.change24h >= 0 ? '+' : '' }}{{ selectedCoin.change24h | number:"1.2-2" }}%</span></div>
     } @else {
       <p>loading data for btcusdt...</p>
     }

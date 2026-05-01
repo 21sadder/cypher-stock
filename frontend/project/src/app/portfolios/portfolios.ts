@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { AllocationWidgetComponent } from '../allocation-widget/allocation-widget';
+import { PortfolioService } from '../portfolioService/portfolio-service';
 
 
 interface PortfolioDto {
@@ -28,7 +30,8 @@ interface HoldingDto {
 
 @Component({
   selector: 'app-portfolios',
-  imports: [FormsModule, HttpClientModule, CommonModule],
+  imports: [FormsModule, HttpClientModule, CommonModule, AllocationWidgetComponent],
+  standalone: true,
   templateUrl: './portfolios.html',
   styleUrl: './portfolios.css',
 })
@@ -39,14 +42,17 @@ export class Portfolios implements OnInit {
   selectedPortfolio: PortfolioDto | null = null;
   holdings: HoldingDto[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private portfolioService: PortfolioService) {}
 
   ngOnInit() {
+    this.portfolioService.loadPortfolios();
     this.loadPortfolios();
   }
 
   // load all portfolios on start
   loadPortfolios() {
+    this.portfolioService.loadPortfolios();
+
     const token = localStorage.getItem('token');
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -89,10 +95,16 @@ export class Portfolios implements OnInit {
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
 
-    this.http.get<HoldingDto[]>(`http://localhost:8080/portfolios/${portfolioId}/holdings`, { headers }).subscribe({
-      next: (data) => this.holdings = data,
-      error: (err) => console.log(err),
-    })
+    this.http.get<HoldingDto[]>(`http://localhost:8080/portfolios/${portfolioId}/holdings`, { headers })
+      .subscribe({
+        next: (data) => {
+          this.holdings = data.map((t) => ({
+            ...t,
+            symbol: t.symbol.replace('USDT', ''),
+          }));
+        },
+        error: (err) => console.log(err),
+      });
   }
 
   // select portfolio from sidebar
@@ -108,7 +120,13 @@ export class Portfolios implements OnInit {
   }
 
   // calculate total value of all portfolios
-  totalAllPortfolios(): number {
-    return this.portfolios.reduce((sum, p) => sum + p.totalValue, 0);
+  totalPriceAllPortfolios(): number {
+    return this.portfolioService.totalAllPortfolios();
+  }
+
+  onIconError(event: any) {
+    // якщо іконки немає — показуємо першу літеру символу
+    event.target.style.display = 'none';
+    event.target.nextSibling.style.display = 'flex';
   }
 }

@@ -42,6 +42,9 @@ public class BinanceService {
         if (json.get("s") == null || json.get("c") == null) return;
 
         String symbol = json.get("s").asText();
+
+        if (!symbol.endsWith("USDT")) return;
+
         double price = json.get("c").asDouble();
         double open = json.get("o").asDouble();
         double volume = json.get("v").asDouble();
@@ -54,6 +57,5 @@ public class BinanceService {
         String result = objectMapper.writeValueAsString(coin);
 
         handler.sendToAll(result);
-        System.out.println("SENDING TO FRONT: " + result);
     }
 }

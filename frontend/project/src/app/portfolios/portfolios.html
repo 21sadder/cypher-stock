@@ -65,7 +65,7 @@
     <!-- загальна сума всіх портфелів -->
     <div class="sidebar-footer" *ngIf="portfolios.length > 0">
       <span>{{ portfolios.length }} portfolios</span>
-      <span>${{ totalAllPortfolios() | number:'1.0-0' }}</span>
+      <span>${{ totalPriceAllPortfolios() | number:'1.0-0' }}</span>
     </div>
   </div>
 
@@ -89,8 +89,8 @@
           <div class="stat-value">${{ selectedPortfolio.totalValue | number:'1.2-2' }}</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Cost basis</div>
-          <div class="stat-value">${{ selectedPortfolio.totalCost | number:'1.2-2' }}</div>
+          <div class="stat-label ">Cost basis</div>
+          <div class="stat-value cost-basis">${{ selectedPortfolio.totalCost | number:'1.2-2' }}</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Total P&L</div>
@@ -106,6 +106,9 @@
             {{ selectedPortfolio.pnlPercent >= 0 ? '+' : '' }}{{ selectedPortfolio.pnlPercent | number:'1.2-2' }}%
           </div>
         </div>
+
+        <app-allocation-widget [tokens]="holdings"></app-allocation-widget>
+
       </div>
 
       <!-- holdings table -->
@@ -129,15 +132,28 @@
           @for(h of holdings; track h.id) {
             <div class="table-row">
               <div class="asset-cell">
-                <div class="asset-symbol">{{ h.symbol }}</div>
-                <div class="asset-type">{{ h.type }}</div>
+                <div class="coin-icon-wrapper">
+                  <img
+                    [src]="'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons/128/color/' + h.symbol.replace('USDT','').toLowerCase() + '.png'"
+                    [alt]="h.symbol"
+                    class="coin-icon"
+                    (error)="onIconError($event)">
+                  <!-- fallback якщо іконки немає -->
+                  <div class="coin-icon-fallback" style="display:none">
+                    {{ h.symbol.replace('USDT','')[0] }}
+                  </div>
+                </div>
+                <div>
+                  <div class="asset-symbol">{{ h.symbol.replace('USDT', '') }}</div>
+                  <div class="asset-type">{{ h.type }}</div>
+                </div>
               </div>
               <span>{{ h.quantity }}</span>
               <span>${{ h.avgBuyPrice | number:'1.2-2' }}</span>
-              <span>${{ h.currentPrice | number:'1.2-2' }}</span>
-              <span>${{ h.value | number:'1.2-2' }}</span>
-              <span [class.positive]="h.pnl >= 0" [class.negative]="h.pnl < 0"> {{ h.pnl >= 0 ? '+' : '' }}${{ h.pnl | number:'1.2-2' }} </span>
-              <span [class.positive]="h.pnlPercent >= 0" [class.negative]="h.pnlPercent < 0"> {{ h.pnlPercent >= 0 ? '+' : '' }}{{ h.pnlPercent | number:'1.2-2' }}% </span>
+              <span class="holding-price">${{ h.currentPrice | number:'1.2-2' }}</span>
+              <span class="holding-price">${{ h.value | number:'1.2-2' }}</span>
+              <span class="holding-pnl" [class.positive]="h.pnl >= 0" [class.negative]="h.pnl < 0"> {{ h.pnl >= 0 ? '+' : '-' }}${{ h.pnl | number:'1.2-2' }} </span>
+              <span class="holding-pnl" [class.positive]="h.pnlPercent >= 0" [class.negative]="h.pnlPercent < 0"> {{ h.pnlPercent >= 0 ? '+' : '-' }}{{ h.pnlPercent | number:'1.2-2' }}% </span>
             </div>
           }
         </div>
