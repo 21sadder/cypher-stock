@@ -27,4 +27,12 @@ export class Dashboard implements OnInit {
   loadPriceOfPortfolios() {
     return this.portfolioService.totalAllPortfolios();
   }
+
+  loadPnlFromAllPortfolios() {
+    return this.portfolioService.totalPnlFromAllPortfolios();
+  }
+
+  totalRoi(): number {
+    return this.portfolioService.totalRoi();
+  }
 }

@@ -14,12 +14,13 @@
       <p class="up-title">Quick Stats</p>
       <div class="stats">
         <p>Total P&L</p>
-        <p>+$38 420,11</p>
+        <p class="value" [style.color]="loadPnlFromAllPortfolios() > 0 ? 'green' : 'red'">{{ loadPnlFromAllPortfolios() >= 0 ? '+' : '' }}${{ loadPnlFromAllPortfolios() | number: '1.2-2' }}
+        </p>
       </div>
       <hr class="line">
       <div class="stats">
         <p>ROI</p>
-        <p>+44.7%</p>
+        <p class="value" [style.color]="totalRoi() > 0 ? 'green' : 'red'">{{ totalRoi() > 0 ? '+' : '' }}{{ totalRoi() | number: '1.1-1' }}%</p>
       </div>
       <hr class="line">
       <div class="stats">

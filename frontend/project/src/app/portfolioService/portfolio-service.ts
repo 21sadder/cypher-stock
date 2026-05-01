@@ -106,4 +106,14 @@ export class PortfolioService implements OnInit {
   totalAllPortfolios(): number {
     return this.portfolios.reduce((sum, p) => sum + p.totalValue, 0);
   }
+
+  totalPnlFromAllPortfolios(): number {
+    return this.portfolios.reduce((sum, p) => sum + p.pnl, 0);
+  }
+
+  totalRoi(): number {
+    const totalValue = this.portfolios.reduce((sum, p) => sum + p.totalValue, 0);
+    const totalCost = this.portfolios.reduce((sum, p) => sum + p.totalCost, 0);
+    return totalCost > 0 ? ((totalValue - totalCost) / totalCost) * 100 : 0;
+  }
 }
