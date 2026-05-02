@@ -8,11 +8,11 @@
     </div>
 
     <!-- форма створення — показується при натисканні + -->
-    <div class="create-form" *ngIf="showForm">
-      <form (ngSubmit)="createNewPortfolio()" #regForm="ngForm">
+    <div class="create-form" *ngIf="portfolioService.showForm">
+      <form (ngSubmit)="portfolioService.createNewPortfolio()" #regForm="ngForm">
         <input
           type="text"
-          [(ngModel)]="name"
+          [(ngModel)]="portfolioService.name"
           name="name"
           placeholder="Portfolio name..."
           required
@@ -25,14 +25,14 @@
     </div>
 
     <!-- список портфелів -->
-    <div class="sidebar-list" *ngIf="portfolios.length > 0">
-      @for(p of portfolios; track p.id) {
+    <div class="sidebar-list" *ngIf="portfolioService.portfolios.length > 0">
+      @for(p of portfolioService.portfolios; track p.id) {
         <div
           class="sidebar-item"
-          [class.active]="selectedPortfolio?.id === p.id"
-          (click)="selectPortfolio(p)">
+          [class.active]="portfolioService.selectedPortfolio?.id === p.id"
+          (click)="portfolioService.selectPortfolio(p)">
           <div class="sidebar-item-left">
-            <div class="sidebar-dot" [class.active]="selectedPortfolio?.id === p.id"></div>
+            <div class="sidebar-dot" [class.active]="portfolioService.selectedPortfolio?.id === p.id"></div>
             <div class="sidebar-name">{{ p.name }}</div>
           </div>
           <div class="sidebar-item-right">
@@ -48,7 +48,7 @@
     </div>
 
     <!-- порожній стан sidebar -->
-    <div class="sidebar-empty" *ngIf="portfolios.length === 0 && !showForm">
+    <div class="sidebar-empty" *ngIf="portfolioService.portfolios.length === 0 && !portfolioService.showForm">
       <div class="empty-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
              stroke="currentColor" stroke-width="1.5">
@@ -63,9 +63,9 @@
     </div>
 
     <!-- загальна сума всіх портфелів -->
-    <div class="sidebar-footer" *ngIf="portfolios.length > 0">
-      <span>{{ portfolios.length }} portfolios</span>
-      <span>${{ totalPriceAllPortfolios() | number:'1.0-0' }}</span>
+    <div class="sidebar-footer" *ngIf="portfolioService.portfolios.length > 0">
+      <span>{{ portfolioService.portfolios.length }} portfolios</span>
+      <span>${{ portfolioService.totalAllPortfolios() | number:'1.0-0' }}</span>
     </div>
   </div>
 
@@ -73,11 +73,11 @@
   <div class="main-content">
 
     <!-- якщо портфель вибраний -->
-    <div *ngIf="selectedPortfolio; else noSelection">
+    <div *ngIf="portfolioService.selectedPortfolio; else noSelection">
       <div class="main-header">
         <div>
-          <h1>{{ selectedPortfolio.name }}</h1>
-          <p class="main-subtitle">{{ selectedPortfolio.holdingsCount }} assets</p>
+          <h1>{{ portfolioService.selectedPortfolio.name }}</h1>
+          <p class="main-subtitle">{{ portfolioService.selectedPortfolio.holdingsCount }} assets</p>
         </div>
         <button class="btn-export">↓ Export</button>
       </div>
@@ -86,28 +86,28 @@
       <div class="stats-cards">
         <div class="stat-card">
           <div class="stat-label">Portfolio value</div>
-          <div class="stat-value">${{ selectedPortfolio.totalValue | number:'1.2-2' }}</div>
+          <div class="stat-value">${{ portfolioService.selectedPortfolio.totalValue | number:'1.2-2' }}</div>
         </div>
         <div class="stat-card">
           <div class="stat-label ">Cost basis</div>
-          <div class="stat-value cost-basis">${{ selectedPortfolio.totalCost | number:'1.2-2' }}</div>
+          <div class="stat-value cost-basis">${{ portfolioService.selectedPortfolio.totalCost | number:'1.2-2' }}</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Total P&L</div>
-          <div class="stat-value" [class.positive]="selectedPortfolio.pnl >= 0"
-               [class.negative]="selectedPortfolio.pnl < 0">
-            {{ selectedPortfolio.pnl >= 0 ? '+' : '' }}${{ selectedPortfolio.pnl | number:'1.2-2' }}
+          <div class="stat-value" [class.positive]="portfolioService.selectedPortfolio.pnl >= 0"
+               [class.negative]="portfolioService.selectedPortfolio.pnl < 0">
+            {{ portfolioService.selectedPortfolio.pnl >= 0 ? '+' : '' }}${{ portfolioService.selectedPortfolio.pnl | number:'1.2-2' }}
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-label">ROI</div>
-          <div class="stat-value" [class.positive]="selectedPortfolio.pnlPercent >= 0"
-               [class.negative]="selectedPortfolio.pnlPercent < 0">
-            {{ selectedPortfolio.pnlPercent >= 0 ? '+' : '' }}{{ selectedPortfolio.pnlPercent | number:'1.2-2' }}%
+          <div class="stat-value" [class.positive]="portfolioService.selectedPortfolio.pnlPercent >= 0"
+               [class.negative]="portfolioService.selectedPortfolio.pnlPercent < 0">
+            {{ portfolioService.selectedPortfolio.pnlPercent >= 0 ? '+' : '' }}{{ portfolioService.selectedPortfolio.pnlPercent | number:'1.2-2' }}%
           </div>
         </div>
 
-        <app-allocation-widget [tokens]="holdings"></app-allocation-widget>
+        <app-allocation-widget [tokens]="portfolioService.holdings"></app-allocation-widget>
 
       </div>
 
@@ -118,7 +118,7 @@
         </div>
 
         <!-- якщо є холдинги -->
-        <div class="holdings-table" *ngIf="holdings.length > 0">
+        <div class="holdings-table" *ngIf="portfolioService.holdings.length > 0">
           <div class="table-head">
             <span>Asset</span>
             <span>Quantity</span>
@@ -129,7 +129,7 @@
             <span>P&L (%)</span>
           </div>
 
-          @for(h of holdings; track h.id) {
+          @for(h of portfolioService.holdings; track h.id) {
             <div class="table-row">
               <div class="asset-cell">
                 <div class="coin-icon-wrapper">
@@ -159,7 +159,7 @@
         </div>
 
         <!-- якщо холдингів немає -->
-        <div class="holdings-empty" *ngIf="holdings.length === 0">
+        <div class="holdings-empty" *ngIf="portfolioService.holdings.length === 0">
           <p>No assets yet</p>
         </div>
       </div>

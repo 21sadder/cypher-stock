@@ -1,5 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Ws } from '../services/ws';
+import { MarketItem } from '../interface/MarketItem';
 
 interface PortfolioDto {
   id: number;
@@ -26,17 +28,91 @@ interface HoldingDto {
 @Injectable({
   providedIn: 'root',
 })
-export class PortfolioService implements OnInit {
+export class PortfolioService {
   name = '';
   showForm = false;
   portfolios: PortfolioDto[] = [];
   selectedPortfolio: PortfolioDto | null = null;
   holdings: HoldingDto[] = [];
+  onPriceUpdate: (() => void) | null = null;
 
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {
+  constructor(
+    private http: HttpClient,
+    private ws: Ws,
+    private ngZone: NgZone,
+  ) {
     this.loadPortfolios();
+    this.ws.connect();
+
+    this.ws.crypto$.subscribe((data) => {
+      this.ngZone.run(() => {
+        this.updatePortfoliosPrices(data);
+      });
+    });
+    this.ws.stock$.subscribe((data) => {
+      this.ngZone.run(() => {
+        this.updatePortfoliosPrices(data);
+      })
+    })
+    this.ws.commodity$.subscribe((data) => {
+      this.ngZone.run(() => {
+        this.updatePortfoliosPrices(data);
+      })
+    })
+    this.ws.forex$.subscribe((data) => {
+      this.ngZone.run(() => {
+        this.updatePortfoliosPrices(data);
+      })
+    })
+  }
+
+  // function for updating all portfolio holdings and portfolio at all
+  updatePortfoliosPrices(marketData: MarketItem[]) {
+    if (!this.holdings.length) return;
+
+    // making map for fast searching
+    const priceMap = new Map<string, number>();
+    for (const item of marketData) {
+      priceMap.set(item.symbol, item.price);
+    }
+
+    // updating every holding
+    for (const h of this.holdings) {
+      const currentPrice = priceMap.get(h.symbol + 'USDT');
+      if (!currentPrice) continue;
+
+      h.currentPrice = currentPrice;
+      h.value = h.quantity * currentPrice;
+      const cost = h.quantity * h.avgBuyPrice;
+      h.pnl = h.value - cost;
+      h.pnlPercent = cost > 0 ? (h.pnl / cost) * 100 : 0;
+    }
+
+    // updating portfolio statistic
+    if (this.selectedPortfolio) {
+      let totalValue = 0;
+      let totalCost = 0;
+
+      for (const h of this.holdings) {
+        totalValue += h.value;
+        totalCost += h.quantity * h.avgBuyPrice;
+      }
+
+      this.selectedPortfolio.totalValue = totalValue;
+      this.selectedPortfolio.totalCost = totalCost;
+      this.selectedPortfolio.pnl = totalValue - totalCost;
+      this.selectedPortfolio.pnlPercent =
+        totalCost > 0 ? ((totalValue - totalCost) / totalCost) * 100 : 0;
+
+      // оновлюємо також в масиві portfolios ← це важливо!
+      const idx = this.portfolios.findIndex((p) => p.id === this.selectedPortfolio!.id);
+      if (idx !== -1) {
+        this.portfolios[idx] = { ...this.selectedPortfolio };
+      }
+    }
+    if (this.onPriceUpdate) {
+      this.onPriceUpdate();
+    }
   }
 
   // load all portfolios on start
