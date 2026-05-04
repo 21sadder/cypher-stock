@@ -430,6 +430,25 @@
 
 /* ---------- */
 
+
+.portfolio-stats {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 28px;
+}
+
+.graf {
+  width: 80%;
+  padding-right: 6px;
+}
+
+.assets-number {
+  width: 20%;
+  padding-left: 6px;
+}
+
+/* ---------- */
+
 .table-head {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;

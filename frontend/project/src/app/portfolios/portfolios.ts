@@ -4,10 +4,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AllocationWidgetComponent } from '../allocation-widget/allocation-widget';
 import { PortfolioService } from '../portfolioService/portfolio-service';
+import { PortfolioChart } from '../portfolio-chart/portfolio-chart';
 
 @Component({
   selector: 'app-portfolios',
-  imports: [FormsModule, HttpClientModule, CommonModule, AllocationWidgetComponent],
+  imports: [
+    FormsModule,
+    HttpClientModule,
+    CommonModule,
+    AllocationWidgetComponent,
+    PortfolioChart
+  ],
   standalone: true,
   templateUrl: './portfolios.html',
   styleUrl: './portfolios.css',

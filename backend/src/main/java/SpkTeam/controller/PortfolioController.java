@@ -3,11 +3,13 @@ package SpkTeam.controller;
 import SpkTeam.Dto.AddHoldingRequest;
 import SpkTeam.Dto.HoldingResponse;
 import SpkTeam.Dto.PortfolioDto;
+import SpkTeam.Dto.SnapshotsDto;
 import SpkTeam.entity.Holding;
 import SpkTeam.entity.Portfolio;
 import SpkTeam.jwtToken.JwtUtil;
 import SpkTeam.repository.holdingsRepository;
 import SpkTeam.service.PortfolioService;
+import SpkTeam.service.PortfolioSnapshotJob;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +24,13 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
     private final JwtUtil jtwUtil;
     private final holdingsRepository holdingsRepository;
+    private final PortfolioSnapshotJob portfolioSnapshotJob;
 
-    public PortfolioController(PortfolioService portfolioService, JwtUtil jtwUtil, holdingsRepository holdingsRepository) {
+    public PortfolioController(PortfolioService portfolioService, JwtUtil jtwUtil, holdingsRepository holdingsRepository, PortfolioSnapshotJob portfolioSnapshotJob) {
         this.portfolioService = portfolioService;
         this.jtwUtil = jtwUtil;
         this.holdingsRepository = holdingsRepository;
+        this.portfolioSnapshotJob = portfolioSnapshotJob;
     }
 
     // GET /portfolios
@@ -80,5 +84,27 @@ public class PortfolioController {
         holdingsRepository.deleteById(holdingId);
 
         return ResponseEntity.ok().build();
+    }
+
+
+    // GET /portfolios/{id}/snapshots?period=3M
+    @GetMapping("/{id}/snapshots")
+    public List<SnapshotsDto> getPortfolioSnapshots(@PathVariable Long id, @RequestParam(defaultValue = "3M") String period){
+        return portfolioService.getPortfolioSnapshots(id, period);
+    }
+
+    // GET /portfolios/account/snapshots?period=3M
+    @GetMapping("/account/snapshots")
+    public List<SnapshotsDto> getAccountSnapshots(@RequestHeader ("Authorization") String header,
+                                                  @RequestParam(defaultValue = "3M") String period){
+        String email = jtwUtil.extractEmail(header);
+        return portfolioService.getAccountSnapshots(email, period);
+    }
+
+
+    @PostMapping("/snapshots/save-now")
+    public ResponseEntity<String> saveNow() {
+        portfolioSnapshotJob.saveSnapshot();
+        return ResponseEntity.ok("Snapshots saved!");
     }
 }

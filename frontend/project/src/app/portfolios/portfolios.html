@@ -106,10 +106,19 @@
             {{ portfolioService.selectedPortfolio.pnlPercent >= 0 ? '+' : '' }}{{ portfolioService.selectedPortfolio.pnlPercent | number:'1.2-2' }}%
           </div>
         </div>
+      </div>
 
-        <app-allocation-widget [tokens]="portfolioService.holdings"></app-allocation-widget>
+      <div class="portfolio-stats">
+
+        <!-- графік портфелю -->
+        <app-portfolio-chart
+          [portfolioId]="portfolioService.selectedPortfolio.id" class="graf">
+        </app-portfolio-chart>
+
+        <app-allocation-widget [tokens]="portfolioService.holdings" class="assets-number"></app-allocation-widget>
 
       </div>
+
 
       <!-- holdings table -->
       <div class="holdings-section">
@@ -152,8 +161,8 @@
               <span>${{ h.avgBuyPrice | number:'1.2-2' }}</span>
               <span class="holding-price">${{ h.currentPrice | number:'1.2-2' }}</span>
               <span class="holding-price">${{ h.value | number:'1.2-2' }}</span>
-              <span class="holding-pnl" [class.positive]="h.pnl >= 0" [class.negative]="h.pnl < 0"> {{ h.pnl >= 0 ? '+' : '-' }}${{ h.pnl | number:'1.2-2' }} </span>
-              <span class="holding-pnl" [class.positive]="h.pnlPercent >= 0" [class.negative]="h.pnlPercent < 0"> {{ h.pnlPercent >= 0 ? '+' : '-' }}{{ h.pnlPercent | number:'1.2-2' }}% </span>
+              <span class="holding-pnl" [class.positive]="h.pnl >= 0" [class.negative]="h.pnl < 0"> {{ h.pnl >= 0 ? '+' : '' }}${{ h.pnl | number:'1.2-2' }} </span>
+              <span class="holding-pnl" [class.positive]="h.pnlPercent >= 0" [class.negative]="h.pnlPercent < 0"> {{ h.pnlPercent >= 0 ? '+' : '' }}{{ h.pnlPercent | number:'1.2-2' }}% </span>
             </div>
           }
         </div>

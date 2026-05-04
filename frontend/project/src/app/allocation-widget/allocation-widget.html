@@ -1,22 +1,26 @@
 <div class="allocation-widget-container">
+  <div class="allocation-title">Allocation</div>
+
   <div class="chart-section">
     <div class="chart-canvas-container">
-      <canvas id="allocationChart"></canvas>
+      <canvas #chartCanvas></canvas>
       <div class="center-text">
-        <span class="total-assets-count">{{ this.totalAssets }}</span>
+        <span class="total-assets-count">{{ totalAssets }}</span>
         <span class="assets-label">assets</span>
       </div>
     </div>
   </div>
 
   <div class="legend-section">
-    <div *ngIf="this.legendData.length === 0" class="no-data-message">
-      Немає даних для відображення.
+    <div *ngIf="legendData.length === 0" class="no-data-message">
+      No data yet
     </div>
-    <div *ngFor="let item of this.legendData" class="legend-item">
-      <div class="legend-color-box" [style.background-color]="item.color"></div>
-      <span class="legend-symbol">{{ item.symbol }}</span>
-      <span class="legend-percentage">{{ item.percentage | number:'1.2-2' }}%</span>
-    </div>
+    @for(item of legendData; track item.symbol) {
+      <div class="legend-item">
+        <div class="legend-dot" [style.background-color]="item.color"></div>
+        <span class="legend-symbol">{{ item.symbol }}</span>
+        <span class="legend-percentage">{{ item.percentage | number:'1.0-0' }}%</span>
+      </div>
+    }
   </div>
 </div>

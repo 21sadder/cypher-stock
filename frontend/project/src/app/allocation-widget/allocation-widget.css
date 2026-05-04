@@ -1,19 +1,29 @@
 .allocation-widget-container {
   display: flex;
   flex-direction: column;
-  background-color: #1a1a1a; /* Dark background */
-  border-radius: 10px;
-  padding: 20px;
-  color: #ffffff; /* White text */
-  font-family: Arial, sans-serif;
-  max-width: 400px; /* Adjust as needed */
-  margin: auto;
+  background-color: #111111;
+  border-radius: 12px;
+  border: 0.5px solid #1e1e1e;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #ffffff;
+  font-family: 'Syne', sans-serif;
+  height: 94.5%;
+}
+
+.allocation-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
 }
 
 .chart-section {
   position: relative;
   width: 100%;
-  height: 250px; /* Adjust chart height */
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,13 +32,8 @@
 
 .chart-canvas-container {
   position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-#allocationChart {
-  width: 100% !important;
-  height: 100% !important;
+  width: 180px;
+  height: 180px;
 }
 
 .center-text {
@@ -37,57 +42,68 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: #ffffff;
+  pointer-events: none;
 }
 
 .total-assets-count {
-  font-size: 3em;
-  font-weight: bold;
+  font-size: 2.2em;
+  font-weight: 700;
   display: block;
   line-height: 1;
+  color: #fff;
 }
 
 .assets-label {
-  font-size: 0.9em;
-  color: #aaaaaa;
+  font-size: 11px;
+  color: #555;
   display: block;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
 }
 
+/* ===== LEGEND ===== */
 .legend-section {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 5px 0;
+  padding: 7px 0;
+  border-bottom: 0.5px solid #1a1a1a;
 }
 
-.legend-color-box {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
+.legend-item:last-child {
+  border-bottom: none;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   margin-right: 10px;
   flex-shrink: 0;
 }
 
 .legend-symbol {
   flex-grow: 1;
-  font-size: 1em;
+  font-size: 13px;
+  color: #888;
+  letter-spacing: 0.02em;
 }
 
 .legend-percentage {
-  font-size: 1em;
-  font-weight: bold;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
   text-align: right;
 }
 
 .no-data-message {
   text-align: center;
-  color: #aaaaaa;
+  color: #333;
   padding: 20px;
-  font-style: italic;
+  font-size: 13px;
 }

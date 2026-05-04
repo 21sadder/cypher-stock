@@ -1,6 +1,14 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, CommonModule } from '@angular/common';
 
 Chart.register(...registerables);
 
@@ -20,10 +28,11 @@ interface HoldingDto {
   selector: 'app-allocation-widget',
   templateUrl: './allocation-widget.html',
   styleUrls: ['./allocation-widget.css'],
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, CommonModule],
 })
 export class AllocationWidgetComponent implements OnInit, OnChanges {
   @Input() tokens: HoldingDto[] = [];
+  @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
 
   chart: any;
   chartData: number[] = [];
@@ -99,7 +108,8 @@ export class AllocationWidgetComponent implements OnInit, OnChanges {
       this.chart.destroy();
     }
 
-    this.chart = new Chart('allocationChart', {
+    const ctx = this.chartCanvas.nativeElement.getContext('2d')!;
+    this.chart = new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: this.chartLabels,

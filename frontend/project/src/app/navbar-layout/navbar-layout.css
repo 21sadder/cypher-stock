@@ -73,14 +73,14 @@
 }
 
 .menu a:hover {
-  color: white;
-  background-color: #1c1c1c;
-  border: 0.5px solid #1c1c1c;
+  color: #d8d8d8;
+  background-color: #101010;
+  border: 0.5px solid #101010;
   transition: all 0.3s ease;
 }
 
 .menu .active {
-  background-color: #303030;
+  background-color: #1c1c1c;
   color: white;
   padding-left: 20px;
 }

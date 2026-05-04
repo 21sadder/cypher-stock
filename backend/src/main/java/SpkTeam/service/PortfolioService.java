@@ -3,13 +3,20 @@ package SpkTeam.service;
 import SpkTeam.Dto.AddHoldingRequest;
 import SpkTeam.Dto.HoldingResponse;
 import SpkTeam.Dto.PortfolioDto;
+import SpkTeam.Dto.SnapshotsDto;
 import SpkTeam.cache.PriceCache;
+import SpkTeam.entity.AccountSnapshot;
 import SpkTeam.entity.Holding;
 import SpkTeam.entity.Portfolio;
+import SpkTeam.entity.PortfolioSnapshot;
+import SpkTeam.repository.accountSnapshotRepository;
 import SpkTeam.repository.holdingsRepository;
 import SpkTeam.repository.portfolioRepository;
+import SpkTeam.repository.portfolioSnapshotRepository;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +25,15 @@ public class PortfolioService {
     private final portfolioRepository portfolioRepository;
     private final PriceCache priceCache;
     private final holdingsRepository holdingsRepository;
+    private final portfolioSnapshotRepository portfolioSnapshotRepository;
+    private final accountSnapshotRepository accountSnapshotRepository;
 
-    public PortfolioService(portfolioRepository portfolioRepository, PriceCache priceCache, holdingsRepository holdingsRepository) {
+    public PortfolioService(portfolioRepository portfolioRepository, PriceCache priceCache, holdingsRepository holdingsRepository, portfolioSnapshotRepository portfolioSnapshotRepository, accountSnapshotRepository accountSnapshotRepository) {
         this.portfolioRepository = portfolioRepository;
         this.priceCache = priceCache;
         this.holdingsRepository = holdingsRepository;
+        this.portfolioSnapshotRepository = portfolioSnapshotRepository;
+        this.accountSnapshotRepository = accountSnapshotRepository;
     }
 
     public List<PortfolioDto> getUserPortfolios(String email){
@@ -101,5 +112,39 @@ public class PortfolioService {
         }
 
         return response;
+    }
+
+    public List<SnapshotsDto> getPortfolioSnapshots(Long Id, String period) {
+        LocalDateTime from = resolvePeriod(period);
+        List<PortfolioSnapshot> snapshots = portfolioSnapshotRepository
+                .findByPortfolioIdAndRecordedAtAfterOrderByRecordedAtAsc(Id, from);
+
+        List<SnapshotsDto> dtos = new ArrayList<>();
+        for(PortfolioSnapshot p : snapshots){
+            dtos.add(new SnapshotsDto(p));
+        }
+        return dtos;
+    }
+
+    public List<SnapshotsDto> getAccountSnapshots(String email, String period){
+        LocalDateTime from = resolvePeriod(period);
+        List<AccountSnapshot> snapshots = accountSnapshotRepository
+                .findByUserEmailAndRecordedAtAfterOrderByRecordedAtAsc(email, from);
+
+        List<SnapshotsDto> dtos = new ArrayList<>();
+        for(AccountSnapshot s : snapshots){
+            dtos.add(new SnapshotsDto(s));
+        }
+        return dtos;
+    }
+
+    public LocalDateTime resolvePeriod(String period){
+        return switch (period){
+            case "1D" -> LocalDateTime.now().minusDays(1);
+            case "7D" -> LocalDateTime.now().minusDays(7);
+            case "1M" -> LocalDateTime.now().minusMonths(1);
+            case "3M" -> LocalDateTime.now().minusMonths(3);
+            default -> LocalDateTime.now().minusMonths(3);
+        };
     }
 }
