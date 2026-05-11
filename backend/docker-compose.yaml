@@ -14,7 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
-    build: ./backend
+    build: .
     container_name: birzhaepta_backend
     ports:
       - "8080:8080"
@@ -22,7 +22,7 @@ services:
       - postgres
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/birzhaepta
-      SPRING_DATASOURSE_USERNAME: postgres
+      SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: b!rzha%pta-spkteam
 
 volumes:
