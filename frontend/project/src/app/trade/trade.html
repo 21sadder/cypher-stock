@@ -1,4 +1,180 @@
-<div class = "trade-section">
-  <p>trade works!</p>
-</div>
+<div class="trade-section">
 
+  <div class="selected-token">
+    <img [src]="'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons/128/color/' + actualSymbol.replace('USDT','').toLowerCase() + '.png'"
+    class="coin-icon">
+    <div class="symbol">
+      <p class="actual-symbol">{{ actualSymbol }}/USDT</p>
+      <p class="type-of-symbol">Crypto</p>
+    </div>
+    <div class="coin-price">
+      <p class="price-usdt">75.323,23</p>
+      <p class="price-usd">$75.323,23</p>
+    </div>
+  </div>
+
+  <div class="all-actives">
+    <p>List of activies</p>
+    <div class="tabs">
+      <button
+        [class.active]="activeTab === 'All'"
+        (click)="setTab('All')">
+        All
+      </button>
+      <button
+        [class.active]="activeTab === 'CRYPTO'"
+        (click)="setTab('CRYPTO')">
+        Crypto
+      </button>
+      <button
+        [class.active]="activeTab === 'STOCK'"
+        (click)="setTab('STOCK')">
+        Stock
+      </button>
+      <button
+        [class.active]="activeTab === 'FOREX'"
+        (click)="setTab('FOREX')">
+        Forex
+      </button>
+      <button
+        [class.active]="activeTab === 'COMMODITY'"
+        (click)="setTab('COMMODITY')">
+        Commodity
+      </button>
+    </div>
+
+    <div class="actives-list">
+      @for(item of activeData; track item.symbol){
+        <div>
+          {{ item.symbol }} - {{ item.price }}
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- перемикач add/remove
+  <div class="trade-tabs">
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'add'"
+      (click)="activeTab = 'add'">
+      Add token
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'remove'"
+      (click)="activeTab = 'remove'">
+      Remove token
+    </button>
+  </div>
+  -->
+
+  <!-- ADD форма
+  <div *ngIf="activeTab === 'add'" class="trade-form">
+  -->
+
+    <!-- вибір портфелю
+    <div class="form-group">
+      <label>Portfolio</label>
+      <select [(ngModel)]="selectedPortfolioId" name="portfolio">
+        @for(p of portfolioService.portfolios; track p.id) {
+          <option [value]="p.id">{{ p.name }}</option>
+        }
+      </select>
+    </div>
+    -->
+
+    <!-- символ токену
+    <div class="form-group">
+      <label>Symbol</label>
+      <input
+        type="text"
+        [(ngModel)]="symbol"
+        placeholder="BTCUSDT"
+        (input)="symbol = symbol.toUpperCase()">
+    </div>
+    -->
+
+    <!-- кількість
+    <div class="form-group">
+      <label>Quantity</label>
+      <input
+        type="number"
+        [(ngModel)]="quantity"
+        placeholder="0.00"
+        min="0">
+    </div>
+    -->
+
+    <!-- ціна купівлі
+    <div class="form-group">
+      <label>Buy price ($)</label>
+      <input
+        type="number"
+        [(ngModel)]="avgBuyPrice"
+        placeholder="0.00"
+        min="0">
+    </div>
+    -->
+
+    <!-- тип
+    <div class="form-group">
+      <label>Type</label>
+      <select [(ngModel)]="type" name="type">
+        <option value="CRYPTO">Crypto</option>
+        <option value="STOCK">Stock</option>
+        <option value="FOREX">Forex</option>
+        <option value="COMMODITY">Commodity</option>
+      </select>
+    </div>
+    -->
+
+    <!-- помилка
+    <div class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</div>
+    -->
+
+    <!-- успіх
+    <div class="success-msg" *ngIf="successMsg">{{ successMsg }}</div>
+
+    <button class="btn-submit" (click)="addHolding()">Add to portfolio</button>
+  </div>
+  -->
+
+
+  <!-- REMOVE форм
+  <div *ngIf="activeTab === 'remove'" class="trade-form">
+  -->
+
+    <!-- вибір портфелю
+    <div class="form-group">
+      <label>Portfolio</label>
+      <select [(ngModel)]="selectedPortfolioId" name="portfolio"
+              (change)="loadHoldings()">
+        @for(p of portfolioService.portfolios; track p.id) {
+          <option [value]="p.id">{{ p.name }}</option>
+        }
+      </select>
+    </div>
+    -->
+
+    <!-- список токенів
+    <div class="form-group">
+      <label>Token</label>
+      <select [(ngModel)]="selectedHoldingId" name="holding">
+        <option value="" disabled>Select token...</option>
+        @for(h of holdings; track h.id) {
+          <option [value]="h.id">{{ h.symbol }} ({{ h.quantity }})</option>
+        }
+      </select>
+    </div>
+    -->
+
+    <!-- помилка
+    <div class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</div>
+    <div class="success-msg" *ngIf="successMsg">{{ successMsg }}</div>
+
+    <button class="btn-submit btn-remove" (click)="removeHolding()">Remove from portfolio</button>
+  </div>
+  -->
+
+</div>

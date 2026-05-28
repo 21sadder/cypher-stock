@@ -1,3 +1,89 @@
 .trade-section {
+  display: flex;
+  background-color: black;
   color: white;
+}
+
+.selected-token {
+  display: flex;
+  width: 75%;
+  height: 70px;
+  margin-left: 75px;
+  margin-right: 4px;
+  margin-top: 30px;
+  padding-left: 20px;
+  background-color: #0e0e0e;
+  border-radius: 10px;
+  border: 0.5px solid #232323;
+  font-family: Inter, sans-serif;
+  align-items: center;
+  gap: 10px;
+}
+
+.coin-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
+
+.actual-symbol {
+  font-weight: 600;
+  font-size: 20px;
+  font-family: 'Syne', sans-serif;
+}
+
+.symbol p {
+  margin: 0;
+}
+
+.type-of-symbol{
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  color: #5c5c5c;
+  font-weight: 700;
+}
+
+.coin-price p {
+  margin: 0;
+  padding-left: 15px;
+}
+
+.price-usdt {
+  font-size: 20px;
+}
+
+.price-usd {
+  font-size: 13px;
+}
+
+.all-actives {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  height: 400px;
+  margin-left: 4px;
+  margin-right: 75px;
+  margin-top: 30px;
+  padding-left: 20px;
+  background-color: #0e0e0e;
+  border-radius: 10px;
+  border: 0.5px solid #232323;
+  font-family: Inter, sans-serif;
+}
+
+.actives-list {
+  overflow-y: auto;
+}
+
+.actives-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.actives-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.actives-list::-webkit-scrollbar-thumb {
+  background: #4e4e4e;
+  border-radius: 2px;
 }

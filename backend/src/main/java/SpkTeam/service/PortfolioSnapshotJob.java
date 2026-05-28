@@ -34,7 +34,7 @@ public class PortfolioSnapshotJob {
     }
 
     // started every day at 23:59
-    // @Scheduled(cron = "0 59 23 * * *")
+    @Scheduled(cron = "0 59 23 * * *")
     public void saveSnapshot(){
 
         List<String> allEmails = portfolioRepository.findAllUserEmails();
