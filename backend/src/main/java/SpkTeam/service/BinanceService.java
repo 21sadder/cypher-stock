@@ -48,12 +48,14 @@ public class BinanceService {
         double price = json.get("c").asDouble();
         double open = json.get("o").asDouble();
         double volume = json.get("v").asDouble();
+        double high = json.get("h").asDouble();
+        double low = json.get("l").asDouble();
 
         double change24Percent = ((price - open) / open) * 100;
 
         priceCache.updatePrice(symbol, price);
 
-        CoinDto coin = new CoinDto(symbol, price, change24Percent, volume, "CRYPTO");
+        CoinDto coin = new CoinDto(symbol, price, change24Percent, volume, high, low, "CRYPTO");
         String result = objectMapper.writeValueAsString(coin);
 
         handler.sendToAll(result);

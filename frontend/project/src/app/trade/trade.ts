@@ -53,6 +53,8 @@ export class Trade implements OnInit {
   selectedItem!: MarketItem;
   activeData: MarketItem[] = [];
 
+  searchTerm = '';
+
   constructor(
     private http: HttpClient,
     public portfolioService: PortfolioService,
@@ -64,7 +66,7 @@ export class Trade implements OnInit {
 
   selectItem(item: MarketItem) {
     this.selectedItem = item;
-    this.loadTradingView()
+    this.loadTradingView();
     this.cdr.detectChanges();
   }
 
@@ -79,6 +81,12 @@ export class Trade implements OnInit {
     if (updated) {
       this.selectedItem = updated;
     }
+  }
+
+  get filteredAssets() {
+    return this.activeData.filter((item) =>
+      item.symbol.toLowerCase().includes(this.searchTerm.toLowerCase()),
+    );
   }
 
   updateActiveData() {
@@ -109,6 +117,11 @@ export class Trade implements OnInit {
 
   ngAfterViewInit() {
     this.loadTradingView();
+  }
+
+  onIconError(event: any) {
+    event.target.style.display = 'none';
+    event.target.nextSibling.style.display = 'flex';
   }
 
   private loadTradingView(): void {

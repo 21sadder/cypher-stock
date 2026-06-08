@@ -3,7 +3,11 @@
   <div class="left-side">
     <div class="selected-token">
       <img [src]="'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons/128/color/' + selectedItem.symbol.replace('USDT','').toLowerCase() + '.png'"
-           class="coin-icon">
+           class="coin-icon"
+           (error)="onIconError($event)">
+      <div class="coin-icon-fallback" style="display:none">
+        {{ selectedItem.symbol.replace('USDT','')[0] }}
+      </div>
       <div class="symbol">
         <p class="actual-symbol">{{ selectedItem.symbol.replace('USDT', '') }}/USDT</p>
         <p class="type-of-symbol">{{ selectedItem.type }}</p>
@@ -16,6 +20,18 @@
         <p class="price-change-text">24h Price Change (%)</p>
         <p [class.positive]="selectedItem.change24h >= 0" [class.negative]="selectedItem.change24h < 0">{{ selectedItem.change24h >= 0 ? '+' : '' }}{{ selectedItem.change24h | number: '1.2-2' }}%</p>
       </div>
+      <div class="price-change">
+        <p class="price-change-text">24H High</p>
+        <p>{{ selectedItem.high24h | number: '1.2-10' }}</p>
+      </div>
+      <div class="price-change">
+        <p class="price-change-text">24H Low</p>
+        <p>{{ selectedItem.low24h | number: '1.2-10' }}</p>
+      </div>
+      <div class="price-change">
+        <p class="price-change-text">24H Vol(Token)</p>
+        <p>{{ selectedItem.volume | number: '1.2-2' }}</p>
+      </div>
     </div>
 
     <div id="tradingview_chart" class="chart"></div>
@@ -23,7 +39,12 @@
 
   <div class="right-side">
     <div class="all-actives">
-      <p>List of assets</p>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="🔎 Search asset..."
+        [(ngModel)]="searchTerm"
+      />
       <div class="tabs">
         <button
           [class.active]="activeTab === 'All'"
@@ -58,7 +79,7 @@
       </div>
 
       <div class="actives-list">
-        @for(item of activeData; track item.symbol){
+        @for(item of filteredAssets; track item.symbol){
           <div class="asset-row" (click)="selectItem(item)" [class.selected]="selectedItem.symbol === item.symbol">
             <span class="asset-symbol">{{ item.symbol }}</span>
             <span class="asset-price">${{ item.price | number: '1.2-10' }}</span>
@@ -68,6 +89,10 @@
           </div>
         }
       </div>
+    </div>
+
+    <div class="trade">
+      <p>fjd</p>
     </div>
   </div>
 

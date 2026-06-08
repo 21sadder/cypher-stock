@@ -6,11 +6,13 @@ import SpkTeam.cache.PriceCache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,6 +26,8 @@ public class FinnhubService {
     private final PriceCache priceCache;
 
     private final Map<String, Double> openPrices = new ConcurrentHashMap<>();
+    private final Map<String, Double> highPrices = new HashMap<>();
+    private final Map<String, Double> lowPrices = new HashMap<>();
 
     private static final String API_KEY = "d7b5itpr01qhndem3uqgd7b5itpr01qhndem3ur0";
 
@@ -70,9 +74,13 @@ public class FinnhubService {
 
                         // open price of the day
                         double open = quote.get("o").asDouble();
+                        double high = quote.get("h").asDouble();
+                        double low = quote.get("l").asDouble();
 
                         if(open > 0){
                             openPrices.put(symbol, open);
+                            highPrices.put(symbol, high);
+                            lowPrices.put(symbol, low);
                             System.out.println("symbol: " + symbol  + " with open price: " + open);
                         }
                     }
@@ -118,6 +126,8 @@ public class FinnhubService {
             String symbol = latest.get("s").asText();
             double price = latest.get("p").asDouble();
             double volume = latest.get("v").asDouble();
+            double high = highPrices.getOrDefault(symbol, price);
+            double low = lowPrices.getOrDefault(symbol, price);
 
             double openPrice = openPrices.getOrDefault(symbol, price);
 
@@ -131,12 +141,25 @@ public class FinnhubService {
 
             priceCache.updatePrice(symbol, price);
 
-            CoinDto coin = new CoinDto(symbol, price, changePercent, volume, typeOfActive);
+            CoinDto coin = new CoinDto(symbol, price, changePercent, volume, high, low, typeOfActive);
             String result = objectMapper.writeValueAsString(coin);
 
             handler.sendToAll(result);
         } catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    @Scheduled(cron = "0 35 15 * * MON-FRI")
+    public void refreshOpenPrices() {
+        System.out.println("🔄 Оновлення цін відкриття...");
+        openPrices.clear();
+        highPrices.clear();
+        lowPrices.clear();
+        try {
+            loadOpenPrices();
+        } catch (Exception e) {
+            System.err.println("❌ Помилка оновлення: " + e.getMessage());
         }
     }
 }
