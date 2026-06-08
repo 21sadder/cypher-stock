@@ -2,15 +2,25 @@
   display: flex;
   background-color: black;
   color: white;
+  padding: 30px 75px;
+  gap: 10px;
+}
+
+.left-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.right-side {
+  width: 350px;
+  flex-shrink: 0;
 }
 
 .selected-token {
   display: flex;
-  width: 75%;
   height: 70px;
-  margin-left: 75px;
-  margin-right: 4px;
-  margin-top: 30px;
   padding-left: 20px;
   background-color: #0e0e0e;
   border-radius: 10px;
@@ -48,23 +58,33 @@
   padding-left: 15px;
 }
 
+.price-change {
+  padding-left: 20px;
+}
+
+.price-change p {
+  margin: 5px;
+  font-size: 14px;
+}
+
+.price-change-text {
+  color: #5c5c5c;
+}
+
 .price-usdt {
   font-size: 20px;
 }
 
 .price-usd {
   font-size: 13px;
+  color: #5c5c5c;
 }
 
 .all-actives {
   display: flex;
   flex-direction: column;
-  width: 20%;
   height: 400px;
-  margin-left: 4px;
-  margin-right: 75px;
-  margin-top: 30px;
-  padding-left: 20px;
+  padding-left: 15px;
   background-color: #0e0e0e;
   border-radius: 10px;
   border: 0.5px solid #232323;
@@ -73,6 +93,7 @@
 
 .actives-list {
   overflow-y: auto;
+  padding-right: 10px;
 }
 
 .actives-list::-webkit-scrollbar {
@@ -86,4 +107,77 @@
 .actives-list::-webkit-scrollbar-thumb {
   background: #4e4e4e;
   border-radius: 2px;
+}
+
+.asset-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-bottom: 0.5px solid #1a1a1a;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-radius: 6px;
+}
+
+.asset-row.selected {
+  background: #222222;
+}
+
+.asset-row:hover {
+  background: #161616;
+}
+
+.asset-symbol {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  flex: 1;
+}
+
+.asset-price {
+  font-size: 12px;
+  color: #888;
+  flex: 1;
+  text-align: right;
+}
+
+.asset-change {
+  font-size: 11px;
+  flex: 1;
+  text-align: right;
+}
+
+.positive { color: #4ade80; }
+.negative { color: #f87171; }
+
+.button {
+  background-color: #0e0e0e;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  padding: 3px 32px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #7a7979;
+}
+
+.button.active {
+  background-color: #5c5c5c;
+}
+
+.tabs {
+  margin-bottom: 10px;
+}
+
+.chart {
+  width: 100%;
+  height: 700px;
+  border-radius: 10px;
+  overflow: hidden;
 }

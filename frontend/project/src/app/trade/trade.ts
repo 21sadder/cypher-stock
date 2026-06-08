@@ -5,12 +5,19 @@ import { FormsModule } from '@angular/forms';
 import { PortfolioService } from '../portfolioService/portfolio-service';
 import { MarketItem } from '../interface/MarketItem';
 import { Ws } from '../services/ws';
+import { createChart, CandlestickSeries } from 'lightweight-charts';
 
 interface HoldingDto {
   id: number;
   symbol: string;
   quantity: number;
   type: string;
+}
+
+declare global {
+  interface Window {
+    TradingView: any;
+  }
 }
 
 @Component({
@@ -43,7 +50,8 @@ export class Trade implements OnInit {
   errorMsg = '';
   successMsg = '';
 
-  actualSymbol = 'ETH';
+  selectedItem!: MarketItem;
+  activeData: MarketItem[] = [];
 
   constructor(
     private http: HttpClient,
@@ -54,32 +62,77 @@ export class Trade implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
-  get activeData(): MarketItem[] {
-    switch (this.activeTab) {
-      case 'All':
-        return this.allActivities;
-      case 'CRYPTO':
-        return this.cryptos;
-      case 'FOREX':
-        return this.forex;
-      case 'COMMODITY':
-        return this.commodities;
-      case 'STOCK':
-        return this.stocks;
-    }
+  selectItem(item: MarketItem) {
+    this.selectedItem = item;
+    this.loadTradingView()
+    this.cdr.detectChanges();
   }
 
   updateAllActivities() {
-    this.allActivities = [
-      ...this.cryptos,
-      ...this.stocks,
-      ...this.forex,
-      ...this.commodities
-    ];
+    this.allActivities = [...this.cryptos, ...this.stocks, ...this.forex, ...this.commodities];
+  }
+
+  updateSelectedItem() {
+    if (!this.selectedItem) return;
+
+    const updated = this.allActivities.find((i) => i.symbol === this.selectedItem.symbol);
+    if (updated) {
+      this.selectedItem = updated;
+    }
+  }
+
+  updateActiveData() {
+    switch (this.activeTab) {
+      case 'All':
+        this.activeData = this.allActivities;
+        break;
+      case 'CRYPTO':
+        this.activeData = this.cryptos;
+        break;
+      case 'FOREX':
+        this.activeData = this.forex;
+        break;
+      case 'COMMODITY':
+        this.activeData = this.commodities;
+        break;
+      case 'STOCK':
+        this.activeData = this.stocks;
+        break;
+    }
   }
 
   setTab(tab: 'All' | 'CRYPTO' | 'FOREX' | 'COMMODITY' | 'STOCK') {
     this.activeTab = tab;
+    this.updateActiveData();
+    this.cdr.detectChanges();
+  }
+
+  ngAfterViewInit() {
+    this.loadTradingView();
+  }
+
+  private loadTradingView(): void {
+    const script = document.createElement('script');
+
+    script.src = 'https://s3.tradingview.com/tv.js';
+
+    script.onload = () => {
+      new window.TradingView.widget({
+        container_id: 'tradingview_chart',
+        autosize: true,
+        symbol: 'BINANCE:' + this.selectedItem.symbol,
+        interval: '15',
+        timezone: 'Etc/UTC',
+        theme: 'dark',
+        style: '1',
+        locale: 'en',
+        hide_top_toolbar: false,
+        hide_legend: false,
+        save_image: true,
+      });
+    };
+
+    document.body.appendChild(script);
   }
 
   ngOnInit() {
@@ -96,34 +149,63 @@ export class Trade implements OnInit {
     this.ws.crypto$.subscribe((data) => {
       this.ngZone.run(() => {
         this.cryptos = data;
+
+        if (!this.selectedItem && data.length > 0) {
+          this.selectedItem = data[0];
+        }
+
+        this.updateSelectedItem();
         this.updateAllActivities();
+        this.updateActiveData();
         this.cdr.detectChanges();
-      })
-    })
+      });
+    });
 
     this.ws.commodity$.subscribe((data) => {
       this.ngZone.run(() => {
         this.commodities = data;
         this.updateAllActivities();
+        this.updateActiveData();
+
+        // select first item automatic
+        if (!this.selectedItem && data.length > 0) {
+          this.selectedItem = data[0];
+        }
+
+        this.updateSelectedItem();
         this.cdr.detectChanges();
-      })
-    })
+      });
+    });
 
     this.ws.forex$.subscribe((data) => {
       this.ngZone.run(() => {
         this.forex = data;
+
+        if (!this.selectedItem && data.length > 0) {
+          this.selectedItem = data[0];
+        }
+
         this.updateAllActivities();
+        this.updateActiveData();
+        this.updateSelectedItem();
         this.cdr.detectChanges();
-      })
-    })
+      });
+    });
 
     this.ws.stock$.subscribe((data) => {
       this.ngZone.run(() => {
         this.stocks = data;
+
+        if (!this.selectedItem && data.length > 0) {
+          this.selectedItem = data[0];
+        }
+
         this.updateAllActivities();
+        this.updateActiveData();
+        this.updateSelectedItem();
         this.cdr.detectChanges();
-      })
-    })
+      });
+    });
   }
 
   loadHoldings() {
