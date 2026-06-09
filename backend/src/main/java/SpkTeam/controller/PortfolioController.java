@@ -106,6 +106,13 @@ public class PortfolioController {
         return portfolioService.getStatisticOfPortfolios(email);
     }
 
+    @GetMapping("/top-portfolio")
+    public TopPortfolioDto getTopPortfolio(@RequestHeader ("Authorization") String header) {
+        String token = header.replace("Bearer ", "").trim();
+        String email = jtwUtil.extractEmail(token);
+
+        return portfolioService.getTopPortfolio(email);
+    }
 
     @PostMapping("/snapshots/save-now")
     public ResponseEntity<String> saveNow() {

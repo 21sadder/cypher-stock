@@ -34,6 +34,8 @@ export class Dashboard implements OnInit {
 
   recentOrders: any[] = [];
 
+  topPortfolio: any;
+
   // formats number 124567.89 to 124,567.89
   formatted = new Intl.NumberFormat('en-US').format(this.totalPrice);
   formattedPrice = new Intl.NumberFormat('uk-UA').format(this.priceChangingToday);
@@ -47,6 +49,7 @@ export class Dashboard implements OnInit {
   ngOnInit() {
     this.portfolioService.loadPortfolios();
     this.getStatistics();
+    this.loadTopPortfolio();
     this.loadRecentOrders();
   }
 
@@ -77,18 +80,26 @@ export class Dashboard implements OnInit {
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
 
-    // беремо перший портфель — або можна зробити для всіх
-    const portfolioId = this.portfolioService.portfolios[0]?.id;
-    if (!portfolioId) return;
+    this.http.get<any[]>('http://localhost:8080/trade/account/history', { headers }).subscribe({
+      next: (data) => {
+        this.recentOrders = data.slice(0, 5); // топ 5 останніх
+        this.cdr.markForCheck();
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  loadTopPortfolio() {
+    const token = localStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
 
     this.http
-      .get<any[]>(`http://localhost:8080/trade/${portfolioId}/history`, { headers })
-      .subscribe({
-        next: (data) => {
-          this.recentOrders = data.slice(0, 5); // показуємо тільки 5 останніх
-          this.cdr.markForCheck();
-        },
-        error: (err) => console.error(err),
+      .get<any>('http://localhost:8080/portfolios/top-portfolio', { headers })
+      .subscribe((data) => {
+        this.topPortfolio = data;
       });
   }
 

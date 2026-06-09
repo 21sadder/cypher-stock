@@ -1,4 +1,12 @@
-import { ChangeDetectorRef, Component, Inject, NgZone, OnInit, PLATFORM_ID } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Inject,
+  NgZone,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +14,8 @@ import { PortfolioService } from '../portfolioService/portfolio-service';
 import { MarketItem } from '../interface/MarketItem';
 import { Ws } from '../services/ws';
 import { createChart, CandlestickSeries } from 'lightweight-charts';
+import { AuthService } from '../auth-service';
+import { Router } from '@angular/router';
 
 interface HoldingDto {
   id: number;
@@ -27,6 +37,9 @@ declare global {
   styleUrl: './trade.css',
 })
 export class Trade implements OnInit {
+  authService = inject(AuthService);
+  private router = inject(Router);
+
   activeTab: 'All' | 'CRYPTO' | 'FOREX' | 'COMMODITY' | 'STOCK' = 'All';
 
   allActivities: MarketItem[] = [];
@@ -63,6 +76,10 @@ export class Trade implements OnInit {
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
+
+  goToLogin() {
+    this.router.navigate(['/register']);
+  }
 
   selectItem(item: MarketItem) {
     this.selectedItem = item;

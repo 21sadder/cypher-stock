@@ -52,7 +52,33 @@
       </div>
 
       <div class="allocation">
-        <p class="up-title">Allocation</p>
+        <p class="up-title">Top Portfolio</p>
+
+        @if(topPortfolio){
+          <div class="top-portfolio">
+
+            <div class="portfolio-name">{{ topPortfolio.portfolioName }}</div>
+
+            <div class="portfolio-metrics">
+              <div class="metric-row">
+                <span class="metric-label">ROI</span>
+                <span class="positive">+{{ topPortfolio.roi | number:'1.1-1' }}%</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Value</span>
+                <span class="metric-value">${{ topPortfolio.value | number:'1.2-2' }}</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">P&L</span>
+                <span [class.positive]="topPortfolio.pnl >= 0"
+                      [class.negative]="topPortfolio.pnl < 0">
+            {{ topPortfolio.pnl >= 0 ? '+' : '' }}${{ topPortfolio.pnl | number:'1.2-2' }}
+          </span>
+              </div>
+            </div>
+
+          </div>
+        }
       </div>
     </div>
   </div>

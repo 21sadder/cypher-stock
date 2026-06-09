@@ -34,26 +34,17 @@
     } @else {
       <p>loading data for btcusdt...</p>
     }
-    <a class="navbar-button" href="#">
-      <img src="/icons/magnifying-glass-for-search-svgrepo-com.svg" width="14" height="14">
-    </a>
-    <a class="navbar-button" href="#">
-      <img src="/icons/bell-svgrepo-com.svg" width="14" height="14">
-    </a>
-
 
     <button class="userBlock" (click)="toggleDropdown()">
-      <div class="user">Ye</div>
-      <div>yexur</div>
+      <div class="user">{{ initials }}</div>
+      <div>{{ username }}</div>
       <img src="/icons/arrow-down-339-svgrepo-com.svg" width="14" height="14" />
     </button>
 
     @if (isOpen) {
       <div class="dropdown" >
         <div class="dropdown-content">
-          <a class="item" href="#">⚙️ Settings</a>
-          <a class="item" href="#">🕘 Order History</a>
-          <a class="item logout" href="#">🚪 Sign Out</a>
+          <a class="item logout" (click)="logout()">🚪 Sign Out</a>
         </div>
       </div>
     }

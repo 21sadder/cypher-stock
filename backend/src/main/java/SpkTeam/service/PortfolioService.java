@@ -171,15 +171,10 @@ public class PortfolioService {
 
             for(Holding holding : holdings){
 
-                if (holding.getSymbol().equals("USDT") || holding.getSymbol().equals("USDTUSDT")) continue; // пропускаємо USDT
-
                 double currentPrice = priceCache.getPrice(holding.getSymbol(), holding.getAvgBuyPrice());
-
-                System.out.println("symbol: " + holding.getSymbol() + " currentPrice: " + currentPrice + " avgBuyPrice: " + holding.getAvgBuyPrice());
 
                 double profitPercent = ((currentPrice - holding.getAvgBuyPrice()) / holding.getAvgBuyPrice()) * 100;
 
-                System.out.println("profitPercent: " + profitPercent);
 
                 if(profitPercent > bestPercent){
                     bestPercent = profitPercent;
@@ -208,5 +203,63 @@ public class PortfolioService {
 
         return dto;
 
+    }
+
+    public TopPortfolioDto getTopPortfolio(String email) {
+
+        List<Portfolio> portfolios = portfolioRepository.findByUserEmail(email);
+
+        if (portfolios.isEmpty()) {
+            return null;
+        }
+
+        Portfolio bestPortfolio = null;
+
+        double bestRoi = Double.NEGATIVE_INFINITY;
+        double bestValue = 0;
+        double bestPnl = 0;
+
+        for (Portfolio portfolio : portfolios) {
+
+            List<Holding> holdings = holdingsRepository.findByPortfolio_Id(portfolio.getId());
+
+            double totalValue = 0;
+            double totalCost = 0;
+
+            for (Holding holding : holdings) {
+
+                double currentPrice = priceCache.getPrice(holding.getSymbol(), holding.getAvgBuyPrice());
+
+                totalValue += currentPrice * holding.getQuantity();
+
+                totalCost += holding.getAvgBuyPrice() * holding.getQuantity();
+            }
+
+            double pnl = totalValue - totalCost;
+
+            double roi = totalCost > 0 ? (pnl / totalCost) * 100 : 0;
+
+            if (roi > bestRoi) {
+
+                bestRoi = roi;
+                bestPortfolio = portfolio;
+
+                bestValue = totalValue;
+                bestPnl = pnl;
+            }
+        }
+
+        if (bestPortfolio == null) {
+            return null;
+        }
+
+        TopPortfolioDto dto = new TopPortfolioDto();
+
+        dto.setPortfolioName(bestPortfolio.getName());
+        dto.setRoi(bestRoi);
+        dto.setValue(bestValue);
+        dto.setPnl(bestPnl);
+
+        return dto;
     }
 }

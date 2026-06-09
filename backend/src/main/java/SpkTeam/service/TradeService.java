@@ -12,6 +12,7 @@ import SpkTeam.repository.portfolioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ public class TradeService {
     @Transactional
     public TradeResponse buy(Long portfolioId, TradeRequest request) {
 
-        // находим портфолио, ток хз нахуя
+        // находим портфолио
         Portfolio portfolio = portfolioRepository.findById(portfolioId)
                 .orElseThrow(() -> new RuntimeException("Portfolio not found"));
 
@@ -149,5 +150,23 @@ public class TradeService {
                 .stream()
                 .map(TradeResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    public List<TradeResponse> getAccountHistory(String email) {
+        List<Portfolio> portfolios = portfolioRepository.findByUserEmail(email);
+        List<TradeResponse> result = new ArrayList<>();
+
+        for (Portfolio portfolio : portfolios) {
+            List<TradeHistory> history = tradeHistoryRepository
+                    .findByPortfolio_IdOrderByExecutedAtDesc(portfolio.getId());
+            for (TradeHistory t : history) {
+                result.add(new TradeResponse(t));
+            }
+        }
+
+        // сортуємо по даті — найновіші спочатку
+        result.sort((a, b) -> b.getExecutedAt().compareTo(a.getExecutedAt()));
+
+        return result;
     }
 }

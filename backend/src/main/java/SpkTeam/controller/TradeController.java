@@ -73,4 +73,12 @@ public class TradeController {
 
         return ResponseEntity.ok(tradeService.getHistory(portfolioId));
     }
+
+    // GET /trade/account/history
+    @GetMapping("/account/history")
+    public ResponseEntity<List<TradeResponse>> getAccountHistory(
+            @RequestHeader("Authorization") String authHeader) {
+        String email = jwtUtil.extractEmail(authHeader.replace("Bearer ", "").trim());
+        return ResponseEntity.ok(tradeService.getAccountHistory(email));
+    }
 }

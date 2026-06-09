@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Inject, NgZone, OnInit, PLATFORM_ID } fro
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Ws } from '../services/ws';
 import { DecimalPipe, isPlatformBrowser } from '@angular/common';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-navbar-layout',
@@ -18,11 +19,24 @@ export class NavbarLayout implements OnInit {
     private ngZone: NgZone,
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object,
+    private authService: AuthService,
   ) {}
+
+  get username(): string {
+    return this.authService.getUsername() || 'User';
+  }
+
+  get initials(): string {
+    return this.username.slice(0, 2).toUpperCase();
+  }
 
   // opening of setting with dropdown
   toggleDropdown() {
     this.isOpen = !this.isOpen;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   ngOnInit() {
@@ -31,7 +45,7 @@ export class NavbarLayout implements OnInit {
     }
 
     this.ws.crypto$.subscribe((data) => {
-      const btc = data.find(d => d.symbol === 'BTCUSDT');
+      const btc = data.find((d) => d.symbol === 'BTCUSDT');
       // filter for btc
       if (btc) {
         this.ngZone.run(() => {

@@ -1,25 +1,23 @@
-import { Routes } from '@angular/router';
-import { Register } from './register/register';
-import { Dashboard } from './dashboard/dashboard';
-import { Markets } from './markets/markets';
-import { Trade } from './trade/trade';
+import { authGuard } from './auth-guard';
 import { Portfolios } from './portfolios/portfolios';
+import { Trade } from './trade/trade';
+import { Markets } from './markets/markets';
+import { Dashboard } from './dashboard/dashboard';
 import { NavbarLayout } from './navbar-layout/navbar-layout';
+import { Register } from './register/register';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  {
-    path: 'register',
-    component: Register,
-  },
+  { path: 'register', component: Register },
   {
     path: '',
     component: NavbarLayout,
     children: [
-      { path: 'dashboard', component: Dashboard },
       { path: 'markets', component: Markets },
       { path: 'trade', component: Trade },
-      { path: 'portfolios', component: Portfolios },
+      { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
+      { path: 'portfolios', component: Portfolios, canActivate: [authGuard] },
     ],
   },
 ];

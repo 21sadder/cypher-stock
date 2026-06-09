@@ -93,6 +93,8 @@
 
     <div class="trade">
 
+      <ng-container *ngIf="authService.isLoggedIn(); else loginPrompt">
+
       <!-- portfolio selector -->
       <div class="portfolio-selector">
         <span class="portfolio-label">Portfolio</span>
@@ -183,6 +185,14 @@
           SELL {{ selectedItem.symbol.replace('USDT', '') }}
         </button>
       </div>
+      </ng-container>
+
+      <ng-template #loginPrompt>
+        <div class="login-prompt">
+          <p>To trade, you need to log in to your account</p>
+          <button (click)="goToLogin()">Log In</button>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

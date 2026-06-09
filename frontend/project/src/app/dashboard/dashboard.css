@@ -77,18 +77,6 @@
   padding-bottom: 10px;
 }
 
-.allocation {
-  margin-right: 75px;
-  margin-top: 10px;
-  margin-left: 7.5px;
-  background-color: #0e0e0e;
-  border-radius: 10px;
-  border: 0.5px solid #232323;
-  padding: 10px;
-  padding-left: 20px;
-  font-family: Inter, sans-serif;
-}
-
 .stats {
   display: flex;
   font-family: Inter, sans-serif;
@@ -348,4 +336,89 @@ hr {
 .first-box {
   display: flex;
   flex-direction: row;
+}
+
+.allocation {
+  display: flex;
+  flex-direction: column;
+  background-color: #0e0e0e;
+  border-radius: 10px;
+  border: 0.5px solid #232323;
+  padding: 16px 20px;
+  font-family: Inter, sans-serif;
+  gap: 12px;
+  height: 200px;
+  margin-right: 75px;
+  margin-top: 10px;
+  margin-left: 7.5px;
+}
+
+.top-portfolio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.portfolio-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Syne', sans-serif;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.portfolio-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+}
+
+.metric-label {
+  color: #6b6b6b;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.metric-value {
+  color: #ffffff;
+}
+
+.positive {
+  color: #00c076;
+}
+
+.negative {
+  color: #ff4d4d;
+}
+
+.portfolio-row {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 6px 0;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.label {
+  color: #636363;
+}
+
+.value-white {
+  color: white;
 }
