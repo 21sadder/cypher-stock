@@ -81,7 +81,6 @@ public class FinnhubService {
                             openPrices.put(symbol, open);
                             highPrices.put(symbol, high);
                             lowPrices.put(symbol, low);
-                            System.out.println("symbol: " + symbol  + " with open price: " + open);
                         }
                     }
                 }

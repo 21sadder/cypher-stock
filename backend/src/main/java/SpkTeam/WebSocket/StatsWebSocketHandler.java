@@ -28,7 +28,7 @@ public class StatsWebSocketHandler extends TextWebSocketHandler {
         System.out.println("CONNECTION CLOSED: " + session.getId());
     }
 
-    public void sendToAll(String message){
+    public synchronized void sendToAll(String message){
         for (WebSocketSession session : sessions){
             if (!session.isOpen()) {
                 sessions.remove(session);

@@ -1,9 +1,6 @@
 package SpkTeam.service;
 
-import SpkTeam.Dto.AddHoldingRequest;
-import SpkTeam.Dto.HoldingResponse;
-import SpkTeam.Dto.PortfolioDto;
-import SpkTeam.Dto.SnapshotsDto;
+import SpkTeam.Dto.*;
 import SpkTeam.cache.PriceCache;
 import SpkTeam.entity.AccountSnapshot;
 import SpkTeam.entity.Holding;
@@ -66,7 +63,17 @@ public class PortfolioService {
         Portfolio portfolio = new Portfolio();
         portfolio.setUserEmail(email);
         portfolio.setName(name);
-        return portfolioRepository.save(portfolio);
+        portfolioRepository.save(portfolio);
+
+        Holding usdt = new Holding();
+        usdt.setPortfolio(portfolio);
+        usdt.setSymbol("USDTUSDT");
+        usdt.setQuantity(10000.0);
+        usdt.setAvgBuyPrice(1.0);
+        usdt.setType("CRYPTO");
+        holdingsRepository.save(usdt);
+
+        return portfolio;
     }
 
     public void deletePortfolio(Long portfolioId){
@@ -146,5 +153,60 @@ public class PortfolioService {
             case "3M" -> LocalDateTime.now().minusMonths(3);
             default -> LocalDateTime.now().minusMonths(3);
         };
+    }
+
+    public PerformerDto getStatisticOfPortfolios(String email){
+        List<Portfolio> portfolios = portfolioRepository.findByUserEmail(email);
+
+        if (portfolios.isEmpty()) return null;
+
+        Holding bestHolding = null;
+        Holding worstHolding = null;
+
+        double bestPercent = Double.NEGATIVE_INFINITY;
+        double worstPercent = Double.POSITIVE_INFINITY;
+
+        for(Portfolio portfolio : portfolios){
+            List<Holding> holdings = holdingsRepository.findByPortfolio_Id(portfolio.getId());
+
+            for(Holding holding : holdings){
+
+                if (holding.getSymbol().equals("USDT") || holding.getSymbol().equals("USDTUSDT")) continue; // пропускаємо USDT
+
+                double currentPrice = priceCache.getPrice(holding.getSymbol(), holding.getAvgBuyPrice());
+
+                System.out.println("symbol: " + holding.getSymbol() + " currentPrice: " + currentPrice + " avgBuyPrice: " + holding.getAvgBuyPrice());
+
+                double profitPercent = ((currentPrice - holding.getAvgBuyPrice()) / holding.getAvgBuyPrice()) * 100;
+
+                System.out.println("profitPercent: " + profitPercent);
+
+                if(profitPercent > bestPercent){
+                    bestPercent = profitPercent;
+                    bestHolding = holding;
+                }
+
+                if(profitPercent < worstPercent){
+                    worstPercent = profitPercent;
+                    worstHolding = holding;
+                }
+
+            }
+        }
+
+        PerformerDto dto = new PerformerDto();
+
+        if (bestHolding != null){
+            dto.setBestHoldingSymbol(bestHolding.getSymbol());
+            dto.setBestPercent(bestPercent);
+        }
+
+        if(worstHolding != null) {
+            dto.setWorstHoldingSymbol(worstHolding.getSymbol());
+            dto.setWorstPercent(worstPercent);
+        }
+
+        return dto;
+
     }
 }

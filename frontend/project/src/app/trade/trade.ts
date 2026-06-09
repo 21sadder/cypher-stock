@@ -42,18 +42,18 @@ export class Trade implements OnInit {
   avgBuyPrice = 0;
   type = 'CRYPTO';
 
-  // remove форма
-  selectedHoldingId: number | null = null;
   holdings: HoldingDto[] = [];
-
-  // повідомлення
-  errorMsg = '';
-  successMsg = '';
 
   selectedItem!: MarketItem;
   activeData: MarketItem[] = [];
 
   searchTerm = '';
+
+  buyQuantity = 0;
+  sellQuantity = 0;
+  tradeError = '';
+  tradeSuccess = '';
+  activeTradeTab: 'buy' | 'sell' = 'buy';
 
   constructor(
     private http: HttpClient,
@@ -232,88 +232,88 @@ export class Trade implements OnInit {
         HoldingDto[]
       >(`http://localhost:8080/portfolios/${this.selectedPortfolioId}/holdings`, { headers })
       .subscribe({
-        next: (data) => (this.holdings = data),
+        next: (data) => {
+          this.holdings = data;
+          console.log('STATISTICS:', data);
+        },
         error: (err) => console.error(err),
       });
   }
 
-  addHolding() {
-    this.errorMsg = '';
-    this.successMsg = '';
+  buy() {
+    this.tradeError = '';
+    this.tradeSuccess = '';
 
-    // валідація
     if (!this.selectedPortfolioId) {
-      this.errorMsg = 'Please select a portfolio';
+      this.tradeError = 'Please select a portfolio';
       return;
     }
-    if (!this.symbol) {
-      this.errorMsg = 'Please enter a symbol';
-      return;
-    }
-    if (this.quantity <= 0) {
-      this.errorMsg = 'Quantity must be greater than 0';
-      return;
-    }
-    if (this.avgBuyPrice <= 0) {
-      this.errorMsg = 'Buy price must be greater than 0';
+    if (this.buyQuantity <= 0) {
+      this.tradeError = 'Quantity must be greater than 0';
       return;
     }
 
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     const body = {
-      symbol: this.symbol,
-      quantity: this.quantity,
-      avgBuyPrice: this.avgBuyPrice,
-      type: this.type,
+      symbol: this.selectedItem.symbol,
+      type: this.selectedItem.type,
+      quantity: this.buyQuantity,
     };
 
     this.http
-      .post<any>(`http://localhost:8080/portfolios/${this.selectedPortfolioId}/holdings`, body, {
-        headers,
-      })
+      .post<any>(`http://localhost:8080/trade/${this.selectedPortfolioId}/buy`, body, { headers })
       .subscribe({
-        next: () => {
-          this.successMsg = `${this.symbol} added successfully!`;
-          this.portfolioService.loadPortfolios(); // оновлюємо портфелі
-          this.resetForm();
+        next: (res) => {
+          this.tradeSuccess = `Bought ${res.quantity} ${res.symbol} at $${res.price}`;
+          this.buyQuantity = 0;
+          this.portfolioService.loadPortfolios();
         },
-        error: () => (this.errorMsg = 'Something went wrong'),
+        error: (err) => (this.tradeError = err.error?.message || 'Something went wrong'),
       });
   }
 
-  removeHolding() {
-    this.errorMsg = '';
-    this.successMsg = '';
+  sell() {
+    this.tradeError = '';
+    this.tradeSuccess = '';
 
-    if (!this.selectedPortfolioId || !this.selectedHoldingId) {
-      this.errorMsg = 'Please select a portfolio and token';
+    if (!this.selectedPortfolioId) {
+      this.tradeError = 'Please select a portfolio';
+      return;
+    }
+    if (this.sellQuantity <= 0) {
+      this.tradeError = 'Quantity must be greater than 0';
       return;
     }
 
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
+    const body = {
+      symbol: this.selectedItem.symbol,
+      type: this.selectedItem.type,
+      quantity: this.sellQuantity,
+    };
 
     this.http
-      .delete(
-        `http://localhost:8080/portfolios/${this.selectedPortfolioId}/holdings/${this.selectedHoldingId}`,
-        { headers },
-      )
+      .post<any>(`http://localhost:8080/trade/${this.selectedPortfolioId}/sell`, body, { headers })
       .subscribe({
-        next: () => {
-          this.successMsg = 'Token removed successfully!';
-          this.portfolioService.loadPortfolios(); // оновлюємо портфелі
-          this.loadHoldings(); // оновлюємо список токенів
-          this.selectedHoldingId = null;
+        next: (res) => {
+          this.tradeSuccess = `Sold ${res.quantity} ${res.symbol} at $${res.price}`;
+          this.sellQuantity = 0;
+          this.portfolioService.loadPortfolios();
         },
-        error: () => (this.errorMsg = 'Something went wrong'),
+        error: (err) => (this.tradeError = err.error?.message || 'Something went wrong'),
       });
   }
 
-  resetForm() {
-    this.symbol = '';
-    this.quantity = 0;
-    this.avgBuyPrice = 0;
-    this.type = 'CRYPTO';
+  getUsdtBalance(): number {
+    const usdt = this.holdings.find((h) => h.symbol === 'USDT' || h.symbol === 'USDTUSDT');
+    return usdt ? usdt.quantity : 0;
+  }
+
+  getTokenBalance(): number {
+    if (!this.selectedItem) return 0;
+    const token = this.holdings.find((h) => h.symbol === this.selectedItem.symbol);
+    return token ? token.quantity : 0;
   }
 }

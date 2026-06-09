@@ -92,134 +92,97 @@
     </div>
 
     <div class="trade">
-      <p>fjd</p>
+
+      <!-- portfolio selector -->
+      <div class="portfolio-selector">
+        <span class="portfolio-label">Portfolio</span>
+        <select [(ngModel)]="selectedPortfolioId" name="portfolio" class="portfolio-select" (change)="loadHoldings()">
+          @for(p of portfolioService.portfolios; track p.id) {
+            <option [value]="p.id">{{ p.name }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- buy/sell tabs -->
+      <div class="trade-tabs">
+        <button class="tab-btn"
+                [class.active-buy]="activeTradeTab === 'buy'"
+                (click)="activeTradeTab = 'buy'">Buy</button>
+        <button class="tab-btn"
+                [class.active-sell]="activeTradeTab === 'sell'"
+                (click)="activeTradeTab = 'sell'">Sell</button>
+      </div>
+
+      <!-- BUY -->
+      <div *ngIf="activeTradeTab === 'buy'" class="trade-body">
+        <div class="price-row">
+          <div class="price-item">
+            <span class="price-label">Available</span>
+            <span class="balance-value">{{ getUsdtBalance() | number:'1.2-2' }} USDT</span>
+          </div>
+          <div class="price-item">
+            <span class="price-label">Price</span>
+            <span class="price-value">{{ selectedItem.price | number:'1.2-2' }} <span class="price-currency">USDT</span></span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Amount</label>
+          <div class="input-wrapper">
+            <input type="number" [(ngModel)]="buyQuantity"
+                   placeholder="0.00" min="0" name="buyQty">
+            <span class="input-suffix">{{ selectedItem.symbol.replace('USDT', '') }}</span>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span>Total</span>
+          <span class="total-value">${{ (buyQuantity * selectedItem.price) | number:'1.2-2' }} USDT</span>
+        </div>
+
+        <div class="trade-error" *ngIf="tradeError">{{ tradeError }}</div>
+        <div class="trade-success" *ngIf="tradeSuccess">{{ tradeSuccess }}</div>
+
+        <button class="btn-buy" (click)="buy()">
+          BUY {{ selectedItem.symbol.replace('USDT', '') }}
+        </button>
+      </div>
+
+
+      <!-- SELL -->
+      <div *ngIf="activeTradeTab === 'sell'" class="trade-body">
+        <div class="price-row">
+          <div class="price-item">
+            <span class="price-label">Available</span>
+            <span class="balance-value">{{ getTokenBalance() | number:'1.2-2' }} {{ selectedItem.symbol.replace('USDT', '') }}</span>
+          </div>
+          <div class="price-item">
+            <span class="price-label">Price</span>
+            <span class="price-value">{{ selectedItem.price | number:'1.2-2' }} <span class="price-currency">USDT</span></span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Amount</label>
+          <div class="input-wrapper">
+            <input type="number" [(ngModel)]="sellQuantity"
+                   placeholder="0.00" min="0" name="sellQty">
+            <span class="input-suffix">{{ selectedItem.symbol.replace('USDT', '') }}</span>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span>Total</span>
+          <span class="total-value">${{ (sellQuantity * selectedItem.price) | number:'1.2-2' }} USDT</span>
+        </div>
+
+        <div class="trade-error" *ngIf="tradeError">{{ tradeError }}</div>
+        <div class="trade-success" *ngIf="tradeSuccess">{{ tradeSuccess }}</div>
+
+        <button class="btn-sell" (click)="sell()">
+          SELL {{ selectedItem.symbol.replace('USDT', '') }}
+        </button>
+      </div>
     </div>
   </div>
-
-
-  <!-- перемикач add/remove
-  <div class="trade-tabs">
-    <button
-      class="tab-btn"
-      [class.active]="activeTab === 'add'"
-      (click)="activeTab = 'add'">
-      Add token
-    </button>
-    <button
-      class="tab-btn"
-      [class.active]="activeTab === 'remove'"
-      (click)="activeTab = 'remove'">
-      Remove token
-    </button>
-  </div>
-  -->
-
-  <!-- ADD форма
-  <div *ngIf="activeTab === 'add'" class="trade-form">
-  -->
-
-    <!-- вибір портфелю
-    <div class="form-group">
-      <label>Portfolio</label>
-      <select [(ngModel)]="selectedPortfolioId" name="portfolio">
-        @for(p of portfolioService.portfolios; track p.id) {
-          <option [value]="p.id">{{ p.name }}</option>
-        }
-      </select>
-    </div>
-    -->
-
-    <!-- символ токену
-    <div class="form-group">
-      <label>Symbol</label>
-      <input
-        type="text"
-        [(ngModel)]="symbol"
-        placeholder="BTCUSDT"
-        (input)="symbol = symbol.toUpperCase()">
-    </div>
-    -->
-
-    <!-- кількість
-    <div class="form-group">
-      <label>Quantity</label>
-      <input
-        type="number"
-        [(ngModel)]="quantity"
-        placeholder="0.00"
-        min="0">
-    </div>
-    -->
-
-    <!-- ціна купівлі
-    <div class="form-group">
-      <label>Buy price ($)</label>
-      <input
-        type="number"
-        [(ngModel)]="avgBuyPrice"
-        placeholder="0.00"
-        min="0">
-    </div>
-    -->
-
-    <!-- тип
-    <div class="form-group">
-      <label>Type</label>
-      <select [(ngModel)]="type" name="type">
-        <option value="CRYPTO">Crypto</option>
-        <option value="STOCK">Stock</option>
-        <option value="FOREX">Forex</option>
-        <option value="COMMODITY">Commodity</option>
-      </select>
-    </div>
-    -->
-
-    <!-- помилка
-    <div class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</div>
-    -->
-
-    <!-- успіх
-    <div class="success-msg" *ngIf="successMsg">{{ successMsg }}</div>
-
-    <button class="btn-submit" (click)="addHolding()">Add to portfolio</button>
-  </div>
-  -->
-
-
-  <!-- REMOVE форм
-  <div *ngIf="activeTab === 'remove'" class="trade-form">
-  -->
-
-    <!-- вибір портфелю
-    <div class="form-group">
-      <label>Portfolio</label>
-      <select [(ngModel)]="selectedPortfolioId" name="portfolio"
-              (change)="loadHoldings()">
-        @for(p of portfolioService.portfolios; track p.id) {
-          <option [value]="p.id">{{ p.name }}</option>
-        }
-      </select>
-    </div>
-    -->
-
-    <!-- список токенів
-    <div class="form-group">
-      <label>Token</label>
-      <select [(ngModel)]="selectedHoldingId" name="holding">
-        <option value="" disabled>Select token...</option>
-        @for(h of holdings; track h.id) {
-          <option [value]="h.id">{{ h.symbol }} ({{ h.quantity }})</option>
-        }
-      </select>
-    </div>
-    -->
-
-    <!-- помилка
-    <div class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</div>
-    <div class="success-msg" *ngIf="successMsg">{{ successMsg }}</div>
-
-    <button class="btn-submit btn-remove" (click)="removeHolding()">Remove from portfolio</button>
-  </div>
-  -->
-
 </div>

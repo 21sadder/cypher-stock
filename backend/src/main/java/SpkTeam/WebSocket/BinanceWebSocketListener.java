@@ -22,7 +22,6 @@ public class BinanceWebSocketListener extends WebSocketListener {
 
     @Override
     public void onMessage(@NotNull WebSocket webSocket, @NotNull String text){
-        System.out.println("received: " + text);
         binanceService.handleMessage(text);
     }
 

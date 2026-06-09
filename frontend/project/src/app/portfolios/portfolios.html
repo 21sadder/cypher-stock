@@ -153,7 +153,7 @@
                   </div>
                 </div>
                 <div>
-                  <div class="asset-symbol">{{ h.symbol.replace('USDT', '') }}</div>
+                  <div class="asset-symbol">{{ h.symbol === 'USDT' ? 'USDT' : h.symbol.replace('USDT', '') }}</div>
                   <div class="asset-type">{{ h.type }}</div>
                 </div>
               </div>
@@ -164,7 +164,7 @@
               <span class="holding-pnl" [class.positive]="h.pnl >= 0" [class.negative]="h.pnl < 0"> {{ h.pnl >= 0 ? '+' : '' }}${{ h.pnl | number:'1.2-2' }} </span>
               <span class="holding-pnl" [class.positive]="h.pnlPercent >= 0" [class.negative]="h.pnlPercent < 0"> {{ h.pnlPercent >= 0 ? '+' : '' }}{{ h.pnlPercent | number:'1.2-2' }}% </span>
             </div>
-          }
+            }
         </div>
 
         <!-- якщо холдингів немає -->

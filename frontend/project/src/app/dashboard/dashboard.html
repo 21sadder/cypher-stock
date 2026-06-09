@@ -1,52 +1,150 @@
 <div class="dashboard-container">
 
-  <div class="chart-card">
-    <p class="up-title">Total Portfolio Value</p>
-    <div class="actual-price-block">
-      <h1 class="price">${{ loadPriceOfPortfolios() | number: '1.2-2' }}</h1>
-      <span class="price-delta-day-percents">+{{ priceChangingDayPercents }}% (24h)</span>
+  <div class="first-box">
+    <div class="chart-card">
+      <p class="up-title">Total Portfolios Value</p>
+      <div class="actual-price-block">
+        <h1 class="price">${{ loadPriceOfPortfolios() | number: '1.2-2' }}</h1>
+        <span class="price-delta-day-percents">+{{ priceChangingDayPercents }}% (24h)</span>
+      </div>
+      <p class="price-delta-day-money">+${{ formattedPrice }} today</p>
+
+      <app-account-chart></app-account-chart>
     </div>
-    <p class="price-delta-day-money">+${{ formattedPrice }} today</p>
+
+    <div class="cards-stats-allocation">
+      <div class="stats-card">
+        <p class="up-title">Quick Stats</p>
+        <div class="stats">
+          <p>Total P&L</p>
+          <p class="value" [style.color]="loadPnlFromAllPortfolios() > 0 ? '#4ade80' : '#f87171'">{{ loadPnlFromAllPortfolios() >= 0 ? '+' : '' }}${{ loadPnlFromAllPortfolios() | number: '1.2-2' }}
+          </p>
+        </div>
+        <hr class="line">
+        <div class="stats">
+          <p>ROI</p>
+          <p class="value" [style.color]="totalRoi() > 0 ? '#4ade80' : '#f87171'">{{ totalRoi() > 0 ? '+' : '' }}{{ totalRoi() | number: '1.1-1' }}%</p>
+        </div>
+        <hr class="line">
+        <div class="stats">
+          <p>Best Asset</p>
+          <p class="best-asset">{{ statistics.bestHoldingSymbol.replace('USDT', '') }}
+            <span [class.positive]="statistics.bestPercent >= 0">
+            +{{ statistics.bestPercent | number:'1.2-2' }}%
+          </span>
+          </p>
+        </div>
+        <hr class="line">
+        <div class="stats">
+          <p>Worst Asset</p>
+          <p class="worst-asset">{{ statistics.worstHoldingSymbol.replace('USDT', '') }}
+            <span [class.negative]="statistics.worstPercent < 0">
+              {{ statistics.worstPercent | number:'1.2-2' }}%
+            </span>
+          </p>
+        </div>
+        <hr class="line">
+        <div class="stats">
+          <p>Assets</p>
+          <p class="assets">{{ getAssetTypes() }}</p>
+        </div>
+        <hr class="line">
+      </div>
+
+      <div class="allocation">
+        <p class="up-title">Allocation</p>
+      </div>
+    </div>
   </div>
 
-  <div class="cards-stats-allocation">
-    <div class="stats-card">
-      <p class="up-title">Quick Stats</p>
-      <div class="stats">
-        <p>Total P&L</p>
-        <p class="value" [style.color]="loadPnlFromAllPortfolios() > 0 ? 'green' : 'red'">{{ loadPnlFromAllPortfolios() >= 0 ? '+' : '' }}${{ loadPnlFromAllPortfolios() | number: '1.2-2' }}
-        </p>
-      </div>
-      <hr class="line">
-      <div class="stats">
-        <p>ROI</p>
-        <p class="value" [style.color]="totalRoi() > 0 ? 'green' : 'red'">{{ totalRoi() > 0 ? '+' : '' }}{{ totalRoi() | number: '1.1-1' }}%</p>
-      </div>
-      <hr class="line">
-      <div class="stats">
-        <p>Best Asset</p>
-        <p>SOL +12.7%</p>
-      </div>
-      <hr class="line">
-      <div class="stats">
-        <p>Worst Asset</p>
-        <p>XRP -3.4%</p>
-      </div>
-      <hr class="line">
-      <div class="stats">
-        <p>Assets</p>
-        <p>Commodity, Stocks</p>
-      </div>
-      <hr class="line">
-      <div class="stats">
-        <p>24h Volume</p>
-        <p>$14 230</p>
-      </div>
-      <hr class="line">
-    </div>
+  <div >
+    <div class="bottom-section">
 
-    <div class="allocation">
-      <p class="up-title">Allocation</p>
+      <!-- My Assets -->
+      <div class="assets-card">
+        <div class="section-header">
+          <span class="up-title">My Assets</span>
+          <a class="view-all" routerLink="/portfolios">↗ View All</a>
+        </div>
+
+        <div class="assets-table">
+          <div class="assets-table-head">
+            <span>Asset</span>
+            <span>Price</span>
+            <span>24H</span>
+            <span>Holdings</span>
+            <span>Value</span>
+            <span>P&L</span>
+          </div>
+
+          @for(h of portfolioService.holdings; track h.id) {
+            @if(h.symbol !== 'USDT' && h.symbol !== 'USDTUSDT') {
+              <div class="assets-table-row">
+                <div class="asset-cell">
+                  <img
+                    [src]="'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons/128/color/' + h.symbol.toLowerCase() + '.png'"
+                    class="coin-icon-sm"
+                    (error)="onIconError($event)">
+                  <div class="coin-icon-fallback-sm" style="display:none">
+                    {{ h.symbol[0] }}
+                  </div>
+                  <div>
+                    <div class="asset-symbol">{{ h.symbol }}</div>
+                    <div class="asset-type">{{ h.type }}</div>
+                  </div>
+                </div>
+                <span>${{ h.currentPrice | number:'1.2-2' }}</span>
+                <span [class.positive]="h.pnlPercent >= 0" [class.negative]="h.pnlPercent < 0">
+                {{ h.pnlPercent >= 0 ? '+' : '' }}{{ h.pnlPercent | number:'1.2-2' }}%
+              </span>
+                <span>{{ h.quantity }} {{ h.symbol }}</span>
+                <span>${{ h.value | number:'1.2-2' }}</span>
+                <span [class.positive]="h.pnl >= 0" [class.negative]="h.pnl < 0">
+                {{ h.pnl >= 0 ? '+' : '' }}${{ h.pnl | number:'1.2-2' }}
+              </span>
+              </div>
+            }
+          }
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="orders-card">
+        <div class="section-header">
+          <span class="up-title">Recent Orders</span>
+          <span class="today-label">Today</span>
+        </div>
+
+        <div class="orders-list">
+          @for(order of recentOrders; track order.id) {
+            <div class="order-row">
+              <div class="order-left">
+                <div class="order-dot" [class.buy]="order.side === 'BUY'" [class.sell]="order.side === 'SELL'"></div>
+                <div>
+                  <div class="order-pair">
+                    {{ order.symbol }}
+                    <span class="order-side" [class.buy]="order.side === 'BUY'" [class.sell]="order.side === 'SELL'">
+                    {{ order.side }}
+                  </span>
+                  </div>
+                  <div class="order-detail">{{ order.quantity }} &#64; ${{ order.price | number:'1.2-2' }}</div>
+                </div>
+              </div>
+              <div class="order-right">
+                <div class="order-total">${{ order.total | number:'1.2-2' }}</div>
+                <div class="order-time">{{ order.executedAt | date:'HH:mm' }}</div>
+              </div>
+            </div>
+          }
+
+          @if(recentOrders.length === 0) {
+            <div class="no-orders">No recent orders</div>
+          }
+        </div>
+
+        <button class="btn-new-order" routerLink="/trade">+ New Order</button>
+      </div>
+
     </div>
   </div>
 </div>

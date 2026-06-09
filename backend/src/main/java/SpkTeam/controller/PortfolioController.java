@@ -1,9 +1,6 @@
 package SpkTeam.controller;
 
-import SpkTeam.Dto.AddHoldingRequest;
-import SpkTeam.Dto.HoldingResponse;
-import SpkTeam.Dto.PortfolioDto;
-import SpkTeam.Dto.SnapshotsDto;
+import SpkTeam.Dto.*;
 import SpkTeam.entity.Holding;
 import SpkTeam.entity.Portfolio;
 import SpkTeam.jwtToken.JwtUtil;
@@ -97,8 +94,16 @@ public class PortfolioController {
     @GetMapping("/account/snapshots")
     public List<SnapshotsDto> getAccountSnapshots(@RequestHeader ("Authorization") String header,
                                                   @RequestParam(defaultValue = "3M") String period){
-        String email = jtwUtil.extractEmail(header);
+        String token = header.replace("Bearer ", "").trim();
+        String email = jtwUtil.extractEmail(token);
         return portfolioService.getAccountSnapshots(email, period);
+    }
+
+    @GetMapping("/statistics")
+    public PerformerDto getStatistics(@RequestHeader ("Authorization") String header){
+        String token = header.replace("Bearer ", "").trim();
+        String email = jtwUtil.extractEmail(token);
+        return portfolioService.getStatisticOfPortfolios(email);
     }
 
 
