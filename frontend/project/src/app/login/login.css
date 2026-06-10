@@ -1,172 +1,174 @@
-.form-side {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
+  .form-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
 
-.form-side form {
-  width: 100%;
-  max-width: 400px; /* Обмежена ширина */
-  padding: 2rem;
-  background-color: #0B0B0B;
-  border: 1px solid #333333; /* Тонка рамка */
-  border-radius: 10px; /* Заокруглення */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Тінь для "піднесеного" ефекту, без жорсткої лінії */
-}
+  .form-side form {
+    width: 100%;
+    max-width: 400px; /* Обмежена ширина */
+    padding: 2rem;
+    background-color: #0B0B0B;
+    border: 1px solid #333333; /* Тонка рамка */
+    border-radius: 10px; /* Заокруглення */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Тінь для "піднесеного" ефекту, без жорсткої лінії */
+  }
 
-.form-side h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 3rem 0;
-  text-align: left;
-}
+  .form-side h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 3rem 0;
+    text-align: left;
+  }
 
-.form-side h3 {
-  font-size: 1.7rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 0.5rem 0;
-  text-align: left;
-}
+  .form-side h3 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 0.5rem 0;
+    text-align: left;
+  }
 
-.form-side p {
-  font-size: 15px;
-  color: #a0a0a0;
-  margin: 0 0 2rem 0;
-  text-align: left;
-  line-height: 1.4;
-}
+  .form-side p {
+    font-size: 15px;
+    color: #a0a0a0;
+    margin: 0 0 2rem 0;
+    text-align: left;
+    line-height: 1.4;
+  }
 
-/* Поля вводу */
-.form-side input[type="text"],
-.form-side input[type="email"],
-.form-side input[type="password"] {
-  width: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background-color: #1a1a1a; /* Темніший фон для інпутів, як на скріншоті */
-  border: 1px solid #444444; /* Трохи світліший бордер для кращого контрасту */
-  border-radius: 4px;
-  color: #ffffff;
-  font-size: 1rem;
-  font-family: 'Syne', sans-serif;
-  box-sizing: border-box;
-}
-
-.form-side input::placeholder {
-  color: #a0a0a0; /* Сірий плейсхолдер */
-}
-
-.form-side input:focus {
-  outline: none;
-  border-color: #ffffff; /* Білий при фокусі */
-}
-
-/* Чекбокс */
-.checkbox {
-  display: flex;
-  align-items: center;
-  margin: 1rem 0 2rem 0;
-  font-size: 0.9rem;
-  color: #a0a0a0;
-}
-
-.checkbox input[type="checkbox"] {
-  width: auto;
-  margin-right: 0.5rem;
-  accent-color: #ffffff; /* Білий чекбокс */
-}
-
-/* Кнопка */
-.form-side button {
-  width: 100%;
-  padding: 1rem;
-  background-color: #ECF0F1;
-  color: #000000;
-  border: none;
-  border-radius: 4px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  font-family: 'Syne', sans-serif;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.form-side button:hover {
-  background-color: #f0f0f0; /* Ховер-ефект */
-}
-
-/* green colour for chosen text */
-.green-text{
-  color: #00E676;
-
-}
+  /* Поля вводу */
+  .form-side input[type="text"],
+  .form-side input[type="email"],
+  .form-side input[type="password"] {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #1a1a1a; /* Темніший фон для інпутів, як на скріншоті */
+    border: 1px solid #444444; /* Трохи світліший бордер для кращого контрасту */
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-family: 'Syne', sans-serif;
+    box-sizing: border-box;
+  }
 
 
 
+  .form-side input::placeholder {
+    color: #a0a0a0; /* Сірий плейсхолдер */
+  }
+
+  .form-side input:focus {
+    outline: none;
+    border-color: #ffffff; /* Білий при фокусі */
+  }
+
+  /* Чекбокс */
+  .checkbox {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0 2rem 0;
+    font-size: 0.9rem;
+    color: #a0a0a0;
+  }
+
+  .checkbox input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+    accent-color: #ffffff; /* Білий чекбокс */
+  }
+
+  /* Кнопка */
+  .form-side button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #ECF0F1;
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Syne', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .form-side button:hover {
+    background-color: #f0f0f0; /* Ховер-ефект */
+  }
+
+  /* green colour for chosen text */
+  .green-text{
+    color: #00E676;
+
+  }
 
 
 
 
-.input-container {
-  position: relative;
-  width: 100%;
-  margin-bottom: 20px; /* Расстояние между полями */
-}
 
-/* Стили самого темного инпута */
-.dark-input {
-  width: 100%;
-  background-color: #1A1A1A; /* Темный фон */
-  border: 1px solid #2A2A2A; /* Тонкая рамка */
-  border-radius: 12px;       /* Закругление */
-  padding: 16px 20px;
-  /* Место под иконку СЛЕВА */
-  color: white;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s;
-  box-sizing: border-box;    /* Чтобы паддинги не ломали ширину */
-}
 
-.dark-input:focus {
-  border-color: #00E676;     /* Зеленая рамка при клике */
-}
 
-/* Кнопка-невидимка для глазика */
-.eye-btn {
-  position: absolute;
-  left: 365px;                /* Ставим строго слева */
-  top: 16px;
+  .input-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px; /* Расстояние между полями */
+  }
 
-  /* Полная очистка стилей кнопки браузера */
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  outline: none !important;
+  /* Стили самого темного инпута */
+  .dark-input {
+    width: 100%;
+    background-color: #1A1A1A; /* Темный фон */
+    border: 1px solid #2A2A2A; /* Тонкая рамка */
+    border-radius: 12px;       /* Закругление */
+    padding: 16px 20px;
+    /* Место под иконку СЛЕВА */
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;    /* Чтобы паддинги не ломали ширину */
+  }
 
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  z-index: 10;
-  width: auto !important;   /* Кнопка будет сжиматься до размера иконки */
-  max-width: 30px !important;
-}
+  .dark-input:focus {
+    border-color: #00E676;     /* Зеленая рамка при клике */
+  }
 
-/* Размер картинки PNG */
-.eye-image {
-  width: 25px;               /* Оптимальный размер */
-  height: auto;
-  display: block;
-  opacity: 0.6;              /* Делаем чуть тусклее */
-  transition: opacity 0.2s;
-}
+  /* Кнопка-невидимка для глазика */
+  .eye-btn {
+    position: absolute;
+    left: 365px;                /* Ставим строго слева */
+    top: 16px;
 
-.eye-btn:hover .eye-image {
-  opacity: 1;                /* Ярче при наведении */
-}
+    /* Полная очистка стилей кнопки браузера */
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    width: auto !important;   /* Кнопка будет сжиматься до размера иконки */
+    max-width: 30px !important;
+  }
+
+  /* Размер картинки PNG */
+  .eye-image {
+    width: 25px;               /* Оптимальный размер */
+    height: auto;
+    display: block;
+    opacity: 0.6;              /* Делаем чуть тусклее */
+    transition: opacity 0.2s;
+  }
+
+  .eye-btn:hover .eye-image {
+    opacity: 1;                /* Ярче при наведении */
+  }

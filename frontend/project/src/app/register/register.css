@@ -1,13 +1,9 @@
-/* Імпорт шрифту (вже є в HTML) */
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
 
-
-
-/* Основний контейнер */
 .registration-container {
   display: flex;
   min-height: 100vh;
-  background-color: #0B0B0B; /*  Grey background */
+  background-color: #000000;
   position: relative !important;
   font-family: 'Syne', sans-serif;
   color: #ffffff;
@@ -15,7 +11,6 @@
   padding: 0;
 }
 
-/* 1. Настройки картинки (без background-image!) */
 .bg-image {
   position: fixed !important;
   top: 0 !important;
@@ -24,22 +19,14 @@
   bottom: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-  z-index: 0 !important; /* Ставим 0, чтобы фон лег поверх базового черного registration-container */
+  z-index: 0 !important;
   opacity: 0.20 !important;
-  filter: blur(4px) !important; /* 2px-6px — лёгкое размытие */
-
-
+  filter: blur(4px) !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
-
 }
 
-
-
-
-
-/* Ліва частина: бренд */
 .brand-side {
   flex: 1;
   display: flex;
@@ -47,51 +34,50 @@
   justify-content: center;
   align-items: flex-start;
   padding: 2rem;
-  background-color: transparent !important; /* СДЕЛАЛИ ПРОЗРАЧНЫМ */
+  background-color: transparent !important;
   text-align: left;
   position: relative !important;
-  z-index: 1 !important; /* Поднимаем текст выше картинки */
+  z-index: 1 !important;
 }
 
 .brand-side h1 {
-  font-size: 3.5rem; /* Великий заголовок */
+  font-size: 3.5rem;
   font-weight: 800;
   color: #ffffff;
   margin: 0 0 1rem 0;
   text-align: left;
-  padding-left: 2rem; /* Відступ від лівого краю для естетики */
+  padding-left: 2rem;
 }
 
 .brand-side .subtitle {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #a0a0a0; /* Сірий колір */
+  color: #a0a0a0;
   margin: 0;
   line-height: 1.4;
-  opacity: 0.8; /* Легка прозорість */
-  padding-left: 2rem; /* Той самий відступ для підзаголовка */
+  opacity: 0.8;
+  padding-left: 2rem;
 }
 
-/* Права частина: форма */
 .form-side {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 32px;
-  background-color: transparent !important; /* СДЕЛАЛИ ПРОЗРАЧНЫМ */
+  background-color: transparent !important;
   position: relative !important;
-  z-index: 1 !important; /* Поднимаем форму выше картинки */
+  z-index: 1 !important;
 }
 
 .form-side form {
   width: 100%;
-  max-width: 400px; /* Обмежена ширина */
+  max-width: 400px;
   padding: 2rem;
-  background-color: #0B0B0B;
-  border: 1px solid #333333; /* Тонка рамка */
-  border-radius: 10px; /* Заокруглення */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Тінь для "піднесеного" ефекту, без жорсткої лінії */
+  background-color: #000000;
+  border: 1px solid #333333;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 
 .form-side h2 {
@@ -118,9 +104,7 @@
   line-height: 1.4;
 }
 
-
-/* Style for all inputs in registration window except checkboxes, they have another css code */
-.form-side input:not([type="checkbox"]){
+.form-side input:not([type="checkbox"]) {
   width: 100%;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -133,19 +117,15 @@
   box-sizing: border-box;
 }
 
-
-/* grey placeholder */
 .form-side input::placeholder {
   color: #a0a0a0;
 }
 
-/* white color when the mouse hover over */
 .form-side input:focus {
   outline: none;
   border-color: #ffffff;
 }
 
-/* Checkbox  */
 .checkbox {
   display: flex;
   align-items: center;
@@ -157,10 +137,9 @@
 .checkbox input[type="checkbox"] {
   width: auto;
   margin-right: 0.5rem;
-  accent-color: #ffffff; /* Білий чекбокс */
+  accent-color: #ffffff;
 }
 
-/* button "Register" */
 .form-side button {
   width: 100%;
   padding: 1rem;
@@ -175,17 +154,20 @@
   transition: background-color 0.3s ease;
 }
 
-
-
-
-/* green colour for chosen text */
-.green-text{
+.green-text {
   color: #00E676;
-
 }
 
+.error-msg {
+  color: #f87171;
+  font-size: 13px;
+  padding: 10px 14px;
+  background: rgba(248, 113, 113, 0.08);
+  border: 0.5px solid rgba(248, 113, 113, 0.2);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
 
-/* Адаптивність */
 @media (max-width: 768px) {
   .register-container {
     flex-direction: column;
@@ -207,143 +189,110 @@
   }
 }
 
-
-/* Делаем фон на весь экран и центрируем содержимое */
 .modal-overlay {
-  position: fixed;      /* Окно не уедет при скролле */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;         /* На всю ширину экрана */
-  height: 100vh;        /* На всю высоту экрана */
-  backdrop-filter: blur(8px);    /* Тот самый блюр */
-  display: flex;        /* Включаем магию центрирования */
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;        /* Чтобы окно было поверх всего сайта */
-
+  z-index: 9999;
 }
 
-/* Сама рамка окна */
 .modal-card {
-  position: relative;    /* что бы крестик для закрытия стоял ровно внутри */
+  position: relative !important;
   box-shadow: none;
 }
 
-/* Стиль крестика */
-.modal-card {
-  position: relative !important;
-
-}
-
-/* Стили крестика */
 div.modal-card button.close-btn {
   position: absolute !important;
-
-  /* Position on window */
   top: 35px !important;
   right: 40px !important;
-
-  /* Сброс стилей и размеры */
   background: transparent !important;
   border: none !important;
   width: auto !important;
   height: auto !important;
   padding: 0 !important;
   margin: 0 !important;
-
-  font-size: 32px !important; /* 40px может быть великоват и ломать центровку, 32px — аккуратнее */
+  font-size: 32px !important;
   color: white !important;
   cursor: pointer !important;
-
-
 }
 
-
-
 .login-link {
-  color: #00E676;            /* Твой цвет текста */
-  text-decoration: underline; /* Подчеркивание */
-  cursor: pointer;           /* Тот самый "палец" при наведении */
+  color: #00E676;
+  text-decoration: underline;
+  cursor: pointer;
   font-weight: 600;
   transition: opacity 0.2s;
 }
 
 .login-link:hover {
-  opacity: 0.8;              /* Легкое мерцание при наведении */
-  text-decoration: none;     /* Можно убирать подчеркивание при ховере для стиля */
+  opacity: 0.8;
+  text-decoration: none;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Контейнер для каждого инпута */
 .input-container {
   position: relative;
   width: 100%;
-  margin-bottom: 20px; /* Расстояние между полями */
+  margin-bottom: 20px;
 }
 
-/* Стили самого темного инпута */
 .dark-input {
   width: 100%;
-  background-color: #1A1A1A; /* Темный фон */
-  border: 1px solid #2A2A2A; /* Тонкая рамка */
-  border-radius: 12px;       /* Закругление */
+  background-color: #1A1A1A;
+  border: 1px solid #2A2A2A;
+  border-radius: 12px;
   padding: 16px 20px;
-         /* Место под иконку СЛЕВА */
   color: white;
   font-size: 16px;
   outline: none;
   transition: border-color 0.2s;
-  box-sizing: border-box;    /* Чтобы паддинги не ломали ширину */
+  box-sizing: border-box;
 }
 
 .dark-input:focus {
-  border-color: #00E676;     /* Зеленая рамка при клике */
+  border-color: #00E676;
 }
 
-/* Кнопка-невидимка для глазика */
 .eye-btn {
   position: absolute;
-  left: 365px;                /* Ставим строго слева */
+  left: 365px;
   top: 16px;
-
-  /* Полная очистка стилей кнопки браузера */
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
   margin: 0 !important;
   box-shadow: none !important;
   outline: none !important;
-
   cursor: pointer;
   display: flex;
   align-items: center;
   z-index: 10;
-  width: auto !important;   /* Кнопка будет сжиматься до размера иконки */
+  width: auto !important;
   max-width: 30px !important;
 }
 
-/* Размер картинки PNG */
 .eye-image {
-  width: 25px;               /* Оптимальный размер */
+  width: 25px;
   height: auto;
   display: block;
-  opacity: 0.6;              /* Делаем чуть тусклее */
+  opacity: 0.6;
   transition: opacity 0.2s;
 }
 
 .eye-btn:hover .eye-image {
-  opacity: 1;                /* Ярче при наведении */
+  opacity: 1;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+}

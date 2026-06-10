@@ -2,12 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NgStyle } from '@angular/common';
-import { Router} from '@angular/router'; // для открытия ссылок в штмл
+import { Router} from '@angular/router';
 import { Login } from '../login/login';
 
 @Component({
   selector: 'app-register',
-  standalone: true, // позволяет импоритровать элементы у который тоже standalone: true
+  standalone: true,
   imports: [FormsModule, Login, NgStyle],
   templateUrl: './register.html',
   styleUrl: './register.css',
@@ -18,21 +18,34 @@ export class Register implements OnInit {
   private http = inject(HttpClient);
   private router = inject(Router);
 
-  // Данные регистрации
   email = '';
   password = '';
   username = '';
   confirmPassword = '';
-
-  // link to background img
   currentBg: string = '';
-
-  // переменная для окна логина
   isModalOpen = false;
+  errorMessage = '';
 
   register() {
+    this.errorMessage = '';
+
+    if (!this.username || this.username.length < 3) {
+      this.errorMessage = 'Username must be at least 3 characters';
+      return;
+    }
+
+    if (!this.email || !this.email.includes('@')) {
+      this.errorMessage = 'Please enter a valid email';
+      return;
+    }
+
+    if (!this.password || this.password.length < 8) {
+      this.errorMessage = 'Password must be at least 8 characters';
+      return;
+    }
+
     if (this.password !== this.confirmPassword) {
-      alert("Passwords don't match");
+      this.errorMessage = "Passwords don't match";
       return;
     }
 
@@ -45,43 +58,39 @@ export class Register implements OnInit {
     this.http.post('http://localhost:8080/api/auth/register', body).subscribe({
       next: (response) => {
         console.log('Register successful:', response);
-        //  перейти на страницу дашюбор:\
         this.router.navigate(['/login']);
       },
-      error: (err) => console.error('Register failed:', err),
+      error: (err) => {
+        if (err.status === 400) {
+          this.errorMessage = 'Email or username already exists';
+        } else {
+          this.errorMessage = 'Registration failed. Try again.';
+        }
+      },
     });
   }
 
   ngOnInit() {
-    const bgImgCount = 5;
-    // localStorage = storage in browser what keeps information after reloading a page
-    //keeping our lastBg value
+    const bgImgCount = 4;
     const last = Number(localStorage.getItem('lastBg') || 0);
-
     let randomNum = Math.floor(Math.random() * bgImgCount) + 1;
     if (randomNum === last) randomNum = (randomNum % bgImgCount) + 1;
-
-    //changing our last bg value to new bg value
     localStorage.setItem('lastBg', String(randomNum));
     this.currentBg = `url('register-backgrounds/bg-${randomNum}.png')`;
   }
 
-    // function OPEN login modal
   openLoginModal() {
     this.isModalOpen = true;
   }
 
-  // function CLOSE login modal
   closeModal() {
     this.isModalOpen = false;
   }
 
-  // function SHOW or HIDE password for registration
   showHidePassword() {
     this.showPassword = !this.showPassword;
   }
 
-  // function SHOW or HIDE password for registration confirming password
   showHidePasswordConfirm() {
     this.showPasswordConfirm = !this.showPasswordConfirm;
   }

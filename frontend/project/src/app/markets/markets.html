@@ -1,34 +1,127 @@
-<div class="market">
+<div class="markets-page">
 
-  <p>markets works!</p>
-
-  <div class="tabs">
-    <button
-      [class.active]="activeTab === 'CRYPTO'"
-      (click)="setTab('CRYPTO')">
-      Crypto
-    </button>
-    <button
-      [class.active]="activeTab === 'STOCK'"
-      (click)="setTab('STOCK')">
-      Stock
-    </button>
-    <button
-      [class.active]="activeTab === 'FOREX'"
-      (click)="setTab('FOREX')">
-      Forex
-    </button>
-    <button
-      [class.active]="activeTab === 'COMMODITY'"
-      (click)="setTab('COMMODITY')">
-      Commodity
-    </button>
+  <div class="markets-header">
+    <h1>Markets</h1>
+    <p>Real-time prices and market data</p>
   </div>
 
-  @for(item of activeData; track item.symbol){
-    <div>
-      {{ item.symbol }} - {{ item.price }}
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-label">GLOBAL MARKET CAP</span>
+      <span class="stat-value">$2.41T</span>
+      <span class="stat-change positive">+1.8%</span>
     </div>
-  }
+    <div class="stat-card">
+      <span class="stat-label">24H VOLUME</span>
+      <span class="stat-value">${{ totalVolume }}</span>
+      <span class="stat-change positive">+12.3%</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">ACTIVE COINS</span>
+      <span class="stat-value">{{ allData.length }}</span>
+      <span class="stat-change positive">+{{ gainers.length }} gainers</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">BTC DOMINANCE</span>
+      <span class="stat-value">54.7%</span>
+      <span class="stat-change negative">-0.3%</span>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <div class="table-toolbar">
+      <div class="filter-tabs">
+        <button [class.active]="activeFilter === 'ALL'" (click)="setFilter('ALL')">
+          <span class="tab-icon">🔥</span> All
+        </button>
+        <button [class.active]="activeFilter === 'GAINERS'" (click)="setFilter('GAINERS')">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 10 L6 6 L9 8 L13 3" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 3 L13 3 L13 6" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Gainers
+        </button>
+        <button [class.active]="activeFilter === 'LOSERS'" (click)="setFilter('LOSERS')">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 4 L6 8 L9 6 L13 11" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 11 L13 11 L13 8" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Losers
+        </button>
+        <button [class.active]="activeFilter === 'FAVORITES'" (click)="setFilter('FAVORITES')">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1.5 L8.5 5 L12.5 5.5 L9.5 8.5 L10.5 12.5 L7 10.5 L3.5 12.5 L4.5 8.5 L1.5 5.5 L5.5 5 Z" stroke="#fbbf24" stroke-width="1.2" stroke-linejoin="round"/>
+          </svg>
+          Favorites
+        </button>
+      </div>
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="6" cy="6" r="4.5" stroke="#444" stroke-width="1.3"/>
+          <path d="M9.5 9.5 L12.5 12.5" stroke="#444" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        <input type="text" placeholder="Search coin..." [(ngModel)]="searchQuery" />
+      </div>
+    </div>
+
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>NAME</th>
+        <th>TYPE</th>
+        <th>PRICE</th>
+        <th>24H CHANGE</th>
+        <th>24H HIGH</th>
+        <th>24H LOW</th>
+        <th>VOLUME (24H)</th>
+        <th>7D CHART</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (item of filteredData; track item.symbol; let i = $index) {
+          <tr>
+            <td class="index">{{ i + 1 }}</td>
+            <td class="name-cell">
+              <div class="coin-icon">{{ item.symbol[0] }}</div>
+              <span class="symbol">{{ item.symbol }}</span>
+            </td>
+            <td><span class="type-badge type-{{ item.type.toLowerCase() }}">{{ item.type }}</span></td>
+            <td class="price">${{ item.price | number:'1.2-4' }}</td>
+            <td [class]="item.change24h >= 0 ? 'positive' : 'negative'">
+              {{ item.change24h >= 0 ? '+' : '' }}{{ item.change24h | number:'1.2-2' }}%
+            </td>
+            <td>${{ item.high24h | number:'1.2-4' }}</td>
+            <td>${{ item.low24h | number:'1.2-4' }}</td>
+            <td>{{ item.volume | number:'1.0-0' }}</td>
+            <td class="chart-cell">
+              <svg width="80" height="32" viewBox="0 0 80 32">
+                @if (item.change24h >= 0) {
+                  <polyline
+                    points="0,24 10,20 20,22 30,16 40,18 50,12 60,14 70,8 80,4"
+                    fill="none" stroke="#4ade80" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+                } @else {
+                  <polyline
+                    points="0,6 10,10 20,8 30,14 40,12 50,18 60,16 70,22 80,28"
+                    fill="none" stroke="#f87171" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+                }
+              </svg>
+            </td>
+            <td class="fav-cell" (click)="toggleFav(item.symbol)">
+              <span>{{ favorites.has(item.symbol) ? '⭐' : '☆' }}</span>
+            </td>
+          </tr>
+        }
+        @empty {
+          <tr>
+            <td colspan="10" class="empty">Loading data...</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
 </div>

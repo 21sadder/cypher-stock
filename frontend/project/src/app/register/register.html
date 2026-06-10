@@ -4,9 +4,7 @@
 
 <div class="registration-container">
 
-  <!-- for background -->
   <div class="bg-image" [ngStyle]="{'background-image': currentBg}"></div>
-
 
   <div class="brand-side">
     <h1>Cipher</h1>
@@ -14,26 +12,23 @@
   </div>
 
   <div class="form-side">
-    <form  (ngSubmit) = "register()" #regForm="ngForm">
+    <form (ngSubmit)="register()" #regForm="ngForm">
       <h2>Cipher</h2>
       <h3>Create account</h3>
-      <p> Start your trip to world of digital assets</p>
+      <p>Start your trip to world of digital assets</p>
 
-      <input type = "text" placeholder="Username" [(ngModel)]="username" name="username" required>
-      <input type = "email" placeholder="example@gmail.com" [(ngModel)]="email" name="email" required>
+      <input type="text" placeholder="Username" [(ngModel)]="username" name="username" required>
+      <input type="email" placeholder="example@gmail.com" [(ngModel)]="email" name="email" required>
 
-      <!-- For writing password-->
       <div class="input-container">
-        <!-- ? - if showPassword TRUE show text, else if showPassword FALSE show password -->
         <input
           [type]="showPassword ? 'text' : 'password'"
           class="dark-input"
           placeholder="Enter your password"
-          [(ngModel)] = "password"
-          name = "password"
+          [(ngModel)]="password"
+          name="password"
           required
         >
-
         <button type="button" class="eye-btn" (click)="showHidePassword()">
           @if (showPassword) {
             <img src="/openedEye.png" class="eye-image">
@@ -43,16 +38,14 @@
         </button>
       </div>
 
-      <!-- For comfirming password-->
       <div class="input-container">
         <input
           [type]="showPasswordConfirm ? 'text' : 'password'"
           class="dark-input"
           placeholder="Confirm your password"
-          [(ngModel)] = "confirmPassword"
-          name = "confirmPassword"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
           required
-
         >
         <button type="button" class="eye-btn" (click)="showHidePasswordConfirm()">
           @if (showPasswordConfirm) {
@@ -63,41 +56,29 @@
         </button>
       </div>
 
-
-      <!-- Terms & Conditions  * checkbox-->
       <label class="checkbox">
         <input type="checkbox" required>
-          <!-- &nbsp; - important space, browser cant ignore him -->
-          I agree &nbsp;<span class="green-text"> Terms & Conditions  *</span>
+        I agree &nbsp;<span class="green-text"> Terms & Conditions *</span>
       </label>
 
-
-
-      <!-- FOR LOGIN -->
       <p>Do you already have an account?
-        <a class="login-link" (click)="openLoginModal()"> <span class="green-text">Log In </span></a>
+        <a class="login-link" (click)="openLoginModal()"><span class="green-text">Log In</span></a>
       </p>
 
-      <!-- для забытого пароля -->
+      @if (errorMessage) {
+        <div class="error-msg">{{ errorMessage }}</div>
+      }
 
-
-      <button type = "submit">Register</button>
+      <button type="submit">Register</button>
     </form>
-
   </div>
+
   @if (isModalOpen) {
-    <div class="modal-overlay" (click)="closeModal()"> <!-- если пользователь нажемет мимо окна - окно закроется -->
-
-      <div class="modal-card" (click)="$event.stopPropagation()"> <!-- не передает действия на окне фону сайта, что бы окно не закрывалось -->
-
+    <div class="modal-overlay" (click)="closeModal()">
+      <div class="modal-card" (click)="$event.stopPropagation()">
         <app-login (close)="isModalOpen = false"></app-login>
-
-        <button class="close-btn" (click)="closeModal()">&times;</button> <!-- крестик в углу -->
-
-
-
+        <button class="close-btn" (click)="closeModal()">&times;</button>
       </div>
     </div>
   }
 </div>
-
