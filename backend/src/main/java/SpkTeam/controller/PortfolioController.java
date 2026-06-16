@@ -39,7 +39,7 @@ public class PortfolioController {
 
         return portfolioService.getUserPortfolios(email);
     }
-
+    
     // POST /portfolios
     // body: { "name": "My Crypto" }
     @PostMapping
